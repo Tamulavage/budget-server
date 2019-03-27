@@ -29,7 +29,6 @@
 
 
 ## Project Topics
-* Read more about each of the topics by following the links below
 
 ### TCP Application
 
