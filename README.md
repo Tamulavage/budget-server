@@ -68,3 +68,16 @@
     * can upload new videos
 	* can view list of all videos
 	* can post simple text-comments on a video
+
+
+
+
+
+### Money Management Application
+
+#### User Stories to Fulfill  
+* As a client, (not logged in) I
+	* can create new accounts
+	* deposit money to each account
+	* withdrawl money from each account
+	* transfer money to and from any 2 accounts
