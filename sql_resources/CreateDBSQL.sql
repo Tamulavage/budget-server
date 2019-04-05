@@ -1,6 +1,6 @@
 # mysql -u root -p < CreateDBSQL.sql
 
-DROP DATABASE budget;
+#DROP DATABASE budget;
 CREATE DATABASE budget;
 
 USE budget;
