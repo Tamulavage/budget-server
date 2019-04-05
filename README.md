@@ -22,9 +22,9 @@
 <hr><hr>
 
 
+Summary:
 
-
-
+	A budgeting application (example: an electronic checkbook), that allows tagging transactions and visualizes spending over time to help plan future budgets.
 
 
 
