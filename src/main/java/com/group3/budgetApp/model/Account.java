@@ -16,7 +16,6 @@ public class Account {
     private String institution_name;
 
     public Account(){
-
     }
     public Account(String name, Integer user_id) {
         this.name = name;
