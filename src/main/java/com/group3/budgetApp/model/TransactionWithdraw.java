@@ -1,10 +1,7 @@
 package com.group3.budgetApp.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,50 +9,52 @@ import java.util.Date;
 public class TransactionWithdraw {
 
     @Id
-    private Integer transaction_id;
-    @Column
-    private Integer from_transaction_id;
-    @Column
-    private Integer to_transaction_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "TRANSACTION_ID")
+    private Integer transactionId;
+    @Column(name= "from_account_id")
+    private Integer fromAccountId;
+    @Column(name= "to_account_id")
+    private Integer toAccountId;
     @Column
     private String memo;
-    @Column
-    private Integer transaction_type;
-    @Column
-    private Date transaction_dt;
+    @Column(name= "transaction_type")
+    private Integer transactionType;
+    @Column(name= "transaction_dt")
+    private Date transactionDt;
     @Column
     private Double amount;
 
     public TransactionWithdraw() {}
 
-    public TransactionWithdraw(Integer from_transaction_id, Integer to_transaction_id, String memo){
-        this.from_transaction_id = from_transaction_id;
-        this.to_transaction_id = to_transaction_id;
+    public TransactionWithdraw(Integer fromAccountId, Integer toAccountId, String memo){
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
         this.memo = memo;
     }
 
-    public Integer getTransaction_id() {
-        return transaction_id;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public void setTransaction_id(Integer transaction_id) {
-        transaction_id = transaction_id;
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public Integer getFrom_transaction_id() {
-        return from_transaction_id;
+    public Integer getFromAccountId() {
+        return fromAccountId;
     }
 
-    public void setFrom_transaction_id(Integer from_transaction_id) {
-        this.from_transaction_id = from_transaction_id;
+    public void setFromAccountId(Integer fromAccountId) {
+        this.fromAccountId = fromAccountId;
     }
 
-    public Integer getTo_transaction_id() {
-        return to_transaction_id;
+    public Integer getToAccountId() {
+        return toAccountId;
     }
 
-    public void setTo_transaction_id(Integer to_transaction_id) {
-        this.to_transaction_id = to_transaction_id;
+    public void setToAccountId(Integer toAccountId) {
+        this.toAccountId = toAccountId;
     }
 
     public String getMemo() {
@@ -66,20 +65,20 @@ public class TransactionWithdraw {
         this.memo = memo;
     }
 
-    public Integer getTransaction_type() {
-        return transaction_type;
+    public Integer getTransactionType() {
+        return transactionType;
     }
 
-    public void setTransaction_type(Integer transaction_type) {
-        this.transaction_type = transaction_type;
+    public void setTransactionType(Integer transactionType) {
+        this.transactionType = transactionType;
     }
 
-    public Date getTransaction_dt() {
-        return transaction_dt;
+    public Date getTransactionDt() {
+        return transactionDt;
     }
 
-    public void setTransaction_dt(Date transaction_dt) {
-        this.transaction_dt = transaction_dt;
+    public void setTransactionDt(Date transactionDt) {
+        this.transactionDt = transactionDt;
     }
 
     public Double getAmount() {
