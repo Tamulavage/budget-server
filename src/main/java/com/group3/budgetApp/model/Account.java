@@ -1,7 +1,12 @@
 package com.group3.budgetApp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Account {
-    private Long id;
+    @Id
+    private Integer id;
     private String name;
     private Double balance;
     private Integer type_id;
