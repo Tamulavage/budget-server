@@ -10,7 +10,7 @@ public class AccountServices {
     private com.group3.budgetApp.repository.AccountRepository repo;
     private javax.persistence.EntityManager em = emf.createEntityManager();
     private javax.persistence.EntityTransaction tx = em.getTransaction();
-    
+
     public Account createAccount(String name, Double balance, Integer type_id, Integer user_id, String institution_name){
         Account account = new Account();
         account.setBalance(balance);

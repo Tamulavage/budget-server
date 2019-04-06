@@ -2,31 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2658302c-9095-4acd-8cbd-3e9028ee0b2b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/UserTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/controller/BudgetController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/Account.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/Transaction.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/User.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/repository/AccountRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/repository/TransactionRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/repository/UserRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/AccountServices.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/TransactionServices.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/UserServices.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/com/group3/budgetApp/model/UserTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/AccountTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql_resources/CreateDBSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_resources/CreateDBSQL.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/controller/BudgetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/controller/BudgetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/AccountServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/AccountServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/repository/AccountRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/repository/AccountRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/AccountServices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/AccountServices.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/repository/AccountRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+            <state relative-caret-position="105">
+              <caret line="7" column="73" selection-start-line="7" selection-start-column="73" selection-end-line="7" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -83,18 +64,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/TransactionServices.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
@@ -106,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/Account.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-98">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="234">
+              <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#719#720#0" expanded="true" />
@@ -139,11 +108,33 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/AccountTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#795#796#0" expanded="true" />
+                <element signature="e#824#825#0" expanded="true" />
+                <element signature="e#942#943#0" expanded="true" />
+                <element signature="e#1003#1004#0" expanded="true" />
+                <element signature="e#1093#1094#0" expanded="true" />
+                <element signature="e#1114#1115#0" expanded="true" />
+                <element signature="e#1241#1242#0" expanded="true" />
+                <element signature="e#1276#1277#0" expanded="true" />
+                <element signature="e#1398#1399#0" expanded="true" />
+                <element signature="e#1433#1434#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/AccountServices.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+            <state relative-caret-position="180">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -151,10 +142,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/UserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9">
+            <state relative-caret-position="1">
               <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
             </state>
           </provider>
@@ -176,6 +167,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -194,6 +186,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/Transaction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/UserServices.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/repository/AccountRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/AccountTest.java" />
       </list>
     </option>
   </component>
@@ -329,12 +322,26 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554502508663" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554590710873" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.group3.budgetApp.model" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -348,7 +355,86 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.AccountTest">
+    <configuration name="AccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="budgetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group3.budgetApp.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group3.budgetApp.model" />
+      <option name="MAIN_CLASS_NAME" value="com.group3.budgetApp.model.AccountTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.getBalance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="budgetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group3.budgetApp.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group3.budgetApp.model" />
+      <option name="MAIN_CLASS_NAME" value="com.group3.budgetApp.model.AccountTest" />
+      <option name="METHOD_NAME" value="getBalance" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.getName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="budgetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group3.budgetApp.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group3.budgetApp.model" />
+      <option name="MAIN_CLASS_NAME" value="com.group3.budgetApp.model.AccountTest" />
+      <option name="METHOD_NAME" value="getName" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.getType_id" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="budgetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group3.budgetApp.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group3.budgetApp.model" />
+      <option name="MAIN_CLASS_NAME" value="com.group3.budgetApp.model.AccountTest" />
+      <option name="METHOD_NAME" value="getType_id" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AccountTest.setId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="budgetApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group3.budgetApp.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group3.budgetApp.model" />
+      <option name="MAIN_CLASS_NAME" value="com.group3.budgetApp.model.AccountTest" />
+      <option name="METHOD_NAME" value="setId" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BudgetApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="budgetApp" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.group3.budgetApp.BudgetApplication" />
@@ -356,6 +442,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AccountTest" />
+        <item itemvalue="JUnit.AccountTest.getType_id" />
+        <item itemvalue="JUnit.AccountTest.getBalance" />
+        <item itemvalue="JUnit.AccountTest.getName" />
+        <item itemvalue="JUnit.AccountTest.setId" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -371,14 +466,42 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="AccountTest_setId - 2019.04.06 at 18h 33m 30s.xml">
+      <configuration name="AccountTest.setId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest_getId - 2019.04.06 at 18h 33m 54s.xml">
+      <configuration name="AccountTest.getId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest_getId - 2019.04.06 at 18h 34m 35s.xml">
+      <configuration name="AccountTest.getId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest_setId - 2019.04.06 at 18h 34m 50s.xml">
+      <configuration name="AccountTest.setId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest_setId - 2019.04.06 at 18h 34m 57s.xml">
+      <configuration name="AccountTest.setId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest_getName - 2019.04.06 at 18h 37m 04s.xml">
+      <configuration name="AccountTest.getName" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest_getBalance - 2019.04.06 at 18h 37m 59s.xml">
+      <configuration name="AccountTest.getBalance" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest_getType_id - 2019.04.06 at 18h 38m 34s.xml">
+      <configuration name="AccountTest.getType_id" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AccountTest - 2019.04.06 at 18h 42m 53s.xml">
+      <configuration name="AccountTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4806000" />
+    <option name="totallyTimeSpent" value="6085000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22859451" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22859451" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -389,7 +512,7 @@
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3293944" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3293944" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -596,43 +719,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-98">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#744#745#0" expanded="true" />
-            <element signature="e#778#779#0" expanded="true" />
-            <element signature="e#806#807#0" expanded="true" />
-            <element signature="e#837#838#0" expanded="true" />
-            <element signature="e#864#865#0" expanded="true" />
-            <element signature="e#904#905#0" expanded="true" />
-            <element signature="e#936#937#0" expanded="true" />
-            <element signature="e#970#971#0" expanded="true" />
-            <element signature="e#1000#1001#0" expanded="true" />
-            <element signature="e#1046#1047#0" expanded="true" />
-            <element signature="e#1084#1085#0" expanded="true" />
-            <element signature="e#1119#1120#0" expanded="true" />
-            <element signature="e#1149#1150#0" expanded="true" />
-            <element signature="e#1196#1197#0" expanded="true" />
-            <element signature="e#1234#1235#0" expanded="true" />
-            <element signature="e#1266#1267#0" expanded="true" />
-            <element signature="e#1296#1297#0" expanded="true" />
-            <element signature="e#1340#1341#0" expanded="true" />
-            <element signature="e#1378#1379#0" expanded="true" />
-            <element signature="e#1421#1422#0" expanded="true" />
-            <element signature="e#1460#1461#0" expanded="true" />
-            <element signature="e#1524#1525#0" expanded="true" />
-            <element signature="e#1580#1581#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
+        <state relative-caret-position="11">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -652,8 +741,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/repository/AccountRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        <state relative-caret-position="105">
+          <caret line="7" column="73" selection-start-line="7" selection-start-column="73" selection-end-line="7" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -684,16 +773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/AccountServices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/group3/budgetApp/BudgetApplicationTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -701,10 +780,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/AccountServices.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/Account.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#719#720#0" expanded="true" />
+            <element signature="e#744#745#0" expanded="true" />
+            <element signature="e#778#779#0" expanded="true" />
+            <element signature="e#806#807#0" expanded="true" />
+            <element signature="e#837#838#0" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+            <element signature="e#904#905#0" expanded="true" />
+            <element signature="e#936#937#0" expanded="true" />
+            <element signature="e#970#971#0" expanded="true" />
+            <element signature="e#1000#1001#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1084#1085#0" expanded="true" />
+            <element signature="e#1119#1120#0" expanded="true" />
+            <element signature="e#1149#1150#0" expanded="true" />
+            <element signature="e#1196#1197#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#1266#1267#0" expanded="true" />
+            <element signature="e#1296#1297#0" expanded="true" />
+            <element signature="e#1340#1341#0" expanded="true" />
+            <element signature="e#1378#1379#0" expanded="true" />
+            <element signature="e#1421#1422#0" expanded="true" />
+            <element signature="e#1460#1461#0" expanded="true" />
+            <element signature="e#1524#1525#0" expanded="true" />
+            <element signature="e#1580#1581#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/UserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9">
+        <state relative-caret-position="1">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/AccountTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#795#796#0" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#942#943#0" expanded="true" />
+            <element signature="e#1003#1004#0" expanded="true" />
+            <element signature="e#1093#1094#0" expanded="true" />
+            <element signature="e#1114#1115#0" expanded="true" />
+            <element signature="e#1241#1242#0" expanded="true" />
+            <element signature="e#1276#1277#0" expanded="true" />
+            <element signature="e#1398#1399#0" expanded="true" />
+            <element signature="e#1433#1434#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
