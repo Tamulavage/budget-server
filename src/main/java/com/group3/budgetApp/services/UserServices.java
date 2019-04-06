@@ -2,23 +2,14 @@ package com.group3.budgetApp.services;
 
 import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.UserRepository;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.util.Optional;
 
 @Service
 public class UserServices {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("budgetApp");
-    private EntityManager em = emf.createEntityManager();
-    private EntityTransaction tx = em.getTransaction();
 
     private UserRepository repo;
 
@@ -30,76 +21,38 @@ public class UserServices {
     public UserServices() {
     }
 
-    public User createUser(String firstName, String lastName){
+    public User createUser(User user) {
+        repo.save(user);
+        return user;
+    }
+
+    public User createUser(String firstName, String lastName) {
         User user = new User(firstName, lastName);
-
-        tx.begin();
-        em.persist(user);
-        tx.commit();
-
+        repo.save(user);
         return user;
     }
 
-    public User updateFirstName(User user, String newName){
-        User userToUpdate = em.merge(user);
-        if(userToUpdate != null){
-            tx.begin();
-            userToUpdate.setFirstName(newName);
-            tx.commit();
-        }
-        return user;
+    public User updateUser(User newUserData, Integer id) {
+        User original = repo.findById(id).get();
+        original.setFirstName(newUserData.getFirstName());
+        original.setLastName(newUserData.getLastName());
+        return repo.save(original);
+
     }
 
-    public User updateLastName(User user, String newName){
-        User userToUpdate = em.merge(user);
-        if(userToUpdate != null){
-            tx.begin();
-            userToUpdate.setLastName(newName);
-            tx.commit();
-        }
-        return user;
+
+    public User findById(Integer id) {
+        return repo.findById(id).get();
     }
 
-    public User updateFirstName(Integer id, String newName){
-        User user = findById(id);
-        if(user != null){
-            tx.begin();
-            user.setFirstName(newName);
-            tx.commit();
-        }
-        return user;
+    public Boolean removeUser(Integer id) {
+       repo.deleteById(id);
+       return true;
     }
 
-    public User updateLastName(Integer id, String newName){
-        User user = findById(id);
-        if(user != null){
-            tx.begin();
-            user.setLastName(newName);
-            tx.commit();
-        }
-        return user;
+    public Boolean removeUser(User user) {
+        repo.delete(user);
+        return true;
     }
 
-    public User findById(Integer id){
-        return em.find(User.class, id);
-    }
-
-    public User removeUser(Integer id){
-        User user = em.find(User.class, id);
-        return removeHelper(user);
-    }
-
-    public User removeUser(User user){
-        User userToRemove = em.merge(user);
-        return removeHelper(userToRemove);
-    }
-
-    private User removeHelper(User user) {
-        if (user != null) {
-            tx.begin();
-            em.remove(user);
-            tx.commit();
-        }
-        return user;
-    }
 }
