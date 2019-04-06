@@ -34,7 +34,7 @@ public class TransactionWithDrawService {
         this.repo = repo;
     }
 
-    public TransactionWithdraw createWithDrawTransaction(TransactionWithdraw transaction){
+    public TransactionWithdraw createWithdrawTransaction(TransactionWithdraw transaction){
         Double amount = transaction.getAmount();
         if(amount < 0 ){
             throw new IllegalArgumentException("Amount must be greater then zero");

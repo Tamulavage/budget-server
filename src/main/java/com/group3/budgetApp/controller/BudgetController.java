@@ -28,7 +28,7 @@ public class BudgetController {
     public HttpStatus transactionWithdraw(@RequestBody TransactionWithdraw t){
 
         try {
-            transactionWithDrawService.createWithDrawTransaction(t);
+            transactionWithDrawService.createWithdrawTransaction(t);
             return HttpStatus.CREATED;
         }
         catch (IllegalArgumentException iae){
