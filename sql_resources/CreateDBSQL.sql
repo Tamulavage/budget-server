@@ -1,8 +1,8 @@
-# mysql -u root -p < CreateDBSQL.sql
--- --
+-- # mysql -u root -p < CreateDBSQL.sql
+-- -- --
 DROP DATABASE budget;
 CREATE DATABASE budget;
--- --
+-- -- --
 USE budget;
 -- --
 -- --
@@ -15,7 +15,7 @@ CREATE TABLE user (
 -- --
 CREATE TABLE account (
 	id INTEGER NOT NULL auto_increment,
-	account_type_id LONG NOT NULL,
+	account_type_id INTEGER NOT NULL,
 	name varchar(100),
 	institution_name varchar(100),
 	nickname varchar(100),

@@ -6,40 +6,61 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/budget")
 public class UserController {
 
     private UserServices userService;
 
-
+    @Autowired
     public UserController(UserServices userServices) {
         this.userService = userServices;
     }
 
     @PostMapping("/user")
-    public HttpStatus createUser(@RequestBody User user){
-        try{
+    public HttpStatus createUser(@RequestBody User user) {
+        try {
             userService.createUser(user);
             return HttpStatus.CREATED;
-        }catch (Exception e){
+        } catch (Exception e) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Integer id){
-        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    public User getUser(@PathVariable Integer id) {
+        try{
+            return userService.findById(id);
+        }catch(Exception e){
+           return null;
+        }
     }
 
     @DeleteMapping("/user/{id}")
-    public HttpStatus deleteUser(@PathVariable Integer id){
-        try{
-            userService.removeUser(id);
+    public HttpStatus deleteUser(@PathVariable Integer id) {
+        try {
+            userService.deleteUser(id);
             return HttpStatus.OK;
-        }catch (Exception e){
+        } catch (Exception e) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
 
+    @PutMapping("/user/{id}")
+    public User updateUser(@PathVariable Integer id, @RequestBody User user){
+        try{
+            return userService.updateUser(user, id);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @GetMapping("/user")
+    public List<User> findAll(){
+        return userService.findAll();
+    }
 }

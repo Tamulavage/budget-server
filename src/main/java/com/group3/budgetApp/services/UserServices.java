@@ -3,9 +3,9 @@ package com.group3.budgetApp.services;
 import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -45,7 +45,7 @@ public class UserServices {
         return repo.findById(id).get();
     }
 
-    public Boolean removeUser(Integer id) {
+    public Boolean deleteUser(Integer id) {
        repo.deleteById(id);
        return true;
     }
@@ -53,6 +53,10 @@ public class UserServices {
     public Boolean removeUser(User user) {
         repo.delete(user);
         return true;
+    }
+
+    public List<User> findAll(){
+        return repo.findAll();
     }
 
 }
