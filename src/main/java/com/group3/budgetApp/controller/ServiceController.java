@@ -14,7 +14,7 @@ public class ServiceController {
     public ServiceController(AccountServices accountServices){
         accountService = accountServices;
     }
-    @PostMapping("/Account")
+    @PostMapping("/account")
     public HttpStatus accountCreate(@RequestBody Account account){
         try {
             accountService.createAccount(account);
@@ -29,10 +29,20 @@ public class ServiceController {
             return HttpStatus.SERVICE_UNAVAILABLE;
         }
     }
-    @DeleteMapping("/Account/{id}")
+    @DeleteMapping("/account/{id}")
     public HttpStatus accountRemove(@PathVariable Integer id){
         try{
             accountService.deleteAccount(id);
+            return HttpStatus.OK;
+        }
+        catch (Exception e){
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+    }
+    @GetMapping("/account/{id}")
+    public HttpStatus accountGet(@PathVariable Integer id){
+        try{
+            accountService.getAccountById(id);
             return HttpStatus.OK;
         }
         catch (Exception e){
