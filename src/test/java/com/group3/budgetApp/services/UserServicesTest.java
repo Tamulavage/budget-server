@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.mockito.Mockito.*;
 
+
 @SpringBootTest
 public class UserServicesTest {
 
@@ -35,15 +36,15 @@ public class UserServicesTest {
         Assert.assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void testFindById(){
-//        User expected = new User("Sean", "Rowan");
-//        //When
-//        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
-//        User actual = services.findById(1);
-//        //Then
-//        Assert.assertEquals(expected, actual);
-//    }
+    @Test
+    public void testFindById(){
+        User expected = new User("Sean", "Rowan");
+        //When
+        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
+        User actual = services.findById(1);
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
 
 
 
