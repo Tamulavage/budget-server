@@ -18,7 +18,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 
 //@SpringBootTest
 @RunWith(SpringRunner.class)
@@ -48,6 +49,25 @@ public class TransactionWithDrawServiceTest {
         String memo = "testingFromMock";
      //   transactionService.testWithRepo(fromID, toID, memo);;
     }
+
+    @Test
+    public void testAdd(){
+        TransactionWithdraw transaction = new TransactionWithdraw(1,2,"3");
+        TransactionWithdraw expected = new TransactionWithdraw(1,2,"3");
+
+        //site.moickito.org
+        // create mock
+        // Given
+        TransactionWithdrawRepo mockRepo = mock(TransactionWithdrawRepo.class);
+        TransactionWithDrawService service = new TransactionWithDrawService(mockRepo);
+
+        when(mockRepo.save(transaction)).thenReturn(expected);
+
+        // When
+        TransactionWithdraw actual = service.createWithdrawTransaction(transaction);
+
+        // Then
+        Assert.assertEquals(expected, actual);
 
 //    @Test
 //    public void testCreateWithdrawTransaction(){
