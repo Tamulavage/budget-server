@@ -32,11 +32,11 @@ public class UserServices {
         return user;
     }
 
-    public User updateUser(User newUserData, Integer id) {
+    public void updateUser(User newUserData, Integer id) {
         User original = repo.findById(id).get();
         original.setFirstName(newUserData.getFirstName());
         original.setLastName(newUserData.getLastName());
-        return repo.save(original);
+        repo.save(original);
 
     }
 

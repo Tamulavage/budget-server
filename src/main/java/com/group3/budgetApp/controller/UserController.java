@@ -51,11 +51,11 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public User updateUser(@PathVariable Integer id, @RequestBody User user){
+    public void updateUser(@PathVariable Integer id, @RequestBody User user){
         try{
-            return userService.updateUser(user, id);
+            userService.updateUser(user, id);
         }catch (Exception e){
-            return null;
+            throw new NullPointerException();
         }
     }
 

@@ -27,10 +27,11 @@ public class TransactionWithdraw {
 
     public TransactionWithdraw() {}
 
-    public TransactionWithdraw(Integer fromAccountId, Integer toAccountId, String memo){
+    public TransactionWithdraw(Integer fromAccountId, Integer toAccountId, String memo, Double amount){
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.memo = memo;
+        this.amount = amount;
     }
 
     public Integer getTransactionId() {
