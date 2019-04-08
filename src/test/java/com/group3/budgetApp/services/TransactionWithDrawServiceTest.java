@@ -67,7 +67,7 @@ public class TransactionWithDrawServiceTest {
         TransactionWithdraw actual = service.createWithdrawTransaction(transaction);
 
         // Then
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);}
 
 //    @Test
 //    public void testCreateWithdrawTransaction(){
