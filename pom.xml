@@ -53,7 +53,6 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>2.1.5.RELEASE</version>
         </dependency>
-
 	</dependencies>
 
 	<build>
