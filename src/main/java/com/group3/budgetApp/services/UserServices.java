@@ -1,20 +1,16 @@
 package com.group3.budgetApp.services;
 
+import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import java.util.List;
+
 
 @Service
 public class UserServices {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("budgetApp");
-    private EntityManager em = emf.createEntityManager();
-    private EntityTransaction tx = em.getTransaction();
     private UserRepository repo;
 
     @Autowired
@@ -22,5 +18,45 @@ public class UserServices {
         this.repo = repo;
     }
 
+    public UserServices() {
+    }
+
+    public User createUser(User user) {
+        repo.save(user);
+        return user;
+    }
+
+    public User createUser(String firstName, String lastName) {
+        User user = new User(firstName, lastName);
+        repo.save(user);
+        return user;
+    }
+
+    public User updateUser(User newUserData, Integer id) {
+        User original = repo.findById(id).get();
+        original.setFirstName(newUserData.getFirstName());
+        original.setLastName(newUserData.getLastName());
+        return repo.save(original);
+
+    }
+
+
+    public User findById(Integer id) {
+        return repo.findById(id).get();
+    }
+
+    public Boolean deleteUser(Integer id) {
+       repo.deleteById(id);
+       return true;
+    }
+
+    public Boolean removeUser(User user) {
+        repo.delete(user);
+        return true;
+    }
+
+    public List<User> findAll(){
+        return repo.findAll();
+    }
 
 }

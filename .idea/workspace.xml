@@ -2,16 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc1f0497-8ec4-4535-894f-408e0d3f3249" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_all_1_9_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/budgetApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/budgetApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql_resources/CreateDBSQL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql_resources/CreateDBSQL.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/controller/ServiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/controller/ServiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/controller/ServiceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/controller/ServiceController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/6002deb2-fc75-46d5-b1b6-b205deb05d9a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/group3/budgetApp/services/UserServicesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/controller/UserController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/com/group3/budgetApp/services/UserServicesTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group3/budgetApp/services/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/group3/budgetApp/model/UserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/AccountServices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/AccountServices.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/UserServices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group3/budgetApp/services/UserServices.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/group3/budgetApp/model/UserTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/group3/budgetApp/model/UserTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -80,11 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="75">
+              <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -113,8 +115,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sql_resources/CreateDBSQL.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="39" lean-forward="true" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+            <state relative-caret-position="210">
+              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -411,7 +413,7 @@
       <workItem from="1554497815810" duration="2594000" />
       <workItem from="1554669721204" duration="71000" />
       <workItem from="1554675333759" duration="139000" />
-      <workItem from="1554747088490" duration="5860000" />
+      <workItem from="1554747088490" duration="6147000" />
     </task>
     <servers />
   </component>
@@ -427,7 +429,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19068000" />
+    <option name="totallyTimeSpent" value="19355000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -440,7 +442,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23828755" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -610,11 +611,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group3/budgetApp/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -676,8 +674,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sql_resources/CreateDBSQL.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="39" lean-forward="true" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+        <state relative-caret-position="210">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
         </state>
       </provider>
     </entry>
