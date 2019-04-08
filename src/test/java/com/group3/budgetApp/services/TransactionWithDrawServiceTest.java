@@ -19,6 +19,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 //@SpringBootTest
 @RunWith(SpringRunner.class)
@@ -32,13 +33,6 @@ public class TransactionWithDrawServiceTest {
 
     private BudgetController controller;
 
-    @Before
-    public void setEMF(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("budgetApp");
-        EntityManager em = emf.createEntityManager();
-        //this.transactionService =new TransactionWithDrawService(em);
-        this.controller = new BudgetController(transactionService);
-    }
 
     @Test
     public void testRepo(){
@@ -49,26 +43,26 @@ public class TransactionWithDrawServiceTest {
      //   transactionService.testWithRepo(fromID, toID, memo);;
     }
 
-//    @Test
-//    public void testCreateWithdrawTransaction(){
-//
-//        // Given
-//        Integer fromID = 1;
-//        Integer toID = 2;
-//        String memo = "testing";
-//        Integer newId ;
-//        TransactionWithdraw transaction ;
-//
-//        // When
-//        transaction = transactionService.createTransaction(fromID, toID, memo);
-//        newId = transaction.getTransactionId();
-//
-//        // Then
-//        Assert.assertNotNull(newId);
-//        System.out.println(newId);
-//
-//        // clean up
-//        transactionService.deleteTransaction(newId);
-//    }
+    @Test
+    public void testAdd(){
+        TransactionWithdraw transaction = new TransactionWithdraw(1,2,"3");
+        TransactionWithdraw expected = new TransactionWithdraw(1,2,"3");
+
+        //site.moickito.org
+        // create mock
+        // Given
+        TransactionWithdrawRepo mockRepo = mock(TransactionWithdrawRepo.class);
+        TransactionWithDrawService service = new TransactionWithDrawService(mockRepo);
+
+        when(mockRepo.save(transaction)).thenReturn(expected);
+
+        // When
+        TransactionWithdraw actual = service.createWithdrawTransaction(transaction);
+
+        // Then
+        Assert.assertEquals(expected, actual);
+
+    }
+
 
 }

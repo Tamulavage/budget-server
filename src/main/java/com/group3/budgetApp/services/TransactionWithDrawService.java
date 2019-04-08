@@ -14,7 +14,7 @@ public class TransactionWithDrawService {
 //    private EntityManagerFactory emf =Persistence.createEntityManagerFactory("budgetApp");
 //    private EntityManager em =emf.createEntityManager();
 //    private EntityTransaction tx =em.getTransaction();
-    @Autowired
+   // @Autowired
     private TransactionWithdrawRepo repo;
 
 //    public TransactionWithDrawService(){

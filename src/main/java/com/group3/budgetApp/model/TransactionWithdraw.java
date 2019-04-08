@@ -23,7 +23,7 @@ public class TransactionWithdraw {
     @Column(name= "transaction_dt")
     private Date transactionDt;
     @Column
-    private Double amount;
+    private Double amount=0.0;
 
     public TransactionWithdraw() {}
 
