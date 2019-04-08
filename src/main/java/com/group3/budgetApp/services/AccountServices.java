@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServices{
-    @Autowired
+ //   @Autowired
     private AccountRepository repo;
     @Autowired
     public AccountServices(AccountRepository repo){
