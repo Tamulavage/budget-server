@@ -51,11 +51,6 @@ public class UserServices {
        return true;
     }
 
-    public Boolean removeUser(User user) {
-        repo.delete(user);
-        return true;
-    }
-
     public List<User> findAll(){
         return repo.findAll();
     }
