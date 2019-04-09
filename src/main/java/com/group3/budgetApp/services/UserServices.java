@@ -4,6 +4,8 @@ import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -38,9 +40,15 @@ public class UserServices {
         original.setFirstName(newUserData.getFirstName());
         original.setLastName(newUserData.getLastName());
         repo.save(original);
-
     }
 
+    public List<User> findAllByLast(String last){
+        return repo.findAllByLastName(last);
+    }
+
+    public User findByLast(String last){
+        return repo.findByLastName(last);
+    }
 
     public User findById(Integer id) {
         return repo.findById(id).get();

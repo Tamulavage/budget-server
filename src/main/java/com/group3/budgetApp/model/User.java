@@ -1,5 +1,6 @@
 package com.group3.budgetApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+
 
 
     protected User() {

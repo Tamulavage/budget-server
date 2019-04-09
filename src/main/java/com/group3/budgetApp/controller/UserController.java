@@ -63,4 +63,10 @@ public class UserController {
     public List<User> findAll(){
         return userService.findAll();
     }
+
+    @GetMapping("/user/lastname/{last}")
+    public List<User> findByLastName(@PathVariable String last){
+        return userService.findAllByLast(last);
+    }
+
 }
