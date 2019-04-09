@@ -23,6 +23,7 @@ public class UserServices {
 
     public User createUser(User user) {
         repo.save(user);
+
         return user;
     }
 
