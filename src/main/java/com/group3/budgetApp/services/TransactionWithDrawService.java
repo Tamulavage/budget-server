@@ -9,25 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionWithDrawService {
 
-
-
-//    private EntityManagerFactory emf =Persistence.createEntityManagerFactory("budgetApp");
-//    private EntityManager em =emf.createEntityManager();
-//    private EntityTransaction tx =em.getTransaction();
-    @Autowired
     private TransactionWithdrawRepo repo;
-
-//    public TransactionWithDrawService(){
-//          this.emf =Persistence.createEntityManagerFactory("budgetApp");
-//          this.em = emf.createEntityManager();
-//          this.tx =em.getTransaction();
-//
-//    }
-//
-//    public TransactionWithDrawService(EntityManager em){
-//        this.em = em;
-//        this.tx = em.getTransaction();
-//    }
 
     @Autowired
     public TransactionWithDrawService(TransactionWithdrawRepo repo){
@@ -40,6 +22,16 @@ public class TransactionWithDrawService {
             throw new IllegalArgumentException("Amount must be greater then zero");
         }
         return repo.save(transaction);
+    }
+
+    // todo: add try catch block
+    public TransactionWithdraw getWithdrawTransactionById(Integer id){
+        return repo.getOne(id);
+    }
+
+    // todo: add try catch block
+    public Iterable<TransactionWithdraw> getAllTransactions(){
+        return repo.findAll();
     }
 
 
