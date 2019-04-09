@@ -41,6 +41,16 @@ public class BudgetController {
         }
     }
 
+    @GetMapping("/Transaction/")
+    public ResponseEntity<Iterable<TransactionWithdraw>> getAllTransactions(){
+        try{
+            return new ResponseEntity<>(transactionWithDrawService.getAllTransactions(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/Transaction/{id}")
     public HttpStatus transactionRemove(@PathVariable Integer id){
         try{
