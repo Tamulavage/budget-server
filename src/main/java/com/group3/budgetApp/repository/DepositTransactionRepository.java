@@ -6,12 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface DepositTransactionRepository extends JpaRepository<DepositTransaction, Integer> {
-    Optional<DepositTransaction> find(Integer id);
     DepositTransaction save(DepositTransaction depositTransaction);
     List<DepositTransaction> findAll();
-    List<DepositTransaction> findAllDepositsSince(Date minDate);
+    //List<DepositTransaction> listAllDepositsSinceDate(Date date);
 }
