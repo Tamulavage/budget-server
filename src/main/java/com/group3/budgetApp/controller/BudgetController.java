@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/budget")
 public class BudgetController {
 
     private UserServices userService;
@@ -25,7 +25,7 @@ public class BudgetController {
         transactionWithDrawService = service;
     }
 
-    @PostMapping("/transaction")
+    @PostMapping("/Transaction")
     public HttpStatus transactionWithdraw(@RequestBody TransactionWithdraw t){
 
         try {
@@ -42,7 +42,7 @@ public class BudgetController {
         }
     }
 
-    @GetMapping("/transaction/")
+    @GetMapping("/Transaction/")
     public ResponseEntity<Iterable<TransactionWithdraw>> getAllTransactions(){
         try{
             return new ResponseEntity<>(transactionWithDrawService.getAllTransactions(), HttpStatus.OK);
@@ -52,7 +52,7 @@ public class BudgetController {
         }
     }
 
-    @DeleteMapping("/transaction/{id}")
+    @DeleteMapping("/Transaction/{id}")
     public HttpStatus transactionRemove(@PathVariable Integer id){
         try{
             transactionWithDrawService.deleteTransaction(id);
@@ -62,7 +62,5 @@ public class BudgetController {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
-    
-    
 
 }

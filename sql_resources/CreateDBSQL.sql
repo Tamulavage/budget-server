@@ -9,6 +9,7 @@ CREATE TABLE user (
 	 user_id INTEGER NOT NULL auto_increment,
 	 first_name varchar(50) NOT NULL,
 	 last_name varchar(50) NOT NULL,
+	 username varchar(50) NOT NULL,
 	 CONSTRAINT pk_user PRIMARY KEY(user_id)
 );
 
@@ -47,8 +48,8 @@ VALUES (1, "Joe's Checking Account", "BOA", "Primary Checking", 2073.98, 1),
 			 (1, "David's Checking", "Chase", "Checking", 1003.01, 4),
 			 (2, "David's Savings", "Chase", "Savings", 1045.12, 4);
 
-INSERT INTO user (first_name, last_name)
-VALUES ("Joe", "Fen"), ("Sean", "Rowan"), ("Mark", "Moll"), ("David", "Tamulavage");
+INSERT INTO user (first_name, last_name, username)
+VALUES ("Joe", "Fen", "Fenniless"), ("Sean", "Rowan", "SpringKing"), ("Mark", "Moll", "DarthMoll"), ("David", "Tamulavage", "EvilDave");
 
 INSERT INTO account_type (description)
 VALUES ("Checking"), ("Saving");

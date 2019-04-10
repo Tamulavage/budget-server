@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/budget")
 public class DepoBudgetController {
     
     private UserServices userService;

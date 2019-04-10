@@ -5,6 +5,7 @@ import com.group3.budgetApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 
@@ -27,8 +28,8 @@ public class UserServices {
         return user;
     }
 
-    public User createUser(String firstName, String lastName) {
-        User user = new User(firstName, lastName);
+    public User createUser(String firstName, String lastName, String userName) {
+        User user = new User(firstName, lastName, userName);
         repo.save(user);
         return user;
     }
@@ -38,9 +39,15 @@ public class UserServices {
         original.setFirstName(newUserData.getFirstName());
         original.setLastName(newUserData.getLastName());
         repo.save(original);
-
     }
 
+    public List<User> findAllByLast(String last){
+        return repo.findAllByLastName(last);
+    }
+
+    public User findByUsername(String username){
+        return repo.findByUserName(username);
+    }
 
     public User findById(Integer id) {
         return repo.findById(id).get();
@@ -49,11 +56,6 @@ public class UserServices {
     public Boolean deleteUser(Integer id) {
        repo.deleteById(id);
        return true;
-    }
-
-    public Boolean removeUser(User user) {
-        repo.delete(user);
-        return true;
     }
 
     public List<User> findAll(){

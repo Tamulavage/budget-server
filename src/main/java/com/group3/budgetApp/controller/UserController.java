@@ -59,8 +59,19 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/find/{username}")
+    public User findByUsername(@PathVariable String username){
+        return userService.findByUsername(username);
+    }
+
     @GetMapping("/user")
     public List<User> findAll(){
         return userService.findAll();
     }
+
+    @GetMapping("/user/lastname/{last}")
+    public List<User> findByLastName(@PathVariable String last){
+        return userService.findAllByLast(last);
+    }
+
 }
