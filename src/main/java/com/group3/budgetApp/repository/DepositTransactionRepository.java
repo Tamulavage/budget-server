@@ -9,7 +9,4 @@ import java.util.List;
 
 @Repository
 public interface DepositTransactionRepository extends JpaRepository<DepositTransaction, Integer> {
-    DepositTransaction save(DepositTransaction depositTransaction);
-    List<DepositTransaction> findAll();
-    //List<DepositTransaction> listAllDepositsSinceDate(Date date);
 }
