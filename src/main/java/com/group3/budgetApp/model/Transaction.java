@@ -27,14 +27,14 @@ public class Transaction {
     public Transaction() {
     }
     
-    public Transaction(Integer fromAccountId, Integer toAccountId, String memo, Double amount) {
+    public Transaction(Integer fromAccountId, Integer toAccountId, Double amount) {
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
-        this.memo = memo;
         this.amount = amount;
     }
     
-    public Transaction(Integer fromAccountId, Integer toAccountId, String memo, Double amount, Integer transactionType, Date transactionDt) {
+    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount, Integer transactionType, Date transactionDt) {
+        this.toAccountId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.memo = memo;
