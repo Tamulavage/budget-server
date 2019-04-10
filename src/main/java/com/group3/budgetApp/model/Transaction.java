@@ -36,7 +36,7 @@ public class Transaction {
     }
     
     public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount, Integer transactionType, Date transactionDt) {
-        this.toAccountId = transactionId;
+        this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.memo = memo;

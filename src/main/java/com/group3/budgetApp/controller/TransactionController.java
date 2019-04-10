@@ -1,7 +1,6 @@
 package com.group3.budgetApp.controller;
 
-import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
-import com.group3.budgetApp.exceptions.ResourceNotFound;
+import com.group3.budgetApp.exceptions.*;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +53,12 @@ public class TransactionController {
     }
     
     @DeleteMapping("/transaction/{id}")
-    public HttpStatus transactionRemove(@PathVariable Integer id) {
+    public ResponseEntity<String> transactionRemove(@PathVariable Integer id) {
         try {
             transactionServices.deleteTransaction(id);
-            return HttpStatus.OK;
+            return new ResponseEntity<>("Success" ,HttpStatus.OK);
         } catch (Exception e) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
+            return new ResponseEntity<>("Failure" , HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
