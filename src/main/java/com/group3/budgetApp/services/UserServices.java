@@ -3,6 +3,7 @@ package com.group3.budgetApp.services;
 import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -60,6 +61,10 @@ public class UserServices {
 
     public List<User> findAll(){
         return repo.findAll();
+    }
+
+    public User findByFullName(String first, String last){
+        return repo.findByFirstNameAndLastName(first, last);
     }
 
 }
