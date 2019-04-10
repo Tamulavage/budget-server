@@ -23,9 +23,9 @@ public class UserServicesTest {
 
     @Test
     public void testCreate(){
-        User user = new User("Sean", "Rowan");
+        User user = new User("Sean", "Rowan", "SpringKing");
         user.setId(1);
-        User expected = new User("Sean", "Rowan");
+        User expected = new User("Sean", "Rowan", "SpringKing");
         expected.setId(1);
         //Verify that create method is being called;
         when(mockRepo.save(user)).thenReturn(expected);
@@ -38,7 +38,7 @@ public class UserServicesTest {
 
     @Test
     public void testFindById(){
-        User expected = new User("Sean", "Rowan");
+        User expected = new User("Sean", "Rowan","SpringKing");
         //When
         when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
         User actual = services.findById(1);
