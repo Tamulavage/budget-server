@@ -27,7 +27,8 @@ public class TransactionWithdraw {
 
     public TransactionWithdraw() {}
 
-    public TransactionWithdraw(Integer fromAccountId, Integer toAccountId, String memo, Double amount){
+    public TransactionWithdraw(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount){
+        this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.memo = memo;
