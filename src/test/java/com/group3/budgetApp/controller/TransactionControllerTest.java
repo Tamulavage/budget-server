@@ -45,7 +45,7 @@ public class TransactionControllerTest {
                 .willReturn(transactions);
 
         String expectedReturnValue = "[{"+
-                "\"transactionId\":null,"+
+                "\"transactionId\":1,"+
                 "\"fromAccountId\":1,"+
                 "\"toAccountId\":2,"+
                 "\"memo\":\"3\","+
@@ -53,7 +53,7 @@ public class TransactionControllerTest {
                 "\"transactionDt\":null,"+
                 "\"amount\":1.0"+
                 "},{"+
-                "\"transactionId\":null,"+
+                "\"transactionId\":2,"+
                 "\"fromAccountId\":1,"+
                 "\"toAccountId\":2,"+
                 "\"memo\":\"3\","+
