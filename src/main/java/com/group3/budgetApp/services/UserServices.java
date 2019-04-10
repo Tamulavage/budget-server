@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -53,9 +54,8 @@ public class UserServices {
         return repo.findById(id).get();
     }
 
-    public Boolean deleteUser(Integer id) {
-       repo.deleteById(id);
-       return true;
+    public void deleteUser(Integer id) {
+        repo.deleteById(id);
     }
 
     public List<User> findAll(){
