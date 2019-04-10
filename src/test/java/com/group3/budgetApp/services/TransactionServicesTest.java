@@ -1,6 +1,5 @@
 package com.group3.budgetApp.services;
 
-import com.fasterxml.jackson.databind.util.ArrayIterator;
 import com.group3.budgetApp.exceptions.*;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.repository.TransactionRepository;
@@ -29,43 +28,23 @@ public class TransactionServicesTest {
         transactionService = new TransactionServices(repo);
     }
 
+
+    @Test(expected = InvalidTransactionAmount.class)
+    public void testAddTransactionNegativeAmount() throws InvalidTransactionAmount {
+        //Given
+        Transaction transaction = new Transaction(1, 1,2,"3",-1.0, null, null);
+        // When
+        transactionService.createTransaction(transaction);
+    }
+
     @Test
-    public void testAddWithdrawValid() throws InvalidDepositAmount {
+    public void testAddTransactionValid() throws InvalidTransactionAmount {
         Transaction transaction = new Transaction(1, 1,2,"3",1.0, null, null);
         Transaction expected = new Transaction(1, 1,2,"3",1.0, null, null);
         when(repo.save(transaction)).thenReturn(expected);
 
         // When
-        Transaction actual = transactionService.createWithdrawal(transaction);
-
-        // Then
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test(expected = InvalidDepositAmount.class)
-    public void testAddWithdrawNegativeAmount() throws InvalidDepositAmount {
-        //Given
-        Transaction transaction = new Transaction(1, 1,2,"3",-1.0, null, null);
-        // When
-        transactionService.createWithdrawal(transaction);
-    }
-
-    @Test(expected = InvalidDepositAmount.class)
-    public void testAddDepositNegativeAmount() throws InvalidDepositAmount {
-        //Given
-        Transaction transaction = new Transaction(1, 1,2,"3",-1.0, null, null);
-        // When
-        transactionService.createDeposit(transaction);
-    }
-
-    @Test
-    public void testAddDepositValid() throws InvalidDepositAmount {
-        Transaction transaction = new Transaction(1, 1,2,"3",1.0, null, null);
-        Transaction expected = new Transaction(1, 1,2,"3",1.0, null, null);
-        when(repo.save(transaction)).thenReturn(expected);
-
-        // When
-        Transaction actual = transactionService.createDeposit(transaction);
+        Transaction actual = transactionService.createTransaction(transaction);
 
         // Then
         Assert.assertEquals(expected, actual);
@@ -73,9 +52,9 @@ public class TransactionServicesTest {
 
 
     @Test
-    public void testDeleteTransactionById() throws InvalidDepositAmount {
+    public void testDeleteTransactionById() throws InvalidTransactionAmount {
         Transaction transaction = new Transaction(1, 1,2,"3",1.0, null, null);
-        transactionService.createWithdrawal(transaction);
+        transactionService.createTransaction(transaction);
 
         transactionService.deleteTransaction(1);
 
