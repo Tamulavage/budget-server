@@ -22,21 +22,26 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
             userService.createUser(user);
-            return new ResponseEntity<>("User Created", HttpStatus.CREATED);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUser(@PathVariable Integer id) {
-        try{
-            return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
-        }catch(Exception e){
-           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            User user = userService.findById(id);
+            if (user == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -51,40 +56,66 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody User user){
-        try{
+    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody User user) {
+        try {
             userService.updateUser(user, id);
             return new ResponseEntity<>("User Updated", HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>("No User Found", HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/user/find/{username}")
-    public ResponseEntity<User> findByUsername(@PathVariable String username){
-        try{
-            return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
-        }catch(Exception e){
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    public ResponseEntity<User> findByUsername(@PathVariable String username) {
+
+        try {
+            User user = userService.findByUsername(username);
+            if (user == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<User>> findAll(){
-        try{
+    public ResponseEntity<List<User>> findAll() {
+        try {
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/user/lastname/{last}")
-    public ResponseEntity<List<User>> findByLastName(@PathVariable String last){
-        try{
-            return new ResponseEntity<>(userService.findAllByLast(last), HttpStatus.OK);
-        }catch(Exception e){
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<User>> findByLastName(@PathVariable String last) {
+        try {
+            List<User> userList = userService.findAllByLast(last);
+            if (userList.size() == 0) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(userList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @GetMapping("/user/name/{last}/{first}")
+    public ResponseEntity<User> findByFull(@PathVariable String last, @PathVariable String first){
+        try {
+            User user = userService.findByFullName(last, first);
+            if (user == null) {
+                return new ResponseEntity<>(userService.findByFullName(first, last), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
+
