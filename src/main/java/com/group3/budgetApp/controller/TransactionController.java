@@ -1,6 +1,6 @@
 package com.group3.budgetApp.controller;
 
-import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
+import com.group3.budgetApp.exceptions.*;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,15 @@ public class TransactionController {
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return new ResponseEntity<>("Unknown Failure" ,HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @GetMapping("/transaction/{id}")
+    public ResponseEntity<Transaction> findTransactionsById(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(transactionServices.findTransactionById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     

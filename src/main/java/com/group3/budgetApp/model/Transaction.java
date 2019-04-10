@@ -1,5 +1,7 @@
 package com.group3.budgetApp.model;
 
+import org.springframework.data.domain.Example;
+
 import javax.persistence.*;
 import java.util.Date;
 
