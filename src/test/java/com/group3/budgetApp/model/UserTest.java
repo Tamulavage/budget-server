@@ -14,9 +14,10 @@ public class UserTest {
         //Given
         String expectedFirst = "Sean";
         String expectedLast = "Rowan";
+        String expectedUserName = "SpringKing";
 
         //When
-        User user = new User(expectedFirst, expectedLast);
+        User user = new User(expectedFirst, expectedLast, expectedUserName);
         user.setId(55);
 
         //Then
