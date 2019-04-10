@@ -51,16 +51,27 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public User updateUser(@PathVariable Integer id, @RequestBody User user){
+    public void updateUser(@PathVariable Integer id, @RequestBody User user){
         try{
-            return userService.updateUser(user, id);
+            userService.updateUser(user, id);
         }catch (Exception e){
-            return null;
+            throw new NullPointerException();
         }
+    }
+
+    @GetMapping("/user/find/{username}")
+    public User findByUsername(@PathVariable String username){
+        return userService.findByUsername(username);
     }
 
     @GetMapping("/user")
     public List<User> findAll(){
         return userService.findAll();
     }
+
+    @GetMapping("/user/lastname/{last}")
+    public List<User> findByLastName(@PathVariable String last){
+        return userService.findAllByLast(last);
+    }
+
 }

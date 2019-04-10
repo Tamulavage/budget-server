@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/budget")
 public class BudgetController {
 
     private UserServices userService;
@@ -38,6 +39,16 @@ public class BudgetController {
         catch (Exception e){
             System.err.println(e.getMessage());
             return HttpStatus.SERVICE_UNAVAILABLE;
+        }
+    }
+
+    @GetMapping("/Transaction/")
+    public ResponseEntity<Iterable<TransactionWithdraw>> getAllTransactions(){
+        try{
+            return new ResponseEntity<>(transactionWithDrawService.getAllTransactions(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
