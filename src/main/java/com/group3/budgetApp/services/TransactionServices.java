@@ -1,6 +1,6 @@
 package com.group3.budgetApp.services;
 
-import com.group3.budgetApp.exceptions.InvalidDepositAmount;
+import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.repository.TransactionRepository;
@@ -21,14 +21,6 @@ public class TransactionServices {
         this.repo = repo;
     }
     
-    public Transaction createWithdrawal(Transaction transaction) throws InvalidDepositAmount {
-        Double amount = transaction.getAmount();
-        if (amount <= 0) {
-            throw new InvalidDepositAmount("Amount must be greater than zero");
-        }
-        return repo.save(transaction);
-    }
-    
     // todo: add try catch block
     public Iterable<Transaction> getAllTransactions() {
         return repo.findAll();
@@ -43,14 +35,14 @@ public class TransactionServices {
                 () -> new ResourceNotFound("Transaction not found with Id " + id));
     }
     
-    public Transaction createDeposit(Transaction deposit) throws InvalidDepositAmount {
-        Double amount = Double.parseDouble(df.format(deposit.getAmount()));
+    public Transaction createTransaction(Transaction transaction) throws InvalidTransactionAmount {
+        Double amount = Double.parseDouble(df.format(transaction.getAmount()));
         if (amount <= 0) {
-            throw new InvalidDepositAmount("Please deposit a positive amount");
+            throw new InvalidTransactionAmount("Transactions must be greater than zero.");
         } else if (amount >= (Double.MAX_VALUE / 1e304)) {
-            throw new InvalidDepositAmount(String.format("Money laundering is a crime.\nYour attempted deposit of %f dollars has been reported to the SEC.", amount));
+            throw new InvalidTransactionAmount(String.format("Money laundering is a crime.\nYour attempted deposit of %f dollars has been reported to the SEC.", amount));
         }
-        return repo.save(deposit);
+        return repo.save(transaction);
     }
     
     //todo: implement comparator for date comparison
