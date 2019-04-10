@@ -1,5 +1,7 @@
 package com.group3.budgetApp.controller;
 
+import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
+import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +21,26 @@ public class TransactionController {
     }
     
     @PostMapping("/transaction")
-    public HttpStatus Transaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<String>  Transaction(@RequestBody Transaction transaction) {
         
         try {
             transactionServices.createTransaction(transaction);
-            return HttpStatus.CREATED;
-        } catch (IllegalArgumentException iae) {
-            System.err.println(iae.getMessage());
-            return HttpStatus.NOT_ACCEPTABLE;
+            return new ResponseEntity<>("Success" ,HttpStatus.CREATED);
+        } catch (InvalidTransactionAmount ita ){
+            System.err.println(ita.getMessage());
+            return new ResponseEntity<>(ita.getMessage() ,HttpStatus.NOT_ACCEPTABLE);
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return HttpStatus.SERVICE_UNAVAILABLE;
+            return new ResponseEntity<>("Unknown Failure" ,HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @GetMapping("/transaction/{id}")
+    public ResponseEntity<Transaction> findTransactionsById(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(transactionServices.findTransactionById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
