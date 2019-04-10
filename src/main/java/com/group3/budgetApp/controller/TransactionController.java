@@ -1,5 +1,6 @@
 package com.group3.budgetApp.controller;
 
+import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class TransactionController {
         transactionServices = service;
     }
     
-    @PostMapping("/transaction")
+    @PostMapping("/transaction/")
     public HttpStatus Transaction(@RequestBody Transaction transaction) {
         
         try {
@@ -30,6 +31,15 @@ public class TransactionController {
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return HttpStatus.SERVICE_UNAVAILABLE;
+        }
+    }
+    
+    @GetMapping("/transaction/{id}")
+    public ResponseEntity<Transaction> findTransactionsById(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(transactionServices.findTransactionById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
