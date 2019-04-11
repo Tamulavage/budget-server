@@ -4,6 +4,7 @@ import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.repository.TransactionRepository;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.services.TransactionServices;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
@@ -20,7 +21,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -34,6 +38,7 @@ public class TransactionControllerTest {
     @MockBean
     private TransactionServices services;
 
+
     @Test
     public void testGetTransactions() throws Exception{
         ArrayList<Transaction> transactions = new ArrayList<>();
@@ -41,7 +46,7 @@ public class TransactionControllerTest {
         Transaction transaction2 = new Transaction(2, 1,2,"3",1.0, null, null);
         transactions.add(transaction1);
         transactions.add(transaction2);
-        BDDMockito.given(services.getAllTransactions())
+        given(services.getAllTransactions())
                 .willReturn(transactions);
 
         String expectedReturnValue = "[{"+
@@ -72,7 +77,7 @@ public class TransactionControllerTest {
 
     @Test
     public void testGetTransactionsNoTransactions() throws Exception{
-        BDDMockito.given(services.getAllTransactions())
+        given(services.getAllTransactions())
                 .willReturn(null);
 
         String expectedReturnValue = "";
@@ -88,7 +93,7 @@ public class TransactionControllerTest {
     @Test
     public void testPostTransaction() throws Exception{
         Transaction transaction = new Transaction(1, null, null, null, null, null, null);
-        BDDMockito.given(services.createTransaction(transaction))
+        given(services.createTransaction(transaction))
                 .willReturn(transaction);
 
         String inputJSON = "{\"transactionId\": 2," +
@@ -110,18 +115,22 @@ public class TransactionControllerTest {
 
 
     @Test
-    public void testPostTransactionWithBadAmount() throws Exception{
-        BDDMockito //.given(services.createTransaction(new Transaction()))
-                .willReturn(null)
-            .willThrow(new InvalidTransactionAmount("test")).given(services.createTransaction(new Transaction()));
+    public void testPostTransactionWithBadAmount() throws Exception {
+        Transaction transaction = new Transaction(2, null, null, null, -5.0, null, null);
+
+        BDDMockito.
+        given(services.createTransaction(transaction))
+                .willReturn(transaction)
+                .willThrow(new InvalidTransactionAmount(" test"));
+
 
         String inputJSON = "{\"transactionId\": 2," +
                 "\"fromAccountId\": null," +
                 "\"toAccountId\": null," +
-                "\"memo\": \"Hey\"," +
-                "\"transactionType\": 2," +
+                "\"memo\": null,"  +
+                "\"transactionType\": null,"  +
                 "\"transactionDt\": null," +
-                "\"amount\": -5}";
+                "\"amount\": -5.0}";
         this.mvc.perform(MockMvcRequestBuilders
                 .post("/budget/transaction/")
                 .content(inputJSON)
