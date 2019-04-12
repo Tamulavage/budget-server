@@ -22,7 +22,7 @@ public class Transaction {
     @Column
     private String memo;
     @Column(name = "transaction_type")
-    private Integer transactionType;
+    private String transactionType;
     @Column(name = "transaction_dt")
     private LocalDate transactionDt;
     @Column
@@ -37,7 +37,7 @@ public class Transaction {
         this.amount = amount;
     }
     
-    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount, Integer transactionType, LocalDate transactionDt) {
+    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount, String transactionType, LocalDate transactionDt) {
         this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
@@ -79,11 +79,11 @@ public class Transaction {
         this.memo = memo;
     }
     
-    public Integer getTransactionType() {
+    public String getTransactionType() {
         return transactionType;
     }
     
-    public void setTransactionType(Integer transactionType) {
+    public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
     }
     

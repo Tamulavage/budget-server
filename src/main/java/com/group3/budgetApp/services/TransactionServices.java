@@ -5,6 +5,7 @@ import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
@@ -56,11 +57,17 @@ public class TransactionServices {
         return repo.save(transaction);
     }
     
-    //todo: implement comparator for date comparison
     public List<Transaction> getLatestDeposits() {
         List<Transaction> depositList = repo.findAll();
         Comparator<Transaction> comparator = Comparator.comparing(Transaction::getTransactionDt);
         Comparator<Transaction> reverseComparator = comparator.reversed();
         return depositList.stream().sorted(reverseComparator).collect(Collectors.toList());
     }
+    
+//    public List<Transaction> findAllByTransactionDtOrderByTransactionDtDesc(Pageable pageable);
+//    public List<Transaction> findTop10ByTransactionDt(LocalDate date, Pageable pageable);
+//    public List<Transaction> findAllByFromAccountIdAAndToAccountId(Integer fromId, Integer toId);
+//    public List<Transaction> findAllByFromAccountId(Integer fromId);
+//    public List<Transaction> findAllByToAccountId(Integer toId);
+//
 }
