@@ -1,38 +1,41 @@
 package com.group3.budgetApp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
+@Data
 public class User {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Integer id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name="username")
+    private String userName;
 
-    public User() {
+
+
+    protected User() {
+
     }
 
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
+    public User(String firstName, String lastName, String userName) {
         this.firstName = firstName;
-    }
-
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.userName = userName;
     }
 
-    public Integer getId() {
-        return id;
+    @Override
+    public String toString() {
+        return String.format(
+                "User[id=%d, userName='%s', firstName='%s', lastName='%s']", id,userName, firstName, lastName);
     }
+
 }

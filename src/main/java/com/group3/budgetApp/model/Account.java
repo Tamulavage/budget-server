@@ -1,19 +1,28 @@
 package com.group3.budgetApp.model;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
+@Data
 public class Account {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "balance")
     private Double balance;
+    @Column(name = "type_id")
     private Integer type_id;
+    @Column(name = "user_id")
     private Integer user_id;
+    @Column(name = "institution_name")
     private String institution_name;
+    @Column(name = "account_type_id")
+    private Integer accountTypeId;
+    @Column(name = "nickname")
+    private String nickname;
 
     public Account(){
     }
@@ -25,12 +34,14 @@ public class Account {
         this.institution_name = "";
     }
 
-    public Account(String name, Double balance, Integer type_id, Integer user_id, String institution_name) {
+    public Account(String name, Double balance, Integer type_id, Integer user_id, String institution_name, Integer accountTypeId, String nickname) {
         this.name = name;
         this.balance = balance;
         this.type_id = type_id;
         this.user_id = user_id;
         this.institution_name = institution_name;
+        this.accountTypeId = accountTypeId;
+        this.nickname = nickname;
     }
 
     public Integer getId() {

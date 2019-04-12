@@ -9,28 +9,21 @@ import static org.junit.Assert.*;
 public class UserTest {
     private User user;
 
-    @Before
-    public void setUp() {
-        user = new User();
-    }
-
-    @Test
-    public void setId() {
-        Assert.assertNull(user.getId());
-    }
-
     @Test
     public void setName() {
         //Given
         String expectedFirst = "Sean";
         String expectedLast = "Rowan";
+        String expectedUserName = "SpringKing";
 
         //When
-        user.setFirstName(expectedFirst);
-        user.setLastName(expectedLast);
+        User user = new User(expectedFirst, expectedLast, expectedUserName);
+        user.setId(55);
 
         //Then
         Assert.assertEquals(expectedFirst, user.getFirstName());
         Assert.assertEquals(expectedLast, user.getLastName());
+
+        System.out.println(user.toString());
     }
 }
