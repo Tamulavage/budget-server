@@ -1,9 +1,7 @@
 package com.group3.budgetApp.services;
 
 import com.group3.budgetApp.model.Account;
-import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.AccountRepository;
-import com.group3.budgetApp.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,35 +28,35 @@ public class AccountServicesTest {
 
     @Test
     public void testCreateAccount(){
-        Account account = new Account("Sean", "Rowan", "SpringKing");
-        user.setId(1);
-        User expected = new User("Sean", "Rowan", "SpringKing");
+        Account account = new Account();
+        account.setId(1);
+        Account expected = new Account();
         expected.setId(1);
         //Verify that create method is being called;
-        when(mockRepo.save(user)).thenReturn(expected);
+        when(mockRepo.save(account)).thenReturn(expected);
 
         //Verify result
-        User actual = services.createAccount(account);
+        Account actual = services.createAccount(account);
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void testFindById(){
-        User expected = new User("Sean", "Rowan","SpringKing");
+        Account expected = new Account();
         //When
-        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
-        User actual = services.findById(1);
+        when(mockRepo.getAccountById(1)).thenReturn(expected);//.thenReturn(java.util.Optional.of(expected));
+        Account actual = services.getAccountById(1);
         //Then
         Assert.assertEquals(expected, actual);
+        System.out.println(expected.toString());
     }
 
     @Test
     public void testDelete(){
+        Account account = new Account();
         int id = 1;
-
-        services.deleteUser(id);
-
+        services.deleteAccount(id);
         verify(mockRepo, times(1)).deleteById(id);
     }
 
