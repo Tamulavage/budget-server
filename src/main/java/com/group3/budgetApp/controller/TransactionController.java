@@ -9,10 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/budget")
 public class TransactionController {
     
     private TransactionServices transactionServices;
+    private Transaction transaction;
     
     @Autowired
     public TransactionController(TransactionServices service) {
@@ -20,17 +22,17 @@ public class TransactionController {
     }
     
     @PostMapping("/transaction")
-    public ResponseEntity<String>  Transaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<Transaction> Transaction(@RequestBody Transaction transaction) {
         
         try {
-            transactionServices.createTransaction(transaction);
-            return new ResponseEntity<>("Success" ,HttpStatus.CREATED);
-        } catch (InvalidTransactionAmount ita ){
+            Transaction t = transactionServices.createTransaction(transaction);
+            return new ResponseEntity<>(t, HttpStatus.CREATED);
+        } catch (InvalidTransactionAmount ita) {
             System.err.println(ita.getMessage());
-            return new ResponseEntity<>(ita.getMessage() ,HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return new ResponseEntity<>("Unknown Failure" ,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
     
@@ -52,13 +54,51 @@ public class TransactionController {
         }
     }
     
+    @GetMapping("/transaction/latest")
+    public ResponseEntity<Iterable<Transaction>> getLatestTransactions() {
+        try {
+            return new ResponseEntity<>(transactionServices.getLatestDeposits(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @DeleteMapping("/transaction/{id}")
     public ResponseEntity<String> transactionRemove(@PathVariable Integer id) {
         try {
             transactionServices.deleteTransaction(id);
-            return new ResponseEntity<>("Success" ,HttpStatus.OK);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failure" , HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failure", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    /*@GetMapping("/transaction/sender/{id}")
+    public ResponseEntity<Transaction> findByFromAccountId(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(transactionServices.findTransactionBySenderId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
+    
+    @GetMapping("/transaction/sender/{id}")
+    public ResponseEntity<Iterable<Transaction>> getAllSenderTransactions(@PathVariable Integer id) {
+        
+        try {
+            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/transaction/recipient/{id}")
+    public ResponseEntity<Iterable<Transaction>> getAllRecipientTransactions(@PathVariable Integer id) {
+        
+        try {
+            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

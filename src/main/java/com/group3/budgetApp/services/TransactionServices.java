@@ -5,11 +5,14 @@ import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.Date;
+import java.util.Comparator;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServices {
@@ -35,7 +38,16 @@ public class TransactionServices {
                 () -> new ResourceNotFound("Transaction not found with Id " + id));
     }
     
-    public Transaction createTransaction(Transaction transaction) throws InvalidTransactionAmount {
+    public Transaction findTransactionBySenderId(Integer id) {
+        return repo.findByFromAccountId(id);
+    }
+    
+    public Transaction findTransactionByRecipientId(Integer id) {
+        return repo.findByToAccountId(id);
+    }
+    
+    public Transaction createTransaction(Transaction transaction) throws
+            InvalidTransactionAmount {
         Double amount = Double.parseDouble(df.format(transaction.getAmount()));
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
@@ -45,17 +57,17 @@ public class TransactionServices {
         return repo.save(transaction);
     }
     
-    //todo: implement comparator for date comparison
-    public List<Transaction> listAllDepositsSinceDate(Date date) {
+    public List<Transaction> getLatestDeposits() {
         List<Transaction> depositList = repo.findAll();
-        Date currentDate = new Date();
-        for (Transaction depositTransaction : depositList) {
-            if ((depositTransaction.getTransactionDt().equals(date) || depositTransaction.getTransactionDt().after(date))
-                    && depositTransaction.getTransactionDt().equals(currentDate) || depositTransaction.getTransactionDt().before(currentDate)) {
-                depositList.add(depositTransaction);
-            }
-        }
-        System.out.println(depositList.toString());
-        return depositList;
+        Comparator<Transaction> comparator = Comparator.comparing(Transaction::getTransactionDt);
+        Comparator<Transaction> reverseComparator = comparator.reversed();
+        return depositList.stream().sorted(reverseComparator).collect(Collectors.toList());
     }
+    
+//    public List<Transaction> findAllByTransactionDtOrderByTransactionDtDesc(Pageable pageable);
+//    public List<Transaction> findTop10ByTransactionDt(LocalDate date, Pageable pageable);
+//    public List<Transaction> findAllByFromAccountIdAAndToAccountId(Integer fromId, Integer toId);
+//    public List<Transaction> findAllByFromAccountId(Integer fromId);
+//    public List<Transaction> findAllByToAccountId(Integer toId);
+//
 }
