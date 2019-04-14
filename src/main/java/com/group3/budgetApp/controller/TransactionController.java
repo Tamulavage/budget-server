@@ -1,5 +1,6 @@
 package com.group3.budgetApp.controller;
 
+import com.group3.budgetApp.exceptions.*;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/budget")
 public class TransactionController {
     
     private TransactionServices transactionServices;
+    private Transaction transaction;
     
     @Autowired
     public TransactionController(TransactionServices service) {
@@ -19,32 +21,26 @@ public class TransactionController {
     }
     
     @PostMapping("/transaction")
-    public HttpStatus depositTransaction(@RequestBody Transaction d) {
+    public ResponseEntity<String> Transaction(@RequestBody Transaction transaction) {
         
         try {
-            transactionServices.createDeposit(d);
-            return HttpStatus.CREATED;
-        } catch (IllegalArgumentException iae) {
-            System.err.println(iae.getMessage());
-            return HttpStatus.NOT_ACCEPTABLE;
+            transactionServices.createTransaction(transaction);
+            return new ResponseEntity<>("Success", HttpStatus.CREATED);
+        } catch (InvalidTransactionAmount ita) {
+            System.err.println(ita.getMessage());
+            return new ResponseEntity<>(ita.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return HttpStatus.SERVICE_UNAVAILABLE;
+            return new ResponseEntity<>("Unknown Failure", HttpStatus.BAD_REQUEST);
         }
     }
     
-    @PostMapping("/transaction")
-    public HttpStatus withdrawalTransaction(@RequestBody Transaction w) {
-        
+    @GetMapping("/transaction/{id}")
+    public ResponseEntity<Transaction> findTransactionsById(@PathVariable Integer id) {
         try {
-            transactionServices.createWithdrawal(w);
-            return HttpStatus.CREATED;
-        } catch (IllegalArgumentException iae) {
-            System.err.println(iae.getMessage());
-            return HttpStatus.NOT_ACCEPTABLE;
+            return new ResponseEntity<>(transactionServices.findTransactionById(id), HttpStatus.OK);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return HttpStatus.SERVICE_UNAVAILABLE;
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     
@@ -57,13 +53,51 @@ public class TransactionController {
         }
     }
     
+    @GetMapping("/transaction/latest")
+    public ResponseEntity<Iterable<Transaction>> getLatestTransactions() {
+        try {
+            return new ResponseEntity<>(transactionServices.getLatestDeposits(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @DeleteMapping("/transaction/{id}")
-    public HttpStatus transactionRemove(@PathVariable Integer id) {
+    public ResponseEntity<String> transactionRemove(@PathVariable Integer id) {
         try {
             transactionServices.deleteTransaction(id);
-            return HttpStatus.OK;
+            return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (Exception e) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
+            return new ResponseEntity<>("Failure", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    /*@GetMapping("/transaction/sender/{id}")
+    public ResponseEntity<Transaction> findByFromAccountId(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(transactionServices.findTransactionBySenderId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
+    
+    @GetMapping("/transaction/sender/{id}")
+    public ResponseEntity<Iterable<Transaction>> getAllSenderTransactions(@PathVariable Integer id) {
+        
+        try {
+            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/transaction/recipient/{id}")
+    public ResponseEntity<Iterable<Transaction>> getAllRecipientTransactions(@PathVariable Integer id) {
+        
+        try {
+            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

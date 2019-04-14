@@ -3,10 +3,12 @@ package com.group3.budgetApp.services;
 import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -53,13 +55,16 @@ public class UserServices {
         return repo.findById(id).get();
     }
 
-    public Boolean deleteUser(Integer id) {
-       repo.deleteById(id);
-       return true;
+    public void deleteUser(Integer id) {
+        repo.deleteById(id);
     }
 
     public List<User> findAll(){
         return repo.findAll();
+    }
+
+    public User findByFullName(String first, String last){
+        return repo.findByFirstNameAndLastName(first, last);
     }
 
 }

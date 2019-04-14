@@ -1,7 +1,11 @@
 package com.group3.budgetApp.model;
 
+import org.apache.tomcat.jni.Local;
+import org.springframework.data.domain.Example;
+
 import javax.persistence.*;
-import java.util.Date;
+//import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "TRANSACTION")
@@ -18,23 +22,23 @@ public class Transaction {
     @Column
     private String memo;
     @Column(name = "transaction_type")
-    private Integer transactionType;
+    private String transactionType;
     @Column(name = "transaction_dt")
-    private Date transactionDt;
+    private LocalDate transactionDt;
     @Column
     private Double amount = 0.0;
     
     public Transaction() {
     }
     
-    public Transaction(Integer fromAccountId, Integer toAccountId, String memo, Double amount) {
+    public Transaction(Integer fromAccountId, Integer toAccountId, Double amount) {
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
-        this.memo = memo;
         this.amount = amount;
     }
     
-    public Transaction(Integer fromAccountId, Integer toAccountId, String memo, Double amount, Integer transactionType, Date transactionDt) {
+    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount, String transactionType, LocalDate transactionDt) {
+        this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.memo = memo;
@@ -75,19 +79,19 @@ public class Transaction {
         this.memo = memo;
     }
     
-    public Integer getTransactionType() {
+    public String getTransactionType() {
         return transactionType;
     }
     
-    public void setTransactionType(Integer transactionType) {
+    public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
     }
     
-    public Date getTransactionDt() {
+    public LocalDate getTransactionDt() {
         return transactionDt;
     }
     
-    public void setTransactionDt(Date transactionDt) {
+    public void setTransactionDt(LocalDate transactionDt) {
         this.transactionDt = transactionDt;
     }
     

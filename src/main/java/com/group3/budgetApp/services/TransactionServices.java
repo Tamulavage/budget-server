@@ -1,15 +1,18 @@
 package com.group3.budgetApp.services;
 
-import com.group3.budgetApp.exceptions.InvalidDepositAmount;
+import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.Date;
+import java.util.Comparator;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServices {
@@ -19,14 +22,6 @@ public class TransactionServices {
     @Autowired
     public TransactionServices(TransactionRepository repo) {
         this.repo = repo;
-    }
-    
-    public Transaction createWithdrawal(Transaction transaction) throws InvalidDepositAmount {
-        Double amount = transaction.getAmount();
-        if (amount <= 0) {
-            throw new InvalidDepositAmount("Amount must be greater than zero");
-        }
-        return repo.save(transaction);
     }
     
     // todo: add try catch block
@@ -43,27 +38,36 @@ public class TransactionServices {
                 () -> new ResourceNotFound("Transaction not found with Id " + id));
     }
     
-    public Transaction createDeposit(Transaction deposit) throws InvalidDepositAmount {
-        Double amount = Double.parseDouble(df.format(deposit.getAmount()));
-        if (amount <= 0) {
-            throw new InvalidDepositAmount("Please deposit a positive amount");
-        } else if (amount >= (Double.MAX_VALUE / 1e304)) {
-            throw new InvalidDepositAmount(String.format("Money laundering is a crime.\nYour attempted deposit of %f dollars has been reported to the SEC.", amount));
-        }
-        return repo.save(deposit);
+    public Transaction findTransactionBySenderId(Integer id) {
+        return repo.findByFromAccountId(id);
     }
     
-    //todo: implement comparator for date comparison
-    public List<Transaction> listAllDepositsSinceDate(Date date) {
-        List<Transaction> depositList = repo.findAll();
-        Date currentDate = new Date();
-        for (Transaction depositTransaction : depositList) {
-            if ((depositTransaction.getTransactionDt().equals(date) || depositTransaction.getTransactionDt().after(date))
-                    && depositTransaction.getTransactionDt().equals(currentDate) || depositTransaction.getTransactionDt().before(currentDate)) {
-                depositList.add(depositTransaction);
-            }
-        }
-        System.out.println(depositList.toString());
-        return depositList;
+    public Transaction findTransactionByRecipientId(Integer id) {
+        return repo.findByToAccountId(id);
     }
+    
+    public Transaction createTransaction(Transaction transaction) throws
+            InvalidTransactionAmount {
+        Double amount = Double.parseDouble(df.format(transaction.getAmount()));
+        if (amount <= 0) {
+            throw new InvalidTransactionAmount("Transactions must be greater than zero.");
+        } else if (amount >= (Double.MAX_VALUE / 1e304)) {
+            throw new InvalidTransactionAmount(String.format("Money laundering is a crime.\nYour attempted deposit of %f dollars has been reported to the SEC.", amount));
+        }
+        return repo.save(transaction);
+    }
+    
+    public List<Transaction> getLatestDeposits() {
+        List<Transaction> depositList = repo.findAll();
+        Comparator<Transaction> comparator = Comparator.comparing(Transaction::getTransactionDt);
+        Comparator<Transaction> reverseComparator = comparator.reversed();
+        return depositList.stream().sorted(reverseComparator).collect(Collectors.toList());
+    }
+    
+//    public List<Transaction> findAllByTransactionDtOrderByTransactionDtDesc(Pageable pageable);
+//    public List<Transaction> findTop10ByTransactionDt(LocalDate date, Pageable pageable);
+//    public List<Transaction> findAllByFromAccountIdAAndToAccountId(Integer fromId, Integer toId);
+//    public List<Transaction> findAllByFromAccountId(Integer fromId);
+//    public List<Transaction> findAllByToAccountId(Integer toId);
+//
 }

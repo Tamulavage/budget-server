@@ -5,6 +5,8 @@ import com.group3.budgetApp.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.mockito.Mockito.*;
 
@@ -12,7 +14,9 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class UserServicesTest {
 
+    @Mock
     private UserRepository mockRepo;
+    @InjectMocks
     private UserServices services;
 
     @Before
@@ -45,6 +49,16 @@ public class UserServicesTest {
         //Then
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void testDelete(){
+        int id = 1;
+
+        services.deleteUser(id);
+
+        verify(mockRepo, times(1)).deleteById(id);
+    }
+
 
 
 
