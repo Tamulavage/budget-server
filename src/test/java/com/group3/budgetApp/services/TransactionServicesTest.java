@@ -27,7 +27,7 @@ public class TransactionServicesTest {
     @Before
     public void mockSetUp() {
         repo = mock(TransactionRepository.class);
-        transactionService = new TransactionServices(repo);
+      //  transactionService = new TransactionServices(repo);
     }
     
     

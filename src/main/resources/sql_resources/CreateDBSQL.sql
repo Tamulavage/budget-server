@@ -1,6 +1,6 @@
 # mysql -u root -p < CreateDBSQL.sql
 
-DROP DATABASE budget;
+DROP DATABASE if exists budget;
 CREATE DATABASE budget;
 
 USE budget;
@@ -32,7 +32,8 @@ CREATE TABLE transaction(
 	transaction_type INTEGER,
 	transaction_dt date,
 	amount double,
-	CONSTRAINT pk_transaction PRIMARY KEY(transaction_id)
+	CONSTRAINT pk_transaction PRIMARY KEY(transaction_id),
+	CONSTRAINT fk_transaction_type FOREIGN KEY (transaction_type) REFERENCES transaction_type (id)
 );
 
 CREATE TABLE transaction_type (
