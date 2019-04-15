@@ -8,12 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/budget")
 public class TransactionController {
     
     private TransactionServices transactionServices;
-    private Transaction transaction;
     
     @Autowired
     public TransactionController(TransactionServices service) {
@@ -45,7 +47,7 @@ public class TransactionController {
     }
     
     @GetMapping("/transaction/")
-    public ResponseEntity<Iterable<Transaction>> getAllTransactions() {
+    public ResponseEntity<List<Transaction>> getAllTransactions() {
         try {
             return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
         } catch (Exception e) {

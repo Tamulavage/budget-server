@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/budget")
 public class ServiceController {
     private AccountServices accountService;

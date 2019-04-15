@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/budget")
 public class UserController {
 
@@ -55,15 +56,15 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody User user) {
-        try {
-            userService.updateUser(user, id);
-            return new ResponseEntity<>("User Updated", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("No User Found", HttpStatus.NOT_FOUND);
-        }
-    }
+//    @PutMapping("/user/{id}")
+//    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody User user) {
+//        try {
+//            userService.updateUser(user, id);
+//            return new ResponseEntity<>("User Updated", HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("No User Found", HttpStatus.NOT_FOUND);
+//        }
+//    }
 
     @GetMapping("/user/find/{username}")
     public ResponseEntity<User> findByUsername(@PathVariable String username) {
