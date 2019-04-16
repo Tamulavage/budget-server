@@ -94,7 +94,13 @@ public class Transaction {
 //    }
 
     public TransactionType getTransactionType() {
-        return transactionType;
+        if(this.transactionType == null)
+        {
+            return new TransactionType();
+        }
+        else {
+            return transactionType;
+        }
     }
 
     public void setTransactionType(TransactionType transactionType) {
