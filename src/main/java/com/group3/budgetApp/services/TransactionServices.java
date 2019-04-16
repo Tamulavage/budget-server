@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -44,17 +45,18 @@ public class TransactionServices {
         return repo.findById(id).orElseThrow(
                 () -> new ResourceNotFound("Transaction not found with Id " + id));
     }
-    
-    public Transaction findTransactionBySenderId(Integer id) {
-        return repo.findByFromAccountId(id);
-    }
-    
-    public Transaction findTransactionByRecipientId(Integer id) {
-        return repo.findByToAccountId(id);
-    }
+//
+//    public Transaction findTransactionBySenderId(Integer id) {
+//        return repo.findByFromAccountId(id);
+//    }
+//
+//    public Transaction findTransactionByRecipientId(Integer id) {
+//        return repo.findByToAccountId(id);
+//    }
     
     public Transaction createTransaction(Transaction transaction) throws
             InvalidTransactionAmount {
+        df.setRoundingMode(RoundingMode.FLOOR);
         Double amount = Double.parseDouble(df.format(transaction.getAmount()));
         
         transaction.setTransactionType(getDBTransactionType(transaction.getTransactionType()));
