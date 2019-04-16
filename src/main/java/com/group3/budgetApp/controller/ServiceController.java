@@ -1,10 +1,14 @@
 package com.group3.budgetApp.controller;
 
 import com.group3.budgetApp.model.Account;
+import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.services.AccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -16,19 +20,20 @@ public class ServiceController {
     public ServiceController(AccountServices accountServices){
         accountService = accountServices;
     }
+
     @PostMapping("/account")
-    public HttpStatus accountCreate(@RequestBody Account account){
+    public ResponseEntity<Account> accountCreate(@RequestBody Account account){
         try {
             accountService.createAccount(account);
-            return HttpStatus.CREATED;
+            return new ResponseEntity<>(null, HttpStatus.CREATED);
         }
         catch (IllegalArgumentException iae){
             System.err.println(iae.getMessage());
-            return HttpStatus.NOT_ACCEPTABLE;
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         catch (Exception e){
             System.err.println(e.getMessage());
-            return HttpStatus.SERVICE_UNAVAILABLE;
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
     @DeleteMapping("/account/{id}")
@@ -42,13 +47,24 @@ public class ServiceController {
         }
     }
     @GetMapping("/account/{id}")
-    public HttpStatus accountGet(@PathVariable Integer id){
-        try{
-            accountService.getAccountById(id);
-            return HttpStatus.OK;
+    public ResponseEntity<Account> getAccountById(@PathVariable Integer id){
+        try {
+            Account account = accountService.getAccountById(id);
+            if (account == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(accountService.getAccountById(id), HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        catch (Exception e){
-            return HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+    @GetMapping("/account")
+    public ResponseEntity<List<Account>> getAll() {
+        try {
+            return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }
