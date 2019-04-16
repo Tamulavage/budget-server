@@ -53,11 +53,8 @@ public class TransactionServices {
     public Transaction createTransaction(Transaction transaction) throws
             InvalidTransactionAmount {
         Double amount = Double.parseDouble(df.format(transaction.getAmount()));
-        TransactionType transactionType = transaction.getTransactionType();
-        TransactionType existingTransactionType = transactionTypeRepository.findByDescription(transactionType.getDescription());
-        if(existingTransactionType != null){
-            transaction.setTransactionType(existingTransactionType);
-        }
+
+        transaction.setTransactionType(getDBTransactionType(transaction.getTransactionType()));
 
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
@@ -65,6 +62,13 @@ public class TransactionServices {
             throw new InvalidTransactionAmount(String.format("Money laundering is a crime.\nYour attempted deposit of %f dollars has been reported to the SEC.", amount));
         }
         return repo.save(transaction);
+    }
+
+    private TransactionType getDBTransactionType(TransactionType transactionType){
+        if(transactionType == null) {
+            transactionType.setDescription("Other");
+        }
+        return transactionTypeRepository.findByDescription(transactionType.getDescription());
     }
 
     public List<Transaction> getLatestDeposits() {
