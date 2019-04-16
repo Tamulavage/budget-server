@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class TransactionController {
     
     private TransactionServices transactionServices;
-    private Transaction transaction;
+    private UserServices userService;
     
     @Autowired
     public TransactionController(TransactionServices service) {
@@ -52,15 +52,15 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    @GetMapping("/transaction/latest")
-    public ResponseEntity<Iterable<Transaction>> getLatestTransactions() {
-        try {
-            return new ResponseEntity<>(transactionServices.getLatestDeposits(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+
+//    @GetMapping("/transaction/{userId}/{transactionId}")
+//    public ResponseEntity<Transaction> findByFromAccountId(@PathVariable Integer userId, @PathVariable Integer transactionId) {
+//        try {
+//            return new ResponseEntity<>(userService.findById(userId), transactionServices.findAllByFromAccountIdOrderByTransactionDtDesc(transactionId), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
     
     @DeleteMapping("/transaction/{id}")
     public ResponseEntity<String> transactionRemove(@PathVariable Integer id) {
@@ -71,15 +71,6 @@ public class TransactionController {
             return new ResponseEntity<>("Failure", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    /*@GetMapping("/transaction/sender/{id}")
-    public ResponseEntity<Transaction> findByFromAccountId(@PathVariable Integer id) {
-        try {
-            return new ResponseEntity<>(transactionServices.findTransactionBySenderId(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
     
     @GetMapping("/transaction/sender/{id}")
     public ResponseEntity<Iterable<Transaction>> getAllSenderTransactions(@PathVariable Integer id) {
@@ -96,6 +87,15 @@ public class TransactionController {
         
         try {
             return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/transaction/latest")
+    public ResponseEntity<Iterable<Transaction>> getLatestTransactionsByPage() {
+        try {
+            return new ResponseEntity<>(transactionServices.getLatestTransactionsByPage(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
