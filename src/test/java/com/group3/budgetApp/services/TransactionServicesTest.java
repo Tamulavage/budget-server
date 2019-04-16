@@ -3,6 +3,7 @@ package com.group3.budgetApp.services;
 import com.group3.budgetApp.exceptions.*;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.repository.TransactionRepository;
+import com.group3.budgetApp.repository.TransactionTypeRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,11 +24,14 @@ public class TransactionServicesTest {
     private TransactionServices transactionService;
     @MockBean
     private TransactionRepository repo;
+    @MockBean
+    private TransactionTypeRepository transactionTypeRepository;
     
     @Before
     public void mockSetUp() {
         repo = mock(TransactionRepository.class);
-        transactionService = new TransactionServices(repo);
+        transactionTypeRepository = mock(TransactionTypeRepository.class);
+        transactionService = new TransactionServices(repo, transactionTypeRepository);
     }
     
     

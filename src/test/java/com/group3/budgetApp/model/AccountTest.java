@@ -13,7 +13,6 @@ public class AccountTest {
         account.setId(0);
         account.setInstitution_name("BOA");
         account.setUser_id(0);
-        account.setType_id(0);
         account.setName("My Account");
         account.setBalance(0.0);
     }
@@ -46,15 +45,6 @@ public class AccountTest {
     public void setBalance() {
         account.setBalance(4.0);
         Assert.assertTrue(account.getBalance()== 4.0);
-    }
-    @Test
-    public void getType_id() {
-        Assert.assertTrue(account.getType_id()==0);
-    }
-    @Test
-    public void setType_id() {
-        account.setType_id(50);
-        Assert.assertTrue(account.getType_id()==50);
     }
     @Test
     public void getUser_id() {

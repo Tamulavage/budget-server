@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/budget")
 public class TransactionController {
     
@@ -21,17 +22,17 @@ public class TransactionController {
     }
     
     @PostMapping("/transaction")
-    public ResponseEntity<String> Transaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<Transaction> Transaction(@RequestBody Transaction transaction) {
         
         try {
-            transactionServices.createTransaction(transaction);
-            return new ResponseEntity<>("Success", HttpStatus.CREATED);
+            Transaction t = transactionServices.createTransaction(transaction);
+            return new ResponseEntity<>(t, HttpStatus.CREATED);
         } catch (InvalidTransactionAmount ita) {
             System.err.println(ita.getMessage());
-            return new ResponseEntity<>(ita.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return new ResponseEntity<>("Unknown Failure", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
     
