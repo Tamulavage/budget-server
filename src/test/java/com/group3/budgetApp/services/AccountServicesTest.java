@@ -1,5 +1,6 @@
 package com.group3.budgetApp.services;
 
+import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.repository.AccountRepository;
 import org.junit.Assert;
@@ -42,14 +43,13 @@ public class AccountServicesTest {
     }
 
     @Test
-    public void testFindById(){
-        Account expected = new Account();
+    public void testFindById() throws ResourceNotFound {
+        Account expected = new Account(1);
         //When
-        when(mockRepo.getAccountById(1)).thenReturn(expected);//.thenReturn(java.util.Optional.of(expected));
+        when(mockRepo.findAccountById(1)).thenReturn(expected);//.thenReturn(java.util.Optional.of(expected));
         Account actual = services.getAccountById(1);
         //Then
         Assert.assertEquals(expected, actual);
-        System.out.println(expected.toString());
     }
 
     @Test
