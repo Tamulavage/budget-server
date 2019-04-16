@@ -24,6 +24,12 @@ CREATE TABLE account (
 	CONSTRAINT pk_account PRIMARY KEY(id)
 );
 
+CREATE TABLE transaction_type (
+	id INTEGER NOT NULL auto_increment,
+	description varchar(50),
+	CONSTRAINT pk_transaction_type PRIMARY KEY(id)
+);
+
 CREATE TABLE transaction(
 	transaction_id INTEGER NOT NULL auto_increment,
 	from_account_id	INTEGER,
@@ -36,11 +42,7 @@ CREATE TABLE transaction(
 	CONSTRAINT fk_transaction_type FOREIGN KEY (transaction_type) REFERENCES transaction_type (id)
 );
 
-CREATE TABLE transaction_type (
-	id INTEGER NOT NULL auto_increment,
-	description varchar(50),
-	CONSTRAINT pk_transaction_type PRIMARY KEY(id)
-);
+
 
 CREATE TABLE account_type (
 	id INTEGER NOT NULL auto_increment,
