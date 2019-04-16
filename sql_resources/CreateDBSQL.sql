@@ -13,6 +13,8 @@ CREATE TABLE user (
 	 CONSTRAINT pk_user PRIMARY KEY(user_id)
 );
 
+
+
 CREATE TABLE account (
 	id INTEGER NOT NULL auto_increment,
 	account_type_id INTEGER NOT NULL,

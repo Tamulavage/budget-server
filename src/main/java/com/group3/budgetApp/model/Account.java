@@ -24,6 +24,9 @@ public class Account {
 
     public Account(){
     }
+    public Account(Integer id){
+        this.id = id;
+    }
     public Account(String name, Integer user_id) {
         this.name = name;
         this.user_id = user_id;
