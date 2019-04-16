@@ -19,8 +19,8 @@ public class AccountServices{
         repo.save(account);
         return account;
     }
-    public Account createAccount(String name, Double balance, Integer user_id, String institution_name, Integer accountTypeId, String nickname){
-        Account account = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
+    public Account createAccount(String name, Double balance, Integer userId, String institutionName, Integer accountTypeId, String nickname){
+        Account account = new Account(name, balance, userId, institutionName, accountTypeId, nickname);
         repo.save(account);
         return account;
     }
@@ -36,5 +36,8 @@ public class AccountServices{
     }
     public List<Account> findAll(){
         return repo.findAll();
+    }
+    public List<Account> findAllByUserId(Integer userId){
+        return repo.findAllByUserId(userId);
     }
 }
