@@ -1,5 +1,6 @@
 package com.group3.budgetApp.services;
 
+import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Profile;
 import com.group3.budgetApp.repository.ProfileRepository;
 import org.junit.Assert;
@@ -40,15 +41,15 @@ public class ProfileServicesTest {
         Assert.assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void testFindById(){
-//        Profile expected = new Profile("Sean", "Rowan","SpringKing");
-//        //When
-//        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
-//        Profile actual = services.findById(1);
-//        //Then
-//        Assert.assertEquals(expected, actual);
-//    }
+    @Test
+    public void testFindById() throws ResourceNotFound {
+        Profile expected = new Profile("Sean", "Rowan","SpringKing");
+        //When
+        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
+        Profile actual = services.findById(1);
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
 
     @Test
     public void testDelete(){
