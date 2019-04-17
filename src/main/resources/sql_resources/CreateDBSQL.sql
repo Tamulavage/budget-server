@@ -3,7 +3,7 @@
 -- DROP DATABASE if exists budget;
 CREATE DATABASE budget;
 
-CREATE TABLE "user" (
+CREATE TABLE profile (
   user_id   SERIAL PRIMARY KEY,
   first_name varchar(50) NOT NULL,
   last_name  varchar(50) NOT NULL,
@@ -52,7 +52,7 @@ VALUES (1, 'Joes Checking Account', 'BOA', 'Primary Checking', 2073.98, 1),
        (1, 'Davids Checking', 'Chase', 'Checking', 1003.01, 4),
        (2, 'Davids Savings', 'Chase', 'Savings', 1045.12, 4);
 
-INSERT INTO "user" (first_name, last_name, username)
+INSERT INTO "profile" (first_name, last_name, username)
 VALUES ('Joe', 'Fen', 'Fenniless'),
        ('Sean', 'Rowan', 'SpringKing'),
        ('Mark', 'Moll', 'DarthMoll'),

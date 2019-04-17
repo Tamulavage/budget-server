@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "user")
-public class User {
+public class Profile {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,11 +23,11 @@ public class User {
 
 
 
-    protected User() {
+    protected Profile() {
 
     }
 
-    public User(String firstName, String lastName, String userName) {
+    public Profile(String firstName, String lastName, String userName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -36,7 +36,7 @@ public class User {
     @Override
     public String toString() {
         return String.format(
-                "User[id=%d, userName='%s', firstName='%s', lastName='%s']", id,userName, firstName, lastName);
+                "Profile[id=%d, userName='%s', firstName='%s', lastName='%s']", id,userName, firstName, lastName);
     }
 
 }

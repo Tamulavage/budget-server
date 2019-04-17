@@ -1,7 +1,7 @@
 package com.group3.budgetApp.services;
 
-import com.group3.budgetApp.model.User;
-import com.group3.budgetApp.repository.UserRepository;
+import com.group3.budgetApp.model.Profile;
+import com.group3.budgetApp.repository.ProfileRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,40 +12,40 @@ import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
-public class UserServicesTest {
+public class ProfileServicesTest {
 
     @Mock
-    private UserRepository mockRepo;
+    private ProfileRepository mockRepo;
     @InjectMocks
-    private UserServices services;
+    private ProfileServices services;
 
     @Before
     public void setup(){
-        mockRepo = mock(UserRepository.class);
-        services = new UserServices(mockRepo);
+        mockRepo = mock(ProfileRepository.class);
+        services = new ProfileServices(mockRepo);
     }
 
     @Test
     public void testCreate(){
-        User user = new User("Sean", "Rowan", "SpringKing");
-        user.setId(1);
-        User expected = new User("Sean", "Rowan", "SpringKing");
+        Profile profile = new Profile("Sean", "Rowan", "SpringKing");
+        profile.setId(1);
+        Profile expected = new Profile("Sean", "Rowan", "SpringKing");
         expected.setId(1);
         //Verify that create method is being called;
-        when(mockRepo.save(user)).thenReturn(expected);
+        when(mockRepo.save(profile)).thenReturn(expected);
 
         //Verify result
-        User actual = services.createUser(user);
+        Profile actual = services.createUser(profile);
 
         Assert.assertEquals(expected, actual);
     }
 
 //    @Test
 //    public void testFindById(){
-//        User expected = new User("Sean", "Rowan","SpringKing");
+//        Profile expected = new Profile("Sean", "Rowan","SpringKing");
 //        //When
 //        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
-//        User actual = services.findById(1);
+//        Profile actual = services.findById(1);
 //        //Then
 //        Assert.assertEquals(expected, actual);
 //    }
