@@ -1,5 +1,6 @@
 package com.group3.budgetApp.services;
 
+import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,9 @@ public class UserServices {
         return repo.findByUserName(username);
     }
 
-    public User findById(Integer id) {
-        return repo.findById(id).get();
+    public User findById(Integer id) throws ResourceNotFound {
+        return repo.findById(id).orElseThrow(
+                () -> new ResourceNotFound("User not found with Id " + id));
     }
 
     public void deleteUser(Integer id) {
