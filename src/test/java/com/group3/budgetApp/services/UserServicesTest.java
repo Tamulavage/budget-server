@@ -40,15 +40,15 @@ public class UserServicesTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
-    public void testFindById(){
-        User expected = new User("Sean", "Rowan","SpringKing");
-        //When
-        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
-        User actual = services.findById(1);
-        //Then
-        Assert.assertEquals(expected, actual);
-    }
+//    @Test
+//    public void testFindById(){
+//        User expected = new User("Sean", "Rowan","SpringKing");
+//        //When
+//        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
+//        User actual = services.findById(1);
+//        //Then
+//        Assert.assertEquals(expected, actual);
+//    }
 
     @Test
     public void testDelete(){
