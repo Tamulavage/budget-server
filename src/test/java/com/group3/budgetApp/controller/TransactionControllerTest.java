@@ -90,7 +90,7 @@ public class TransactionControllerTest {
                         .get("/budget/transaction/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedReturnValue))
-                .andDo(MockMvcResultHandlers.print())
+
         ;
     }
 
