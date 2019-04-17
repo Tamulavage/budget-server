@@ -82,7 +82,7 @@ public class ProfileController {
 
     }
 
-    @GetMapping("/profiles")
+    @GetMapping("/profile")
     public ResponseEntity<List<Profile>> findAll() {
         try {
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);

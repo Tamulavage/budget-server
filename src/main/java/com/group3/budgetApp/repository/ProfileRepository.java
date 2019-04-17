@@ -13,4 +13,6 @@ public interface ProfileRepository extends JpaRepository<Profile,Integer> {
     Profile findByFirstNameAndLastName(String first, String last);
     List<Profile> findAllByLastName(String last);
 
+
+
 }
