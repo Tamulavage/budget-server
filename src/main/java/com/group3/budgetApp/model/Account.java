@@ -14,9 +14,9 @@ public class Account {
     @Column(name = "balance")
     private Double balance;
     @Column(name = "user_id")
-    private Integer user_id;
+    private Integer userId;
     @Column(name = "institution_name")
-    private String institution_name;
+    private String institutionName;
     @Column(name = "account_type_id")
     private Integer accountTypeId;
     @Column(name = "nickname")
@@ -24,18 +24,21 @@ public class Account {
 
     public Account(){
     }
+    public Account(Integer id){
+        this.id = id;
+    }
     public Account(String name, Integer user_id) {
         this.name = name;
-        this.user_id = user_id;
+        this.userId = user_id;
         this.balance = 0.0;
-        this.institution_name = "";
+        this.institutionName = "";
     }
 
     public Account(String name, Double balance, Integer user_id, String institution_name, Integer accountTypeId, String nickname) {
         this.name = name;
         this.balance = balance;
-        this.user_id = user_id;
-        this.institution_name = institution_name;
+        this.userId = user_id;
+        this.institutionName = institution_name;
         this.accountTypeId = accountTypeId;
         this.nickname = nickname;
     }
@@ -65,18 +68,18 @@ public class Account {
     }
 
     public Integer getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public String getInstitution_name() {
-        return institution_name;
+        return institutionName;
     }
 
     public void setInstitution_name(String institution_name) {
-        this.institution_name = institution_name;
+        this.institutionName = institution_name;
     }
 }
