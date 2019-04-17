@@ -1,7 +1,6 @@
 package com.group3.budgetApp.controller;
 
 import com.group3.budgetApp.model.Account;
-import com.group3.budgetApp.model.User;
 import com.group3.budgetApp.services.AccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,6 +62,14 @@ public class ServiceController {
     public ResponseEntity<List<Account>> getAll() {
         try {
             return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/account/")
+    public ResponseEntity<List<Account>> getAllByUserId(Integer userId) {
+        try {
+            return new ResponseEntity<>(accountService.findAllByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
