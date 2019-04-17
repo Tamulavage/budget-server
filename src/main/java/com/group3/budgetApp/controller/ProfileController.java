@@ -22,7 +22,7 @@ public class ProfileController {
         this.userService = userServices;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/profile")
     public ResponseEntity<Profile> createUser(@RequestBody Profile profile) {
         try {
             userService.createUser(profile);
@@ -32,7 +32,7 @@ public class ProfileController {
         }
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/profile/{id}")
     public ResponseEntity<Profile> getUser(@PathVariable Integer id) {
         try {
             Profile profile = userService.findById(id);
@@ -46,7 +46,7 @@ public class ProfileController {
         }
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/profile/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         try {
             userService.deleteUser(id);
@@ -56,7 +56,7 @@ public class ProfileController {
         }
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/profile/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody Profile profile) {
         try {
             userService.updateUser(profile, id);
@@ -66,7 +66,7 @@ public class ProfileController {
         }
     }
 
-    @GetMapping("/user/find/{username}")
+    @GetMapping("/profile/find/{username}")
     public ResponseEntity<Profile> findByUsername(@PathVariable String username) {
 
         try {
@@ -82,7 +82,7 @@ public class ProfileController {
 
     }
 
-    @GetMapping("/owners")
+    @GetMapping("/profiles")
     public ResponseEntity<List<Profile>> findAll() {
         try {
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
@@ -91,7 +91,7 @@ public class ProfileController {
         }
     }
 
-    @GetMapping("/user/lastname/{last}")
+    @GetMapping("/profile/lastname/{last}")
     public ResponseEntity<List<Profile>> findByLastName(@PathVariable String last) {
         try {
             List<Profile> profileList = userService.findAllByLast(last);
@@ -105,7 +105,7 @@ public class ProfileController {
         }
     }
 
-    @GetMapping("/user/name/{last}/{first}")
+    @GetMapping("/profile/name/{last}/{first}")
     public ResponseEntity<Profile> findByFull(@PathVariable String last, @PathVariable String first){
         try {
             Profile profile = userService.findByFullName(last, first);
