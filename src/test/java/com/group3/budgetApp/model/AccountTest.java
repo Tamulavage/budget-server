@@ -17,6 +17,38 @@ public class AccountTest {
         account.setBalance(0.0);
     }
     @Test
+    public void constructorTest(){
+        Integer id = 1;
+        Account account = new Account(id);
+        Assert.assertEquals(account.getId(),id);
+    }
+    @Test
+    public void constructorTest2(){
+        Integer user_id = 3;
+        String name = "test";
+        Account account = new Account(name, user_id);
+
+        Assert.assertEquals(user_id,account.getUserId());
+        Assert.assertEquals(name, account.getName());
+
+    }
+    @Test
+    public void constructorTest3(){
+        Integer user_id = 3;
+        String name = "test";
+        Double balance = 100000.00;
+        String institution_name = "BOA";
+        Integer accountTypeId = 1;
+        String nickname = "checking";
+        Account account = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
+
+        Assert.assertEquals(user_id,account.getUserId());
+        Assert.assertEquals(name, account.getName());
+        Assert.assertEquals(balance, account.getBalance());
+        System.out.println(account.toString());
+
+    }
+    @Test
     public void getId() {
         int id = 5;
         account.setId(id);
