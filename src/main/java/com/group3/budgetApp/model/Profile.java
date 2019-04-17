@@ -23,7 +23,7 @@ public class Profile {
 
 
 
-    protected Profile() {
+    public Profile() {
 
     }
 
