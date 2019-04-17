@@ -66,4 +66,12 @@ public class ServiceController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/account/")
+    public ResponseEntity<List<Account>> getAllByUserId(Integer userId) {
+        try {
+            return new ResponseEntity<>(accountService.findAllByUserId(userId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
