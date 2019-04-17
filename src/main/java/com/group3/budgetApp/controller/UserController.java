@@ -82,7 +82,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/user")
+    @GetMapping("/owners")
     public ResponseEntity<List<User>> findAll() {
         try {
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
