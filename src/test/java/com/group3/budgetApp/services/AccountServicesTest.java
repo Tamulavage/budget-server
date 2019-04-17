@@ -10,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -25,6 +28,7 @@ public class AccountServicesTest {
     public void setup(){
         mockRepo = mock(AccountRepository.class);
         services = new AccountServices(mockRepo);
+
     }
 
     @Test
@@ -43,10 +47,12 @@ public class AccountServicesTest {
     }
 
     @Test
-    public void testFindById() throws ResourceNotFound {
-        Account expected = new Account(1);
+    public void testFindAllById() throws ResourceNotFound {
+        List<Account> expectedList = new ArrayList<>();
+        Account expected = new Account("test",1.0, 1, "1",1,"hey");
+        expectedList.add(expected);
         //When
-        when(mockRepo.findAccountById(1)).thenReturn(expected);//.thenReturn(java.util.Optional.of(expected));
+        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));//.thenReturn(java.util.Optional.of(expected));
         Account actual = services.getAccountById(1);
         //Then
         Assert.assertEquals(expected, actual);
@@ -55,9 +61,11 @@ public class AccountServicesTest {
     @Test
     public void testDelete(){
         Account account = new Account();
+        //when
+        when(mockRepo.getOne(1)).thenReturn(account);
         int id = 1;
         services.deleteAccount(id);
-        verify(mockRepo, times(1)).deleteById(id);
+        verify(mockRepo, times(1)).delete(account);
     }
 
 
