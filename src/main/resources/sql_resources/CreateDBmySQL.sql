@@ -5,7 +5,7 @@ CREATE DATABASE budget;
 
 USE budget;
 
-CREATE TABLE user
+CREATE TABLE profile
 (
   user_id    INTEGER     NOT NULL auto_increment,
   first_name varchar(50) NOT NULL,

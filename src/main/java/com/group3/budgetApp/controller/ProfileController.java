@@ -1,7 +1,7 @@
 package com.group3.budgetApp.controller;
 
-import com.group3.budgetApp.model.User;
-import com.group3.budgetApp.services.UserServices;
+import com.group3.budgetApp.model.Profile;
+import com.group3.budgetApp.services.ProfileServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,30 +13,30 @@ import java.util.List;
 @RestController
 @CrossOrigin("http://localhost:4200")
 @RequestMapping("/budget")
-public class UserController {
+public class ProfileController {
 
-    private UserServices userService;
+    private ProfileServices userService;
 
     @Autowired
-    public UserController(UserServices userServices) {
+    public ProfileController(ProfileServices userServices) {
         this.userService = userServices;
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    @PostMapping("/profile")
+    public ResponseEntity<Profile> createUser(@RequestBody Profile profile) {
         try {
-            userService.createUser(user);
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
+            userService.createUser(profile);
+            return new ResponseEntity<>(profile, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Integer id) {
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<Profile> getUser(@PathVariable Integer id) {
         try {
-            User user = userService.findById(id);
-            if (user == null) {
+            Profile profile = userService.findById(id);
+            if (profile == null) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             } else {
                 return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
@@ -46,32 +46,32 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/profile/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         try {
             userService.deleteUser(id);
-            return new ResponseEntity<>("User Deleted", HttpStatus.OK);
+            return new ResponseEntity<>("Profile Deleted", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/user/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody User user) {
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody Profile profile) {
         try {
-            userService.updateUser(user, id);
-            return new ResponseEntity<>("User Updated", HttpStatus.OK);
+            userService.updateUser(profile, id);
+            return new ResponseEntity<>("Profile Updated", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("No User Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Profile Found", HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/user/find/{username}")
-    public ResponseEntity<User> findByUsername(@PathVariable String username) {
+    @GetMapping("/profile/find/{username}")
+    public ResponseEntity<Profile> findByUsername(@PathVariable String username) {
 
         try {
-            User user = userService.findByUsername(username);
-            if (user == null) {
+            Profile profile = userService.findByUsername(username);
+            if (profile == null) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             } else {
                 return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
@@ -82,8 +82,8 @@ public class UserController {
 
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<List<User>> findAll() {
+    @GetMapping("/profiles")
+    public ResponseEntity<List<Profile>> findAll() {
         try {
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
         } catch (Exception e) {
@@ -91,25 +91,25 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/lastname/{last}")
-    public ResponseEntity<List<User>> findByLastName(@PathVariable String last) {
+    @GetMapping("/profile/lastname/{last}")
+    public ResponseEntity<List<Profile>> findByLastName(@PathVariable String last) {
         try {
-            List<User> userList = userService.findAllByLast(last);
-            if (userList.size() == 0) {
+            List<Profile> profileList = userService.findAllByLast(last);
+            if (profileList.size() == 0) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             } else {
-                return new ResponseEntity<>(userList, HttpStatus.OK);
+                return new ResponseEntity<>(profileList, HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/user/name/{last}/{first}")
-    public ResponseEntity<User> findByFull(@PathVariable String last, @PathVariable String first){
+    @GetMapping("/profile/name/{last}/{first}")
+    public ResponseEntity<Profile> findByFull(@PathVariable String last, @PathVariable String first){
         try {
-            User user = userService.findByFullName(last, first);
-            if (user == null) {
+            Profile profile = userService.findByFullName(last, first);
+            if (profile == null) {
                 return new ResponseEntity<>(userService.findByFullName(first, last), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
