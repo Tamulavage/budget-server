@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("https://zipbudget.herokuapp.com")
 @RequestMapping("/budget")
 public class ServiceController {
     private AccountServices accountService;

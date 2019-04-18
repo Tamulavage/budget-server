@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("https://zipbudget.herokuapp.com")
 @RequestMapping("/budget")
 public class TransactionController {
     
