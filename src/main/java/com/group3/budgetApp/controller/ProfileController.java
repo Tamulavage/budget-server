@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("https://zipbudget.herokuapp.com")
+@CrossOrigin("https://budgetapp-client.herokuapp.com")
 @RequestMapping("/budget")
 public class ProfileController {
 
