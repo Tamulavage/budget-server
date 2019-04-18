@@ -32,19 +32,19 @@ public class ServiceControllerTest {
         //this.mvc.perform();
     }
 
-    @Test
-    public void accountRemove() {
-    }
-
-    @Test
-    public void getAccountById() {
-    }
-
-    @Test
-    public void getAll() {
-    }
-
-    @Test
-    public void getAllByUserId() {
-    }
+//    @Test
+//    public void accountRemove() {
+//    }
+//
+//    @Test
+//    public void getAccountById() {
+//    }
+//
+//    @Test
+//    public void getAll() {
+//    }
+//
+//    @Test
+//    public void getAllByUserId() {
+//    }
 }
