@@ -54,7 +54,9 @@ public class TransactionControllerTest {
                 "\"fromAccountId\":1,"+
                 "\"toAccountId\":2,"+
                 "\"memo\":\"3\","+
-                "\"transactionType\":null,"+
+                "\"transactionType\":{"+
+                    "\"description\":null,"+
+                    "\"id\":null}," +
                 "\"transactionDt\":null,"+
                 "\"amount\":1.0"+
                 "},{"+
@@ -62,7 +64,9 @@ public class TransactionControllerTest {
                 "\"fromAccountId\":1,"+
                 "\"toAccountId\":2,"+
                 "\"memo\":\"3\","+
-                "\"transactionType\":null,"+
+                "\"transactionType\":{"+
+                    "\"description\":null,"+
+                    "\"id\":null}," +
                 "\"transactionDt\":null,"+
                 "\"amount\":1.0"+
                 "}]";
@@ -86,7 +90,7 @@ public class TransactionControllerTest {
                         .get("/budget/transaction/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedReturnValue))
-                .andDo(MockMvcResultHandlers.print())
+
         ;
     }
 
@@ -100,7 +104,7 @@ public class TransactionControllerTest {
                 "\"fromAccountId\": null," +
                 "\"toAccountId\": null," +
                 "\"memo\": \"Hey\"," +
-                "\"transactionType\": 2," +
+                "\"transactionType\": null," +
                 "\"transactionDt\": null," +
                 "\"amount\": 5}";
         this.mvc.perform(MockMvcRequestBuilders
@@ -110,34 +114,6 @@ public class TransactionControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andDo(MockMvcResultHandlers.print());
-    }
-
-
-    @Test
-    public void testPostTransactionWithBadAmount() throws Exception {
-        Transaction transaction = new Transaction(2, null, null, null, -5.0, null, null);
-
-        BDDMockito.
-        given(services.createTransaction(transaction))
-                .willReturn(transaction)
-                .willThrow(new InvalidTransactionAmount(" test"));
-
-
-        String inputJSON = "{\"transactionId\": 2," +
-                "\"fromAccountId\": null," +
-                "\"toAccountId\": null," +
-                "\"memo\": null,"  +
-                "\"transactionType\": null,"  +
-                "\"transactionDt\": null," +
-                "\"amount\": -5.0}";
-        this.mvc.perform(MockMvcRequestBuilders
-                .post("/budget/transaction/")
-                .content(inputJSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-        )
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
                 .andDo(MockMvcResultHandlers.print());
     }
 

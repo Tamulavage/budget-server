@@ -35,11 +35,11 @@ public class ProfileServices {
         return profile;
     }
 
-    public void updateUser(Profile newProfileData, Integer id) {
+    public Profile updateUser(Profile newProfileData, Integer id) {
         Profile original = repo.findById(id).get();
         original.setFirstName(newProfileData.getFirstName());
         original.setLastName(newProfileData.getLastName());
-        repo.save(original);
+        return repo.save(original);
     }
 
     public List<Profile> findAllByLast(String last){
@@ -55,8 +55,9 @@ public class ProfileServices {
                 () -> new ResourceNotFound("Profile not found with Id " + id));
     }
 
-    public void deleteUser(Integer id) {
+    public boolean deleteUser(Integer id) {
         repo.deleteById(id);
+        return true;
     }
 
     public List<Profile> findAll(){
