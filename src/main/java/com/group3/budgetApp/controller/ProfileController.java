@@ -57,12 +57,11 @@ public class ProfileController {
     }
 
     @PutMapping("/profile/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Integer id, @RequestBody Profile profile) {
+    public ResponseEntity<Profile> updateUser(@PathVariable Integer id, @RequestBody Profile profile) {
         try {
-            userService.updateUser(profile, id);
-            return new ResponseEntity<>("Profile Updated", HttpStatus.OK);
+            return new ResponseEntity<>(userService.updateUser(profile, id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("No Profile Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -82,7 +81,7 @@ public class ProfileController {
 
     }
 
-    @GetMapping("/profiles")
+    @GetMapping("/profile")
     public ResponseEntity<List<Profile>> findAll() {
         try {
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);

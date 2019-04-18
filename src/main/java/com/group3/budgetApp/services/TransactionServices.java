@@ -37,7 +37,7 @@ public class TransactionServices {
     }
 
     // todo: add try catch block
-    public Iterable<Transaction> getAllTransactions() {
+    public List<Transaction> getAllTransactions() {
         return repo.findAll();
     }
 
