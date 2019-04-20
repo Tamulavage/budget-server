@@ -45,7 +45,7 @@ public class AccountServices {
     
     public Account getAccountById(Integer id) throws ResourceNotFound {
         return repo.findById(id)
-                .orElseThrow(() -> new ResourceNotFound("Transaction not found with Id " + id));
+                .orElseThrow(() -> new ResourceNotFound("Account not found with Id " + id));
     }
     
     public List<Account> findAll() {
