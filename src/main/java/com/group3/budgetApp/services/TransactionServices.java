@@ -129,6 +129,10 @@ public class TransactionServices {
 //        Comparator<Transaction> reverseComparator = comparator.reversed();
 //        return depositList.stream().sorted(reverseComparator).collect(Collectors.toList());
 //    }
+    
+    public List<Transaction> findAllByUserId(Integer userId){
+        return repo.findAllByUserId(userId);
+    }
 
     public List<Transaction> getLatestTransactionsByPage() {
         Sort sort = new Sort(Sort.Direction.DESC, "transactionDt");
@@ -142,6 +146,7 @@ public class TransactionServices {
         }
         return allTransactions;
     }
+
 //    public List<Transaction> findAllByTransactionDtOrderByTransactionDtDesc(Pageable pageable);
 //    public List<Transaction> findTop10ByTransactionDt(LocalDate date, Pageable pageable);
 //    public List<Transaction> findAllByFromAccountIdAAndToAccountId(Integer fromId, Integer toId);

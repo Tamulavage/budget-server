@@ -35,11 +35,20 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @GetMapping("/transaction/{id}")
+//    public ResponseEntity<Transaction> findTransactionsById(@PathVariable Integer id) {
+//        try {
+//            return new ResponseEntity<>(transactionServices.findTransactionById(id), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
     
-    @GetMapping("/transaction/{id}")
-    public ResponseEntity<Transaction> findTransactionsById(@PathVariable Integer id) {
+    @GetMapping("/transaction/{userId}")
+    public ResponseEntity<Iterable<Transaction>> findAllByUserId(@PathVariable Integer userId) {
         try {
-            return new ResponseEntity<>(transactionServices.findTransactionById(id), HttpStatus.OK);
+            return new ResponseEntity<>(transactionServices.findAllByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -53,7 +62,7 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
 //    @GetMapping("/transaction/latest")
 //    public ResponseEntity<Iterable<Transaction>> getLatestTransactions() {
 //        try {
@@ -81,24 +90,24 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    @GetMapping("/transaction/sender/{id}")
-    public ResponseEntity<Iterable<Transaction>> getAllSenderTransactions(@PathVariable Integer id) {
-        
-        try {
-            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    
-    @GetMapping("/transaction/recipient/{id}")
-    public ResponseEntity<Iterable<Transaction>> getAllRecipientTransactions(@PathVariable Integer id) {
-        
-        try {
-            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+
+//    @GetMapping("/transaction/sender/{id}")
+//    public ResponseEntity<Iterable<Transaction>> getAllSenderTransactions(@PathVariable Integer id) {
+//
+//        try {
+//            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+//
+//    @GetMapping("/transaction/recipient/{id}")
+//    public ResponseEntity<Iterable<Transaction>> getAllRecipientTransactions(@PathVariable Integer id) {
+//
+//        try {
+//            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }
