@@ -62,9 +62,8 @@ public class TransactionServices {
             InvalidTransactionAmount {
         df.setRoundingMode(RoundingMode.FLOOR);
         Double amount = Double.parseDouble(df.format(transaction.getAmount()));
-
+        transaction.setAmount(amount);
         transaction.setTransactionType(getDBTransactionType(transaction.getTransactionType()));
-
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
         } else if (amount >= (Double.MAX_VALUE / 1e304)) {

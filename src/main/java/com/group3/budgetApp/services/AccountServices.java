@@ -24,15 +24,17 @@ public class AccountServices{
         repo.save(account);
         return account;
     }
-    public void deleteAccount(Integer id){
+    public boolean deleteAccount(Integer id){
         Account account = repo.getOne(id);
         if( account != null){
             repo.delete(account);
+            return true;
         }
+        return false;
     }
     public Account getAccountById(Integer id) throws ResourceNotFound {
-        return repo.findById(id).orElseThrow(
-                () -> new ResourceNotFound("Transaction not found with Id " + id));
+        return repo.findById(id)
+                .orElseThrow( () -> new ResourceNotFound("Transaction not found with Id " + id));
     }
     public List<Account> findAll(){
         return repo.findAll();
