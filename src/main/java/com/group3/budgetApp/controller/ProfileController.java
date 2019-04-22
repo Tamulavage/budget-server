@@ -50,9 +50,9 @@ public class ProfileController {
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         try {
             userService.deleteUser(id);
-            return new ResponseEntity<>("Profile Deleted", HttpStatus.OK);
+            return new ResponseEntity<>("Profile deleted", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Profile does not exist", HttpStatus.NOT_FOUND);
         }
     }
 
