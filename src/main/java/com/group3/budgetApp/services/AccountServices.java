@@ -26,9 +26,10 @@ public class AccountServices {
     public Account createAccount(Account account) throws InvalidTransactionAmount {
         if (account.getBalance() < 0.0) {
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
+        } else {
+            repo.save(account);
+            return account;
         }
-        repo.save(account);
-        return account;
     }
     
     public Account createAccount(String name, Double balance, Integer userId, String institutionName, Integer accountTypeId, String nickname) throws
