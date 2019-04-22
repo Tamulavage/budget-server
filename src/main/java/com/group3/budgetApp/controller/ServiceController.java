@@ -1,5 +1,6 @@
 package com.group3.budgetApp.controller;
 
+import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.services.AccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ServiceController {
     }
 
     @PostMapping("/account")
-    public ResponseEntity<Account> accountCreate(@RequestBody Account account){
+    public ResponseEntity<Account> accountCreate(@RequestBody Account account) throws InvalidTransactionAmount {
         try {
             if(account != null){
                 Account acc = accountService.createAccount(account);
