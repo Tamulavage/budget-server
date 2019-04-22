@@ -171,16 +171,4 @@ public class ProfileControllerTest {
         Assert.assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void testDeleteError(){
-//        HttpStatus expected = HttpStatus.INTERNAL_SERVER_ERROR;
-//        BDDMockito
-//                .given(services.deleteUser(99))
-//                .willReturn(false);
-//        //When
-//        ResponseEntity responseEntity = controller.deleteUser(99);
-//        HttpStatus actual = responseEntity.getStatusCode();
-//        //Then
-//        Assert.assertEquals(expected,  actual);
-//    }
 }
