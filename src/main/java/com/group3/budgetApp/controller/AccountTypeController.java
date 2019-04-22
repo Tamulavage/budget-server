@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("https://budgetapp-client.herokuapp.com")
 @RequestMapping("/budget")
 public class AccountTypeController {
 

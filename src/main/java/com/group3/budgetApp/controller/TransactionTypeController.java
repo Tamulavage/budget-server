@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("https://budgetapp-client.herokuapp.com")
 @RequestMapping("/budget")
 public class TransactionTypeController {
 
