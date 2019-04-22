@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("https://budgetapp-client.herokuapp.com")
 @RequestMapping("/budget")
@@ -20,7 +22,7 @@ public class TransactionTypeController {
     }
 
     @GetMapping("/transactiontype")
-    public ResponseEntity<Iterable<TransactionType>> getTransactionTypes() {
+    public ResponseEntity<List<TransactionType>> getTransactionTypes() {
         try {
             return new ResponseEntity<>(transactionTypeServices.getAllTransactionTypes(), HttpStatus.OK);
         } catch (Exception e) {
