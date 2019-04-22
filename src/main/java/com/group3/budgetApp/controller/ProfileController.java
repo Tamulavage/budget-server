@@ -76,7 +76,7 @@ public class ProfileController {
                 return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
     }
@@ -100,7 +100,7 @@ public class ProfileController {
                 return new ResponseEntity<>(profileList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -114,7 +114,7 @@ public class ProfileController {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }
