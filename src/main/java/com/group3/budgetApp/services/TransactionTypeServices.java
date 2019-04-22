@@ -13,11 +13,11 @@ public class TransactionTypeServices {
     private TransactionTypeRepository transactionTypeRepository;
 
     @Autowired
-    public TransactionTypeServices(TransactionTypeRepository transactionTypeRepository){
+    public TransactionTypeServices(TransactionTypeRepository transactionTypeRepository) {
         this.transactionTypeRepository = transactionTypeRepository;
     }
 
-    public List<TransactionType> getAllTransactionTypes(){
+    public List<TransactionType> getAllTransactionTypes() {
         return transactionTypeRepository.findAll();
     }
 }

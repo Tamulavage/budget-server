@@ -25,9 +25,6 @@ public class TransactionType {
         return Id;
     }
 
-    public void setId(Integer id) {
-        Id = id;
-    }
 
     public String getDescription() {
         return description;
