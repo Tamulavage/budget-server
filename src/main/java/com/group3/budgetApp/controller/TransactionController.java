@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class TransactionController {
     
     private TransactionServices transactionServices;
-    private Transaction transaction;
     
     @Autowired
     public TransactionController(TransactionServices service) {
@@ -90,24 +89,4 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-//    @GetMapping("/transaction/sender/{id}")
-//    public ResponseEntity<Iterable<Transaction>> getAllSenderTransactions(@PathVariable Integer id) {
-//
-//        try {
-//            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//
-//    @GetMapping("/transaction/recipient/{id}")
-//    public ResponseEntity<Iterable<Transaction>> getAllRecipientTransactions(@PathVariable Integer id) {
-//
-//        try {
-//            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 }
