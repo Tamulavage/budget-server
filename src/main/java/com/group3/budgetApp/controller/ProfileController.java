@@ -1,5 +1,6 @@
 package com.group3.budgetApp.controller;
 
+import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Profile;
 import com.group3.budgetApp.services.ProfileServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,12 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/{id}")
-    public ResponseEntity<Profile> getUser(@PathVariable Integer id) {
-        try {
+    public ResponseEntity<Profile> getUser(@PathVariable Integer id) throws ResourceNotFound {
+
             Profile profile = userService.findById(id);
             if (profile == null) {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+            } else return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/profile/{id}")

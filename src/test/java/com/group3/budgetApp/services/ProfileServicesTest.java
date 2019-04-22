@@ -9,12 +9,14 @@ import org.junit.Test;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -127,7 +129,6 @@ public class ProfileServicesTest {
     @Test
     public void testCreateProfile(){
         //Given
-        List<Profile> expected = new ArrayList<>();
         String first = "Sean";
         String last = "Rowan";
         String username = "SpringKing";
@@ -137,6 +138,30 @@ public class ProfileServicesTest {
         Profile actual = services.createUser(first, last, username);
         //Then
         Assert.assertEquals(profile, actual);
+    }
+
+    @Test(expected = ResourceNotFound.class)
+    public void testResourceNotFound() throws ResourceNotFound {
+        services.findById(99);
+    }
+
+    @Test
+    public void testNullaryConstructor(){
+        Assert.assertNotNull(new ProfileServices());
+    }
+
+    @Test
+    public void testUpdateAccount() {
+        String first = "Sean";
+        String last = "Rowan";
+        String username = "SpringKing";
+        Profile profile = new Profile(first, last, username);
+        Profile newPro = new Profile(first, last, "Testing");
+        Mockito.when(mockRepo.findById(1)).thenReturn(Optional.of(profile));
+
+        services.updateUser(newPro, 1);
+
+        Mockito.verify(mockRepo, Mockito.times(1)).findById(1);
     }
 
 }
