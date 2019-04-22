@@ -1,6 +1,6 @@
 -- # mysql -u root -p < CreateDBSQL.sql
 --
-DROP DATABASE if exists budget;
+-- DROP DATABASE if exists budget;
 CREATE DATABASE budget;
 
 CREATE TABLE profile (
@@ -56,7 +56,7 @@ INSERT INTO "profile" (first_name, last_name, username)
 VALUES ('Joe', 'Fen', 'Fenniless'),
        ('Sean', 'Rowan', 'SpringKing'),
        ('Mark', 'Moll', 'DarthMoll'),
-       ('David', 'Tamulavage', 'CoffeeDave');
+       ('David', 'Tamulavage', 'EvilDave');
 
 INSERT INTO account_type (description)
 VALUES ('Checking'),
@@ -115,6 +115,5 @@ VALUES (1, null, 'bills', 1, '2018-01-07', 340.96),
        (4, 5, 'puting into savings', 12, '2019-03-16', 300.00),
        (4, 5, 'puting into savings', 12, '2019-04-1', 300.00),
        (4, null, 'bills', 1, '2019-04-2', 100.00);
-
 
 
