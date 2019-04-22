@@ -1,8 +1,10 @@
 package com.group3.budgetApp.services;
 
+import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.repository.AccountRepository;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +23,25 @@ public class AccountServices {
         this.repo = repo;
     }
     
-    public Account createAccount(Account account) {
+    public Account createAccount(Account account) throws InvalidTransactionAmount {
+        if (account.getBalance() < 0.0) {
+            throw new InvalidTransactionAmount("Initial balance must be at least zero.");
+        }
         repo.save(account);
         return account;
     }
     
-    public Account createAccount(String name, Double balance, Integer userId, String institutionName, Integer accountTypeId, String nickname) {
-        df.setRoundingMode(RoundingMode.FLOOR);
-        balance = Double.parseDouble(df.format(balance));
-        Account account = new Account(name, balance, userId, institutionName, accountTypeId, nickname);
-        repo.save(account);
-        return account;
+    public Account createAccount(String name, Double balance, Integer userId, String institutionName, Integer accountTypeId, String nickname) throws
+            InvalidTransactionAmount {
+        if (balance < 0.0) {
+            throw new InvalidTransactionAmount("Initial balance must be at least zero.");
+        } else {
+            df.setRoundingMode(RoundingMode.FLOOR);
+            Double balance1 = Double.parseDouble(df.format(balance));
+            Account account = new Account(name, balance1, userId, institutionName, accountTypeId, nickname);
+            repo.save(account);
+            return account;
+        }
     }
     
     public boolean deleteAccount(Integer id) {
