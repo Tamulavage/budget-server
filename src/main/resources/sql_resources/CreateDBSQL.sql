@@ -56,7 +56,7 @@ INSERT INTO "profile" (first_name, last_name, username)
 VALUES ('Joe', 'Fen', 'Fenniless'),
        ('Sean', 'Rowan', 'SpringKing'),
        ('Mark', 'Moll', 'DarthMoll'),
-       ('David', 'Tamulavage', 'EvilDave');
+       ('David', 'Tamulavage', 'CoffeeDave');
 
 INSERT INTO account_type (description)
 VALUES ('Checking'),
