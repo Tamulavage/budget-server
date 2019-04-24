@@ -1,13 +1,19 @@
 package com.group3.budgetApp.services;
 
+import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
+import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.repository.AccountRepository;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
@@ -24,40 +30,106 @@ public class AccountServicesTest {
     public void setup(){
         mockRepo = mock(AccountRepository.class);
         services = new AccountServices(mockRepo);
+
     }
 
+//    @Test
+//    @Ignore
+//    public void testCreateAccount() throws InvalidTransactionAmount {
+//        Account account = new Account();
+//        account.setId(1);
+//        Account expected = new Account();
+//        expected.setId(1);
+//        //Verify that create method is being called;
+//        when(mockRepo.save(account)).thenReturn(expected);
+//
+//        //Verify result
+//        Account actual = services.createAccount(account);
+//
+//        Assert.assertEquals(expected, actual);
+//    }
     @Test
-    public void testCreateAccount(){
-        Account account = new Account();
-        account.setId(1);
-        Account expected = new Account();
-        expected.setId(1);
+    public void testCreateAccount2(){
+        Integer user_id = 3;
+        String name = "test";
+        Double balance = 100000.00;
+        String institution_name = "BOA";
+        Integer accountTypeId = 1;
+        String nickname = "checking";
+        Account account = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
+        Account expected = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
         //Verify that create method is being called;
-        when(mockRepo.save(account)).thenReturn(expected);
+        when(mockRepo.findAccountById(1)).thenReturn(expected);
 
         //Verify result
-        Account actual = services.createAccount(account);
-
+        Account actual = null;
+        try {
+            actual = services.createAccount(name, balance,user_id,institution_name,accountTypeId,nickname);
+        } catch (InvalidTransactionAmount invalidTransactionAmount) {
+            invalidTransactionAmount.printStackTrace();
+        }
+    
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void testFindById(){
-        Account expected = new Account();
+    public void testFindAllById() throws ResourceNotFound {
+        List<Account> expectedList = new ArrayList<>();
+        Account expected = new Account("test",1.0, 1, "1",1,"hey");
+        expectedList.add(expected);
         //When
-        when(mockRepo.getAccountById(1)).thenReturn(expected);//.thenReturn(java.util.Optional.of(expected));
+        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));//.thenReturn(java.util.Optional.of(expected));
         Account actual = services.getAccountById(1);
         //Then
         Assert.assertEquals(expected, actual);
-        System.out.println(expected.toString());
     }
+    @Test
+    public void testFindAll() {
+        List<Account> expectedList = new ArrayList<>();
+        Account expected = new Account("test",1.0, 1, "1",1,"hey");
+        Account expected2 = new Account("test2",2.0, 2, "2",2,"hey2");
+        expectedList.add(expected);
+        expectedList.add(expected2);
+        //When
+        when(mockRepo.findAll()).thenReturn(expectedList);
+        List<Account> actual = services.findAll();
+        //Then
+        Assert.assertEquals(expectedList, actual);
+    }
+    @Test
+    public void testFindAllByUserID() {
+        List<Account> expectedList = new ArrayList<>();
+        List<Account> fullList = new ArrayList<>();
+        Account expected = new Account("test2",2.0, 2, "2",2,"hey2");
+        Account expected2 = new Account("test",1.0, 2, "1",1,"hey");
+        Account decoy3 = new Account("test3",3.0, 3, "3",3,"hey3");
+        expectedList.add(expected);
+        expectedList.add(expected2);
+        fullList.add(expected);
+        fullList.add(expected2);
+        fullList.add(decoy3);
+        //When
+        when(mockRepo.findAllByUserId(2)).thenReturn(expectedList);
+        List<Account> actual = services.findAllByUserId(2);
+        //Then
+        Assert.assertEquals(expectedList, actual);
+    }
+
+    @Test(expected = ResourceNotFound.class)
+    public void testFindAllById2() throws ResourceNotFound {
+        //When
+        services.getAccountById(10);
+    }
+
 
     @Test
     public void testDelete(){
         Account account = new Account();
+        //when
+        when(mockRepo.getOne(1)).thenReturn(account);
         int id = 1;
         services.deleteAccount(id);
-        verify(mockRepo, times(1)).deleteById(id);
+        verify(mockRepo, times(1)).delete(account);
     }
 
 

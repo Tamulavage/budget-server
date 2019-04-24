@@ -1,8 +1,12 @@
 package com.group3.budgetApp.services;
 
 import com.group3.budgetApp.exceptions.*;
+import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.model.Transaction;
+import com.group3.budgetApp.model.TransactionType;
+import com.group3.budgetApp.repository.AccountRepository;
 import com.group3.budgetApp.repository.TransactionRepository;
+import com.group3.budgetApp.repository.TransactionTypeRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,11 +27,17 @@ public class TransactionServicesTest {
     private TransactionServices transactionService;
     @MockBean
     private TransactionRepository repo;
+    @MockBean
+    private TransactionTypeRepository transactionTypeRepository;
+    @MockBean
+    private AccountRepository accountRepository;
     
     @Before
     public void mockSetUp() {
         repo = mock(TransactionRepository.class);
-        transactionService = new TransactionServices(repo);
+        transactionTypeRepository = mock(TransactionTypeRepository.class);
+        accountRepository =  mock(AccountRepository.class);
+        transactionService = new TransactionServices(repo, transactionTypeRepository, accountRepository);
     }
     
     
@@ -40,14 +50,79 @@ public class TransactionServicesTest {
     }
     
     @Test
-    public void testAddTransactionValid() throws InvalidTransactionAmount {
-        Transaction transaction = new Transaction(1, 1, 2, "3", 1.0, null, null);
-        Transaction expected = new Transaction(1, 1, 2, "3", 1.0, null, null);
+    public void testAddTransactionValidWithdraw() throws InvalidTransactionAmount {
+        Transaction transaction = new Transaction(1, 1, null, "3", 1.0, null, null);
+        Transaction expected = new Transaction(1, 1, null, "3", 1.0, null, null);
+        TransactionType transactionType = new TransactionType("Other");
+
+        Account account = new Account("test",10.0, null, null, null,null);
+
         when(repo.save(transaction)).thenReturn(expected);
-        
+        when(transactionTypeRepository.findByDescription("Other")).thenReturn(transactionType);
+        when(accountRepository.findAccountById(1)).thenReturn(account);
+
         // When
         Transaction actual = transactionService.createTransaction(transaction);
-        
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddTransactionInvalidWithdraw() throws InvalidTransactionAmount {
+        Transaction transaction = new Transaction(1, 1, null, "3", 100.0, null, null);
+        Transaction expected = new Transaction(1, 1, null, "3", 100.0, null, null);
+        TransactionType transactionType = new TransactionType("Other");
+
+        Account account = new Account("test",10.0, null, null, null,null);
+
+        when(repo.save(transaction)).thenReturn(expected);
+        when(transactionTypeRepository.findByDescription("Other")).thenReturn(transactionType);
+        when(accountRepository.findAccountById(1)).thenReturn(account);
+
+        // When
+        Transaction actual = transactionService.createTransaction(transaction);
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testAddTransactionValidDepost() throws InvalidTransactionAmount {
+        Transaction transaction = new Transaction(1, null, 1, "3", 100.0, null, null);
+        Transaction expected = new Transaction(1, null, 1, "3", 100.0, null, null);
+        TransactionType transactionType = new TransactionType("Other");
+
+        Account account = new Account("test",10.0, null, null, null,null);
+
+        when(repo.save(transaction)).thenReturn(expected);
+        when(transactionTypeRepository.findByDescription("Other")).thenReturn(transactionType);
+        when(accountRepository.findAccountById(1)).thenReturn(account);
+
+        // When
+        Transaction actual = transactionService.createTransaction(transaction);
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testAddTransactionValidTransfer() throws InvalidTransactionAmount {
+        Transaction transaction = new Transaction(1, 2, 1, "3", 1.0, null, null);
+        Transaction expected = new Transaction(1, 2, 1, "3", 1.0, null, null);
+        TransactionType transactionType = new TransactionType("Other");
+
+        Account account1 = new Account("test",10.0, null, null, null,null);
+        Account account2 = new Account("test",10.0, null, null, null,null);
+
+        when(repo.save(transaction)).thenReturn(expected);
+        when(transactionTypeRepository.findByDescription("Other")).thenReturn(transactionType);
+        when(accountRepository.findAccountById(1)).thenReturn(account1);
+        when(accountRepository.findAccountById(2)).thenReturn(account2);
+
+        // When
+        Transaction actual = transactionService.createTransaction(transaction);
+
         // Then
         Assert.assertEquals(expected, actual);
     }
@@ -55,7 +130,9 @@ public class TransactionServicesTest {
     
     @Test
     public void testDeleteTransactionById() throws InvalidTransactionAmount {
-        Transaction transaction = new Transaction(1, 1, 2, "3", 1.0, null, null);
+        Transaction transaction = new Transaction(1, null, 1, "3", 1.0, null, null);
+        Account account = new Account("test",10.0, null, null, null,null);
+        when(accountRepository.findAccountById(1)).thenReturn(account);
         transactionService.createTransaction(transaction);
         
         transactionService.deleteTransaction(1);
