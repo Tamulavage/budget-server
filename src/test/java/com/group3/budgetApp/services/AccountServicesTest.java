@@ -33,21 +33,21 @@ public class AccountServicesTest {
 
     }
 
-    @Test
-    @Ignore
-    public void testCreateAccount() throws InvalidTransactionAmount {
-        Account account = new Account();
-        account.setId(1);
-        Account expected = new Account();
-        expected.setId(1);
-        //Verify that create method is being called;
-        when(mockRepo.save(account)).thenReturn(expected);
-
-        //Verify result
-        Account actual = services.createAccount(account);
-
-        Assert.assertEquals(expected, actual);
-    }
+//    @Test
+//    @Ignore
+//    public void testCreateAccount() throws InvalidTransactionAmount {
+//        Account account = new Account();
+//        account.setId(1);
+//        Account expected = new Account();
+//        expected.setId(1);
+//        //Verify that create method is being called;
+//        when(mockRepo.save(account)).thenReturn(expected);
+//
+//        //Verify result
+//        Account actual = services.createAccount(account);
+//
+//        Assert.assertEquals(expected, actual);
+//    }
     @Test
     public void testCreateAccount2(){
         Integer user_id = 3;
