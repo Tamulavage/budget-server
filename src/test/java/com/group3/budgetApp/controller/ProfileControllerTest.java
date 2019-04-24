@@ -80,7 +80,7 @@ public class ProfileControllerTest {
         String expectedPro = responseEntity.getBody();
         //Then
         Assert.assertEquals(expected, actual);
-        Assert.assertEquals("Profile Deleted", expectedPro);
+        Assert.assertEquals("Profile deleted", expectedPro);
     }
 
     @Test
