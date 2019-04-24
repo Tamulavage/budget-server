@@ -31,44 +31,44 @@ import static org.mockito.Mockito.when;
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 public class TransactionControllerTest {
-
+    
     @Autowired
     private MockMvc mvc;
-
+    
     @MockBean
     private TransactionServices services;
-
-
+    
+    
     @Test
-    public void testGetTransactions() throws Exception{
+    public void testGetTransactions() throws Exception {
         ArrayList<Transaction> transactions = new ArrayList<>();
-        Transaction transaction1 = new Transaction(1, 1,2,"3",1.0, null, null);
-        Transaction transaction2 = new Transaction(2, 1,2,"3",1.0, null, null);
+        Transaction transaction1 = new Transaction(1, 1, 2, "3", 1.0, null, null);
+        Transaction transaction2 = new Transaction(2, 1, 2, "3", 1.0, null, null);
         transactions.add(transaction1);
         transactions.add(transaction2);
         given(services.getAllTransactions())
                 .willReturn(transactions);
-
-        String expectedReturnValue = "[{"+
-                "\"transactionId\":1,"+
-                "\"fromAccountId\":1,"+
-                "\"toAccountId\":2,"+
-                "\"memo\":\"3\","+
-                "\"transactionType\":{"+
-                    "\"description\":null,"+
-                    "\"id\":null}," +
-                "\"transactionDt\":null,"+
-                "\"amount\":1.0"+
-                "},{"+
-                "\"transactionId\":2,"+
-                "\"fromAccountId\":1,"+
-                "\"toAccountId\":2,"+
-                "\"memo\":\"3\","+
-                "\"transactionType\":{"+
-                    "\"description\":null,"+
-                    "\"id\":null}," +
-                "\"transactionDt\":null,"+
-                "\"amount\":1.0"+
+        
+        String expectedReturnValue = "[{" +
+                "\"transactionId\":1," +
+                "\"fromAccountId\":1," +
+                "\"toAccountId\":2," +
+                "\"memo\":\"3\"," +
+                "\"transactionType\":{" +
+                "\"description\":null," +
+                "\"id\":null}," +
+                "\"transactionDt\":null," +
+                "\"amount\":1.0" +
+                "},{" +
+                "\"transactionId\":2," +
+                "\"fromAccountId\":1," +
+                "\"toAccountId\":2," +
+                "\"memo\":\"3\"," +
+                "\"transactionType\":{" +
+                "\"description\":null," +
+                "\"id\":null}," +
+                "\"transactionDt\":null," +
+                "\"amount\":1.0" +
                 "}]";
         this.mvc.perform(
                 MockMvcRequestBuilders
@@ -76,30 +76,30 @@ public class TransactionControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedReturnValue))
                 .andDo(MockMvcResultHandlers.print())
-                ;
+        ;
     }
-
+    
     @Test
-    public void testGetTransactionsNoTransactions() throws Exception{
+    public void testGetTransactionsNoTransactions() throws Exception {
         given(services.getAllTransactions())
                 .willReturn(null);
-
+        
         String expectedReturnValue = "";
         this.mvc.perform(
                 MockMvcRequestBuilders
                         .get("/budget/transaction/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedReturnValue))
-
+        
         ;
     }
-
+    
     @Test
-    public void testPostTransaction() throws Exception{
+    public void testPostTransaction() throws Exception {
         Transaction transaction = new Transaction(1, null, null, null, null, null, null);
         given(services.createTransaction(transaction))
                 .willReturn(transaction);
-
+        
         String inputJSON = "{\"transactionId\": 2," +
                 "\"fromAccountId\": null," +
                 "\"toAccountId\": null," +
@@ -116,5 +116,5 @@ public class TransactionControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andDo(MockMvcResultHandlers.print());
     }
-
+    
 }

@@ -31,7 +31,7 @@ public class ServiceController {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
         }
-        catch (IllegalArgumentException iae){
+        catch (IllegalArgumentException | InvalidTransactionAmount iae){
             System.err.println(iae.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
