@@ -34,15 +34,6 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
-//    @GetMapping("/transaction/{id}")
-//    public ResponseEntity<Transaction> findTransactionsById(@PathVariable Integer id) {
-//        try {
-//            return new ResponseEntity<>(transactionServices.findTransactionById(id), HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
     
     @GetMapping("/transaction/{userId}")
     public ResponseEntity<Iterable<Transaction>> findAllByUserId(@PathVariable Integer userId) {
@@ -61,15 +52,6 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-//    @GetMapping("/transaction/latest")
-//    public ResponseEntity<Iterable<Transaction>> getLatestTransactions() {
-//        try {
-//            return new ResponseEntity<>(transactionServices.getLatestDeposits(), HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
     
     @DeleteMapping("/transaction/{id}")
     public ResponseEntity<String> transactionRemove(@PathVariable Integer id) {

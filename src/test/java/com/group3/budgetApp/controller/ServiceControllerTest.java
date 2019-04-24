@@ -1,5 +1,6 @@
 package com.group3.budgetApp.controller;
 
+import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.model.Profile;
@@ -42,7 +43,7 @@ public class ServiceControllerTest {
     }
 
     @Test
-    public void accountCreateTest() {
+    public void accountCreateTest() throws InvalidTransactionAmount {
         Account account = new Account();
         HttpStatus expected = HttpStatus.CREATED;
         BDDMockito
@@ -57,7 +58,7 @@ public class ServiceControllerTest {
         Assert.assertEquals(account, actualAccount);
     }
     @Test
-    public void accountCreateTest2() {
+    public void accountCreateTest2() throws InvalidTransactionAmount {
         Account account = null;
         HttpStatus expected = HttpStatus.BAD_REQUEST;
         BDDMockito
