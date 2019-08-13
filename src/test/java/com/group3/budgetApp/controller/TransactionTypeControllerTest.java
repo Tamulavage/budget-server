@@ -26,8 +26,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 public class TransactionTypeControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    // @Autowired
+    // private MockMvc mvc;
 
     @MockBean
     private TransactionTypeServices services;

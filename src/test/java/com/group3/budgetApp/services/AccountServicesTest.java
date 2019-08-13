@@ -6,7 +6,6 @@ import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.repository.AccountRepository;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -56,7 +55,6 @@ public class AccountServicesTest {
         String institution_name = "BOA";
         Integer accountTypeId = 1;
         String nickname = "checking";
-        Account account = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
         Account expected = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
         //Verify that create method is being called;
         when(mockRepo.findAccountById(1)).thenReturn(expected);

@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("https://budgetapp-client.herokuapp.com")
+// @CrossOrigin("https://budgetapp-client.herokuapp.com")
+@CrossOrigin()
 @RequestMapping("/budget")
 public class ServiceController {
     private AccountServices accountService;

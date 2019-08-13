@@ -1,13 +1,10 @@
 package com.group3.budgetApp.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
 import static javax.persistence.CascadeType.ALL;
 
-@Data
 @Entity
 @Table(name = "TRANSACTION")
 public class Transaction {
@@ -66,5 +63,53 @@ public class Transaction {
                 ", transactionType=" + transactionType +
                 ", transactionDt=" + transactionDt +
                 '}';
+    }
+
+    public Integer getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public Integer getFromAccountId() {
+        return fromAccountId;
+    }
+
+    public void setFromAccountId(Integer fromAccountId) {
+        this.fromAccountId = fromAccountId;
+    }
+
+    public Integer getToAccountId() {
+        return toAccountId;
+    }
+
+    public void setToAccountId(Integer toAccountId) {
+        this.toAccountId = toAccountId;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public LocalDate getTransactionDt() {
+        return transactionDt;
+    }
+
+    public void setTransactionDt(LocalDate transactionDt) {
+        this.transactionDt = transactionDt;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }

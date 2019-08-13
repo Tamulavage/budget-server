@@ -1,10 +1,8 @@
 package com.group3.budgetApp.model;
-import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Data
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,5 +79,37 @@ public class Account {
 
     public void setInstitution_name(String institution_name) {
         this.institutionName = institution_name;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getInstitutionName() {
+        return institutionName;
+    }
+
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
+    }
+
+    public Integer getAccountTypeId() {
+        return accountTypeId;
+    }
+
+    public void setAccountTypeId(Integer accountTypeId) {
+        this.accountTypeId = accountTypeId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

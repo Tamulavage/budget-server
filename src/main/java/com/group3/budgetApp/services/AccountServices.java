@@ -4,7 +4,6 @@ import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.repository.AccountRepository;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
