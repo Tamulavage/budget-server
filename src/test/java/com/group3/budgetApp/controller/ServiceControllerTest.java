@@ -3,36 +3,27 @@ package com.group3.budgetApp.controller;
 import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
-import com.group3.budgetApp.model.Profile;
 import com.group3.budgetApp.services.AccountServices;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 public class ServiceControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
     @MockBean
     private AccountServices services;
     private ServiceController controller;
@@ -75,7 +66,6 @@ public class ServiceControllerTest {
 
     @Test
     public void accountRemoveTest() {
-        Account account = new Account();
         HttpStatus expected = HttpStatus.OK;
         BDDMockito
                 .given(services.deleteAccount(1)).willReturn(true);
@@ -122,14 +112,11 @@ public class ServiceControllerTest {
     }
     @Test
     public void getAccountByIdTest2() throws ResourceNotFound {
-        Account account = new Account("test",1.0, 1, "1",1,"hey");
-        HttpStatus expected = HttpStatus.NOT_FOUND;
         BDDMockito
                 .given(services.getAccountById(2))
                 .willReturn(null);
         //When
         ResponseEntity<Account> entity = controller.getAccountById(2);
-        HttpStatus actual = entity.getStatusCode();
         Account actualAccount = entity.getBody();
         //Then
         Assert.assertEquals(null, actualAccount);
@@ -157,13 +144,11 @@ public class ServiceControllerTest {
     }
     @Test
     public void getAllTest2() {
-        HttpStatus expected = HttpStatus.NOT_FOUND;
         BDDMockito
                 .given(services.findAll())
                 .willReturn(null);
         //When
         ResponseEntity<List<Account>> entity = controller.getAll();
-        HttpStatus actual = entity.getStatusCode();
         List<Account> actualAccount = entity.getBody();
         //Then
         Assert.assertEquals(null, actualAccount);

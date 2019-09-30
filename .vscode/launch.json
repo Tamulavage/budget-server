@@ -6,6 +6,13 @@
             "request": "launch",
             "mainClass": "com.group3.budgetApp.BudgetApplication",
             "projectName": "budgetApp"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - BudgetApplication",
+            "request": "launch",
+            "mainClass": "BudgetApplication",
+            "projectName": "budgetApp"
         }
     ]
 }

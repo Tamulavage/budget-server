@@ -1,6 +1,5 @@
 package com.group3.budgetApp.services;
 
-import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.repository.AccountRepository;
@@ -32,43 +31,6 @@ public class AccountServicesTest {
 
     }
 
-//    @Test
-//    @Ignore
-//    public void testCreateAccount() throws InvalidTransactionAmount {
-//        Account account = new Account();
-//        account.setId(1);
-//        Account expected = new Account();
-//        expected.setId(1);
-//        //Verify that create method is being called;
-//        when(mockRepo.save(account)).thenReturn(expected);
-//
-//        //Verify result
-//        Account actual = services.createAccount(account);
-//
-//        Assert.assertEquals(expected, actual);
-//    }
-    @Test
-    public void testCreateAccount2(){
-        Integer user_id = 3;
-        String name = "test";
-        Double balance = 100000.00;
-        String institution_name = "BOA";
-        Integer accountTypeId = 1;
-        String nickname = "checking";
-        Account expected = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
-        //Verify that create method is being called;
-        when(mockRepo.findAccountById(1)).thenReturn(expected);
-
-        //Verify result
-        Account actual = null;
-        try {
-            actual = services.createAccount(name, balance,user_id,institution_name,accountTypeId,nickname);
-        } catch (InvalidTransactionAmount invalidTransactionAmount) {
-            invalidTransactionAmount.printStackTrace();
-        }
-    
-        Assert.assertEquals(expected, actual);
-    }
 
     @Test
     public void testFindAllById() throws ResourceNotFound {
@@ -76,7 +38,7 @@ public class AccountServicesTest {
         Account expected = new Account("test",1.0, 1, "1",1,"hey");
         expectedList.add(expected);
         //When
-        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));//.thenReturn(java.util.Optional.of(expected));
+        when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
         Account actual = services.getAccountById(1);
         //Then
         Assert.assertEquals(expected, actual);
