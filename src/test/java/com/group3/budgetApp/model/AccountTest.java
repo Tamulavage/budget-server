@@ -30,7 +30,6 @@ public class AccountTest {
 
         Assert.assertEquals(user_id,account.getUserId());
         Assert.assertEquals(name, account.getName());
-
     }
     @Test
     public void constructorTest3(){
@@ -45,7 +44,6 @@ public class AccountTest {
         Assert.assertEquals(user_id,account.getUserId());
         Assert.assertEquals(name, account.getName());
         Assert.assertEquals(balance, account.getBalance());
-        System.out.println(account.toString());
 
     }
     @Test
