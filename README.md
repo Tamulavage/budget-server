@@ -9,75 +9,7 @@
 * **Data Layer** - MySQL
 * **Cloud** - Heroku
 
-### Installation
-* Install [NodeJs](https://nodejs.org/en/). From terminal execute
-    * `brew install node`
-* Install [Angular](http://angular.io/). From terminal execute
-    * `brew install angular-cli`
-* Install [AngularCli](). From terminal execute
-    * `npm install -g @angular/cli`
-* Install [Heroku](). From terminal execute
-	* `brew tap heroku/brew && brew install heroku`
-
-<hr><hr>
-
 
 Summary:
 
 	A budgeting application (example: an electronic checkbook), that allows tagging transactions and visualizes spending over time to help plan future budgets.
-
-
-
-## Project Topics
-
-### TCP Application
-
-#### User Stories to Fulfill  
-* As a client, (not logged in) I
-    * can send messages to a _peer_.
-	* can view default channels
-	* can view all accessible channels
-	* can view messages live as they are received
-
-<hr>
-
-
-
-
-
-### Blog Application
-
-#### User Stories to Fulfill  
-* As a client, (not logged in) I
-    * can create new blog posts
-        * A blog post can consist of images and text
-	* can view list of all blog posts
-    * can view blog posts filtered by blog-tag
-	* can view new blog posts upon refreshing the DOM
-
-<hr>
-
-
-
-
-
-### Video Library Application
-
-#### User Stories to Fulfill  
-* As a client, (not logged in) I
-    * can upload new videos
-	* can view list of all videos
-	* can post simple text-comments on a video
-
-
-
-
-
-### Money Management Application
-
-#### User Stories to Fulfill  
-* As a client, (not logged in) I
-	* can create new accounts
-	* deposit money to each account
-	* withdrawl money from each account
-	* transfer money to and from any 2 accounts
