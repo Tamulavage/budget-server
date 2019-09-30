@@ -12,12 +12,10 @@ import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 @RunWith(SpringRunner.class)
 public class ProfileControllerTest {
@@ -30,7 +28,7 @@ public class ProfileControllerTest {
     @Before
     public void setup() {
         this.controller = new ProfileController(services);
-        profile = new Profile("Sean", "Rowan", "Browan");
+        profile = new Profile("S", "R", "username");
         profile.setId(1);
         list = new ArrayList<>();
         list.add(profile);

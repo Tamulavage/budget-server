@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class AccountServices {
     private DecimalFormat df = new DecimalFormat("#.##");
-    //   @Autowired
+     @Autowired
     private AccountRepository repo;
     
     @Autowired

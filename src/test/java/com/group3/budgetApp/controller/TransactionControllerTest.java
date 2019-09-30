@@ -1,13 +1,9 @@
 package com.group3.budgetApp.controller;
 
-import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
-import com.group3.budgetApp.repository.TransactionRepository;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.services.TransactionServices;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,9 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 @SpringBootTest

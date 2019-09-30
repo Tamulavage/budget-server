@@ -53,7 +53,7 @@ public class TransactionServices {
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
         } else if (amount >= (Double.MAX_VALUE / 1e304)) {
-            throw new InvalidTransactionAmount(String.format("Money laundering is a crime.\nYour attempted deposit of %f dollars has been reported to the SEC.", amount));
+            throw new InvalidTransactionAmount(String.format("Transactions amount is to large %f", amount));
         }
         Character withdrawDepositTransfer = identifyTransaction(transaction);
         updateAccountBalance(transaction, withdrawDepositTransfer);
