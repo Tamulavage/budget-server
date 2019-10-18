@@ -72,7 +72,7 @@ public class ServiceController {
         try {
             return new ResponseEntity<>(accountService.findAllByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 }

@@ -3,7 +3,6 @@ package com.group3.budgetApp.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "TRANSACTION")
@@ -19,9 +18,6 @@ public class Transaction {
     private Integer toAccountId;
     @Column
     private String memo;
-    @ManyToOne(cascade = ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "transaction_type")
-    private TransactionType transactionType;
     @Column(name = "transaction_dt")
     private LocalDate transactionDt;
     @Column
@@ -30,28 +26,15 @@ public class Transaction {
     public Transaction() {
     }
     
-    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount, TransactionType transactionType, LocalDate transactionDt) {
+    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount,  LocalDate transactionDt) {
         this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.memo = memo;
         this.amount = amount;
-        this.transactionType = transactionType;
         this.transactionDt = transactionDt;
     }
-    
-    public TransactionType getTransactionType() {
-        if (this.transactionType == null) {
-            return new TransactionType();
-        } else {
-            return transactionType;
-        }
-    }
-    
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
-    }
-    
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -60,7 +43,6 @@ public class Transaction {
                 ", toAccountId=" + toAccountId +
                 ", memo='" + memo + '\'' +
                 ", amount=" + amount +
-                ", transactionType=" + transactionType +
                 ", transactionDt=" + transactionDt +
                 '}';
     }
