@@ -30,7 +30,7 @@ public class ServiceControllerTest {
 
     @Before
     public void setup(){
-        this.controller = new ServiceController(services);
+        // this.controller = new ServiceController(services);
     }
 
     @Test

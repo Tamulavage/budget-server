@@ -6,9 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "profile_account_xref")
 public class ProfileAccountXref {
+// TODO: remove model if not needed in future
 
     @EmbeddedId
     Integer id;

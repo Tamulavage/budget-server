@@ -29,7 +29,7 @@ CREATE TABLE profile_account_xref
 (
   profile_id INTEGER NOT NULL,
   account_id INTEGER NOT NULL,
-  primary_profile_ud BOOLEAN NOT NULL,  
+  primary_profile BOOLEAN NOT NULL,  
   CONSTRAINT fk_profile_id FOREIGN KEY (profile_id) REFERENCES profile (user_id),
   CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account (id)
 );
@@ -81,7 +81,7 @@ VALUES (1, "Primary Checking", "Chase", 1003.01),
        (2, "Primary Savings", "Chase", 1045.12);
 
 INSERT INTO profile (first_name, last_name, username)
-VALUES  ("Jen", "Tamulavage", "jenT"),
+VALUES  ("J", "Tamulavage", "jt1"),
         ("David", "Tamulavage", "tamulavage");
 
 
@@ -90,8 +90,24 @@ INSERT INTO budget.profile_account_xref
     (2,2,true),
     (2,1,true);
 
-INSERT INTO transaction (from_account_id, to_account_id, memo, transaction_dt, amount)
+INSERT INTO budget.transaction (from_account_id, to_account_id, memo, transaction_dt, amount)
 VALUES (1, null, "bills",  "2018-01-07", 340.96),
        (null, 1, "work", "2018-01-07", 1400.42),
        (1, 2, "transfer", "2018-01-08", 43.64),
        (1, null, "bills", "2018-01-09", 100.76);
+
+INSERT INTO budget.future_accounting_org 
+VALUES (1, "I", "Paycheck"),
+  (2, "O", "Rent" ),
+  (3, "O", "CreditCard");
+
+INSERT INTO budget.future_accounting 
+VALUES (1, 1, 2002.01, 2),
+(1, 2, 2000.01, 2),
+(1, 3, 2000.01, 2),
+(2, 1, 2000.01, 2),
+(2, 2, 1700.50, 1),
+(2, 3, 1700.50, 1),
+(3, 1, 500.50, 1),
+(3, 2, 500.50, 1),
+(3, 3, 100.50, 2);
