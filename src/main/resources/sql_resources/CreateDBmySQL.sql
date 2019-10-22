@@ -56,6 +56,7 @@ CREATE TABLE future_accounting_org (
   org_id     INTEGER NOT NULL auto_increment,
   direction  VARCHAR(5),
   org_name   VARCHAR(25),
+  profile_id INTEGER,
   CONSTRAINT pk_future_accounting_org PRIMARY KEY (org_id)  
 );
 
@@ -97,17 +98,20 @@ VALUES (1, null, "bills",  "2018-01-07", 340.96),
        (1, null, "bills", "2018-01-09", 100.76);
 
 INSERT INTO budget.future_accounting_org 
-VALUES (1, "I", "Paycheck"),
-  (2, "O", "Rent" ),
-  (3, "O", "CreditCard");
+VALUES (1, "I", "Paycheck",2 ),
+  (2, "O", "Rent" , 2),
+  (3, "O", "CreditCard", 2);
 
 INSERT INTO budget.future_accounting 
 VALUES (1, 1, 2002.01, 2),
 (1, 2, 2000.01, 2),
 (1, 3, 2000.01, 2),
-(2, 1, 2000.01, 2),
+(1, 10, 2000.01, 2),
+(2, 1, 2000.01, 1),
 (2, 2, 1700.50, 1),
 (2, 3, 1700.50, 1),
+(2, 9, 1100.50, 1),
 (3, 1, 500.50, 1),
 (3, 2, 500.50, 1),
-(3, 3, 100.50, 2);
+(3, 12, 1500.50, 1),
+(3, 3, 100.50, 1);

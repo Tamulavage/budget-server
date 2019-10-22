@@ -81,12 +81,12 @@ public class ServiceController {
         try {
             Account account = accountService.getAccountById(id);
             if (account == null) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             } else {
                 return new ResponseEntity<>(accountService.getAccountById(id), HttpStatus.OK);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping("/account")
@@ -94,7 +94,7 @@ public class ServiceController {
         try {
             return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping("/account/")
