@@ -1,41 +1,52 @@
 package com.group3.budgetApp.model;
 
-import javax.persistence.*;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name")
-    private String name;
+
     @Column(name = "balance")
     private Double balance;
-    @Column(name = "user_id")
-    private Integer userId;
     @Column(name = "institution_name")
     private String institutionName;
     @Column(name = "account_type_id")
     private Integer accountTypeId;
-    @Column(name = "nickname")
+    @Column(name = "nick_name")
     private String nickname;
+
+    @JsonIgnore
+    @Column(name = "active")
+    private String active;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "account")
+    Set<ProfileAccountXref> profiles;
 
     public Account(){
     }
     public Account(Integer id){
         this.id = id;
     }
-    public Account(String name, Integer user_id) {
-        this.name = name;
-        this.userId = user_id;
+    public Account(String nickname) {
+        this.nickname = nickname;
         this.balance = 0.0;
         this.institutionName = "";
     }
 
-    public Account(String name, Double balance, Integer user_id, String institution_name, Integer accountTypeId, String nickname) {
-        this.name = name;
+    public Account(Double balance, String institution_name, Integer accountTypeId, String nickname) {
         this.balance = balance;
-        this.userId = user_id;
         this.institutionName = institution_name;
         this.accountTypeId = accountTypeId;
         this.nickname = nickname;
@@ -49,14 +60,6 @@ public class Account {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Double getBalance() {
         return balance;
     }
@@ -65,29 +68,6 @@ public class Account {
         this.balance = balance;
     }
 
-    public Integer getUser_id() {
-        return userId;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.userId = user_id;
-    }
-
-    public String getInstitution_name() {
-        return institutionName;
-    }
-
-    public void setInstitution_name(String institution_name) {
-        this.institutionName = institution_name;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public String getInstitutionName() {
         return institutionName;
@@ -111,5 +91,21 @@ public class Account {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public Set<ProfileAccountXref> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(Set<ProfileAccountXref> profiles) {
+        this.profiles = profiles;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 }

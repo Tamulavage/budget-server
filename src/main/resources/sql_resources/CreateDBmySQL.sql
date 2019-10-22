@@ -18,19 +18,20 @@ CREATE TABLE account
 (
   id               INTEGER NOT NULL auto_increment,
   account_type_id  INTEGER NOT NULL,
-  name             varchar(100),
+  nick_name        varchar(100),
   institution_name varchar(100),
-  nickname         varchar(100),
   balance          double,
-  user_id          INTEGER,
+  active           varchar(50),
   CONSTRAINT pk_account PRIMARY KEY (id)
 );
 
-CREATE TABLE transaction_type
+CREATE TABLE profile_account_xref
 (
-  id          INTEGER NOT NULL auto_increment,
-  description varchar(50),
-  CONSTRAINT pk_transaction_type PRIMARY KEY (id)
+  profile_id INTEGER NOT NULL,
+  account_id INTEGER NOT NULL,
+  primary_profile BOOLEAN NOT NULL,  
+  CONSTRAINT fk_profile_id FOREIGN KEY (profile_id) REFERENCES profile (user_id),
+  CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account (id)
 );
 
 CREATE TABLE transaction
@@ -39,13 +40,10 @@ CREATE TABLE transaction
   from_account_id  INTEGER,
   to_account_id    INTEGER,
   memo             varchar(200),
-  transaction_type INTEGER,
   transaction_dt   date,
   amount           double,
-  CONSTRAINT pk_transaction PRIMARY KEY (transaction_id),
-  CONSTRAINT fk_transaction_type FOREIGN KEY (transaction_type) REFERENCES transaction_type (id)
+  CONSTRAINT pk_transaction PRIMARY KEY (transaction_id)
 );
-
 
 CREATE TABLE account_type
 (
@@ -54,76 +52,66 @@ CREATE TABLE account_type
   CONSTRAINT pk_account_type PRIMARY KEY (id)
 );
 
-INSERT INTO account (account_type_id, name, institution_name, nickname, balance, user_id)
-VALUES (1, "Joe's Checking Account", "BOA", "Primary Checking", 2073.98, 1),
-       (1, "Sean's Account", "Cap one", "My account with Cap One", 12.23, 2),
-       (2, "Mark's Big Money", "Bank of Moscow", "my Savings", 1000009.05, 3),
-       (1, "David's Checking", "Chase", "Checking", 1003.01, 4),
-       (2, "David's Savings", "Chase", "Savings", 1045.12, 4);
+CREATE TABLE future_accounting_org (
+  org_id     INTEGER NOT NULL auto_increment,
+  direction  VARCHAR(5),
+  org_name   VARCHAR(25),
+  profile_id INTEGER,
+  CONSTRAINT pk_future_accounting_org PRIMARY KEY (org_id)  
+);
 
-INSERT INTO profile (first_name, last_name, username)
-VALUES ("Joe", "Fen", "Fenniless"),
-       ("Sean", "Rowan", "SpringKing"),
-       ("Mark", "Moll", "DarthMoll"),
-       ("David", "Tamulavage", "EvilDave");
+CREATE TABLE future_accounting (
+  org_id          INTEGER NOT NULL,
+  month           INTEGER NOT NULL,
+  amount          double NOT null,
+  freq_per_month  INTEGER NOT NULL,
+  CONSTRAINT pk_future_accounting PRIMARY KEY (org_id, month) ,
+  CONSTRAINT fk_accounting FOREIGN KEY (org_id) REFERENCES future_accounting_org (org_id)
+);
 
+------------------
 INSERT INTO account_type (description)
 VALUES ("Checking"),
-       ("Saving");
+       ("Saving"),
+       ("CD");
 
-INSERT INTO transaction_type (description)
-VALUES ("Rent"),
-       ("Internet/ Cellular"),
-       ("Loans"),
-       ("Credit Payment"),
-       ("Insurance"),
-       ("Utilities"),
-       ("Gas"),
-       ("Groceries"),
-       ("DayCare"),
-       ("Entertainment"),
-       ("Income"),
-       ("Other"),
-       ("Subscriptions");
+---------------
 
-INSERT INTO transaction (from_account_id, to_account_id, memo, transaction_type, transaction_dt, amount)
-VALUES (1, null, "bills", 1, "2018-01-07", 340.96),
-       (null, 1, "work", 11, "2018-01-07", 1400.42),
-       (1, null, "bills", 2, "2018-01-08", 43.64),
-       (1, null, "bills", 3, "2018-01-09", 100.76),
-       (1, null, "bills", 4, "2018-01-10", 45.50),
-       (1, null, "bills", 5, "2018-01-11", 35.56),
-       (1, null, "stuff", 10, "2018-01-12", 135.56),
-       (1, 4, "stuff", 10, "2018-01-12", 135.56),
-       (null, 1, "work", 11, "2018-01-07", 1400.42),
-       (1, null, "bills", 1, "2018-02-07", 340.96),
-       (1, null, "bills", 2, "2018-02-08", 43.64),
-       (1, null, "bills", 3, "2018-02-09", 100.76),
-       (1, null, "bills", 4, "2018-02-10", 45.50),
-       (1, null, "bills", 5, "2018-02-11", 35.56),
-       (1, null, "stuff", 13, "2018-01-12", 5.91),
-       (null, 2, "work", 11, "2019-01-07", 3400.96),
-       (2, null, "bills", 1, "2019-01-07", 340.96),
-       (2, null, "bills", 2, "2019-01-08", 43.64),
-       (2, null, "bills", 3, "2019-01-09", 100.76),
-       (2, null, "bills", 4, "2019-01-10", 45.50),
-       (2, null, "bills", 5, "2019-01-11", 35.56),
-       (2, null, "stuff", 10, "2019-01-12", 135.56),
-       (2, 4, "stuff", 10, "2019-01-12", 135.56),
-       (null, 2, "work", 11, "2019-02-07", 3400.96),
-       (2, null, "bills", 1, "2019-02-07", 340.96),
-       (2, null, "bills", 2, "2019-02-08", 43.64),
-       (2, null, "bills", 3, "2019-02-09", 100.76),
-       (2, null, "bills", 4, "2019-02-10", 45.50),
-       (2, null, "bills", 5, "2019-02-11", 35.56),
-       (2, null, "stuff", 13, "2019-01-12", 5.91),
-       (null, 3, "deposit", 11, "2019-03-12", 500000.91),
-       (null, 3, "deposit", 11, "2019-03-13", 500000.91),
-       (null, 3, "deposit", 11, "2019-03-14", 500000.91),
-       (3, 5, "thanks Dave", 3, "2019-03-15", 100000.00),
-       (4, 5, "puting into savings", 12, "2019-03-16", 300.00),
-       (4, 5, "puting into savings", 12, "2019-04-1", 300.00),
-       (4, null, "bills", 1, "2019-04-2", 100.00);
+INSERT INTO account (account_type_id, nick_name, institution_name,  balance)
+VALUES (1, "Primary Checking", "Chase", 1003.01),
+       (2, "Primary Savings", "Chase", 1045.12);
+
+INSERT INTO profile (first_name, last_name, username)
+VALUES  ("J", "Tamulavage", "jt1"),
+        ("David", "Tamulavage", "tamulavage");
 
 
+INSERT INTO budget.profile_account_xref
+ VALUES (1,2,false),
+    (2,2,true),
+    (2,1,true);
 
+INSERT INTO budget.transaction (from_account_id, to_account_id, memo, transaction_dt, amount)
+VALUES (1, null, "bills",  "2018-01-07", 340.96),
+       (null, 1, "work", "2018-01-07", 1400.42),
+       (1, 2, "transfer", "2018-01-08", 43.64),
+       (1, null, "bills", "2018-01-09", 100.76);
+
+INSERT INTO budget.future_accounting_org 
+VALUES (1, "I", "Paycheck",2 ),
+  (2, "O", "Rent" , 2),
+  (3, "O", "CreditCard", 2);
+
+INSERT INTO budget.future_accounting 
+VALUES (1, 1, 2002.01, 2),
+(1, 2, 2000.01, 2),
+(1, 3, 2000.01, 2),
+(1, 10, 2000.01, 2),
+(2, 1, 2000.01, 1),
+(2, 2, 1700.50, 1),
+(2, 3, 1700.50, 1),
+(2, 9, 1100.50, 1),
+(3, 1, 500.50, 1),
+(3, 2, 500.50, 1),
+(3, 12, 1500.50, 1),
+(3, 3, 100.50, 1);

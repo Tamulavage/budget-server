@@ -1,7 +1,16 @@
 package com.group3.budgetApp.model;
 
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "profile")
@@ -18,10 +27,11 @@ public class Profile {
     @Column(name="username")
     private String userName;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "profile")
+    Set<ProfileAccountXref> accounts;
 
     public Profile() {
-
     }
 
     public Profile(String firstName, String lastName, String userName) {
@@ -66,6 +76,14 @@ public class Profile {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Set<ProfileAccountXref> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<ProfileAccountXref> accounts) {
+        this.accounts = accounts;
     }
 
 }

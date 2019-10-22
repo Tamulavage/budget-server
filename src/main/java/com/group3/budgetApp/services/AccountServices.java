@@ -1,15 +1,16 @@
 package com.group3.budgetApp.services;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.List;
+
 import com.group3.budgetApp.exceptions.InvalidTransactionAmount;
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.repository.AccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.List;
 
 @Service
 public class AccountServices {
@@ -31,14 +32,14 @@ public class AccountServices {
         }
     }
     
-    public Account createAccount(String name, Double balance, Integer userId, String institutionName, Integer accountTypeId, String nickname) throws
+    public Account createAccount( Double balance,  String institutionName, Integer accountTypeId, String nickname) throws
             InvalidTransactionAmount {
         if (balance < 0.0) {
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
         } else {
             df.setRoundingMode(RoundingMode.FLOOR);
             Double balance1 = Double.parseDouble(df.format(balance));
-            Account account = new Account(name, balance1, userId, institutionName, accountTypeId, nickname);
+            Account account = new Account( balance1, institutionName, accountTypeId, nickname);
             repo.save(account);
             return account;
         }
@@ -63,6 +64,7 @@ public class AccountServices {
     }
     
     public List<Account> findAllByUserId(Integer userId) {
-        return repo.findAllByUserId(userId);
+       return repo.findAllByProfileUserId(userId);
     }
+    
 }
