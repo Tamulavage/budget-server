@@ -1,10 +1,11 @@
 package com.group3.budgetApp.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "future_accounting")
@@ -20,19 +21,18 @@ public class FutureBudget {
     private Integer frequencyPerMonth;
     private String direction;
 
-    private Double januaryAmount = 0.0d;
-    private Double februaryAmount = 0.0d;
-    private Double marchAmount = 0.0d;
-    private Double aprilAmount = 0.0d;
-    private Double mayAmount = 0.0d;
-    private Double juneAmount = 0.0d;
-    private Double julyAmount = 0.0d;
-    private Double augustAmount = 0.0d;
-    private Double septemberAmount = 0.0d;
-    private Double octoberAmount = 0.0d;
-    private Double novemberAmount = 0.0d;
-    private Double decemberAmount = 0.0d;            
-    
+    private BigDecimal januaryAmount; 
+    private BigDecimal februaryAmount;
+    private BigDecimal marchAmount ;
+    private BigDecimal aprilAmount ;
+    private BigDecimal mayAmount ;
+    private BigDecimal juneAmount ;
+    private BigDecimal julyAmount ;
+    private BigDecimal augustAmount ;
+    private BigDecimal septemberAmount ;
+    private BigDecimal octoberAmount ;
+    private BigDecimal novemberAmount ;
+    private BigDecimal decemberAmount ;
 
     public Integer getOrgId() {
         return orgId;
@@ -66,99 +66,99 @@ public class FutureBudget {
         this.direction = direction;
     }
 
-    public Double getJanuaryAmount() {
-    return januaryAmount;
+    public BigDecimal getJanuaryAmount() {
+        return januaryAmount != null ? januaryAmount : new BigDecimal(0);
     }
 
-    public void setJanuaryAmount(Double januaryAmount) {
-    this.januaryAmount = januaryAmount;
+    public void setJanuaryAmount(BigDecimal januaryAmount) {
+        this.januaryAmount = januaryAmount;
     }
 
-    public Double getFebruaryAmount() {
-    return februaryAmount;
+    public BigDecimal getFebruaryAmount() {
+        return februaryAmount != null ? februaryAmount : new BigDecimal(0);
     }
 
-    public void setFebruaryAmount(Double februaryAmount) {
-    this.februaryAmount = februaryAmount;
+    public void setFebruaryAmount(BigDecimal februaryAmount) {
+        this.februaryAmount = februaryAmount;
     }
 
-    public Double getMarchAmount() {
-    return marchAmount;
+    public BigDecimal getMarchAmount() {
+        return marchAmount != null ? marchAmount : new BigDecimal(0);
     }
 
-    public void setMarchAmount(Double marchAmount) {
-    this.marchAmount = marchAmount;
+    public void setMarchAmount(BigDecimal marchAmount) {
+        this.marchAmount = marchAmount;
     }
 
-    public Double getAprilAmount() {
-        return aprilAmount;
+    public BigDecimal getAprilAmount() {
+        return aprilAmount != null ? aprilAmount : new BigDecimal(0);
     }
 
-    public void setAprilAmount(Double aprilAmount) {
+    public void setAprilAmount(BigDecimal aprilAmount) {
         this.aprilAmount = aprilAmount;
     }
 
-    public Double getMayAmount() {
-        return mayAmount;
+    public BigDecimal getMayAmount() {
+        return mayAmount != null ? mayAmount : new BigDecimal(0);
     }
 
-    public void setMayAmount(Double mayAmount) {
+    public void setMayAmount(BigDecimal mayAmount) {
         this.mayAmount = mayAmount;
     }
 
-    public Double getJuneAmount() {
-        return juneAmount;
+    public BigDecimal getJuneAmount() {
+        return juneAmount != null ? juneAmount : new BigDecimal(0);
     }
 
-    public void setJuneAmount(Double juneAmount) {
+    public void setJuneAmount(BigDecimal juneAmount) {
         this.juneAmount = juneAmount;
     }
 
-    public Double getJulyAmount() {
-        return julyAmount;
+    public BigDecimal getJulyAmount() {
+        return julyAmount != null ? julyAmount : new BigDecimal(0);
     }
 
-    public void setJulyAmount(Double julyAmount) {
+    public void setJulyAmount(BigDecimal julyAmount) {
         this.julyAmount = julyAmount;
     }
 
-    public Double getAugustAmount() {
-        return augustAmount;
+    public BigDecimal getAugustAmount() {
+        return augustAmount != null ? augustAmount : new BigDecimal(0);
     }
 
-    public void setAugustAmount(Double augustAmount) {
+    public void setAugustAmount(BigDecimal augustAmount) {
         this.augustAmount = augustAmount;
     }
 
-    public Double getSeptemberAmount() {
-        return septemberAmount;
+    public BigDecimal getSeptemberAmount() {
+        return septemberAmount != null ? septemberAmount : new BigDecimal(0);
     }
 
-    public void setSeptemberAmount(Double septemberAmount) {
+    public void setSeptemberAmount(BigDecimal septemberAmount) {
         this.septemberAmount = septemberAmount;
     }
 
-    public Double getOctoberAmount() {
-        return octoberAmount;
+    public BigDecimal getOctoberAmount() {
+        return octoberAmount != null ? octoberAmount : new BigDecimal(0);
     }
 
-    public void setOctoberAmount(Double octoberAmount) {
+    public void setOctoberAmount(BigDecimal octoberAmount) {
         this.octoberAmount = octoberAmount;
     }
 
-    public Double getNovemberAmount() {
-        return novemberAmount;
+    public BigDecimal getNovemberAmount() {
+        return novemberAmount != null ? novemberAmount : new BigDecimal(0);
     }
 
-    public void setNovemberAmount(Double novemberAmount) {
+    public void setNovemberAmount(BigDecimal novemberAmount) {
         this.novemberAmount = novemberAmount;
     }
 
-    public Double getDecemberAmount() {
-        return decemberAmount;
+    public BigDecimal getDecemberAmount() {
+        return decemberAmount != null ? decemberAmount : new BigDecimal(0);
     }
 
-    public void setDecemberAmount(Double decemberAmount) {
+    public void setDecemberAmount(BigDecimal decemberAmount) {
         this.decemberAmount = decemberAmount;
     }
 

@@ -37,10 +37,10 @@ public class FutureBudgetController {
         }
     }
 
-    @GetMapping("/future/{id}")
-    public ResponseEntity<List<FutureBudget>> getByUserId(@PathVariable Integer id) {
+    @GetMapping("/future/output/{id}")
+    public ResponseEntity<List<FutureBudget>> getOutputByUserId(@PathVariable Integer id) {
         try {
-            return new ResponseEntity<>(futureBudgetService.findAllByUserId(id), HttpStatus.OK);
+            return new ResponseEntity<>(futureBudgetService.findAllOutputByUserId(id), HttpStatus.OK);
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -48,4 +48,25 @@ public class FutureBudgetController {
         }
     }
 
+    @GetMapping("/future/input/{id}")
+    public ResponseEntity<List<FutureBudget>> getInputByUserId(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(futureBudgetService.findAllInputByUserId(id), HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/future/sums/{id}")
+    public ResponseEntity<List<FutureBudget>> getSumsbyUserId(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(futureBudgetService.sumPerMonth(id), HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
