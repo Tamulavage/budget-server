@@ -1,5 +1,6 @@
 package com.group3.budgetApp.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import com.group3.budgetApp.model.FutureBudget;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,7 +65,20 @@ public class FutureBudgetController {
     @GetMapping("/future/sums/{id}")
     public ResponseEntity<List<FutureBudget>> getSumsbyUserId(@PathVariable Integer id) {
         try {
+            System.out.println(new Date());
             return new ResponseEntity<>(futureBudgetService.sumPerMonth(id), HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/future/lineitem/{id}")
+    public ResponseEntity<FutureBudget> createNewBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer id) {
+        System.out.println(new Date());
+        try {
+            return new ResponseEntity<>(futureBudgetService.createNewBudgetLineItem(futureBudget, id), HttpStatus.OK);
 
         } catch (Exception e) {
             System.out.println(e.toString());

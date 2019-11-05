@@ -48,7 +48,7 @@ public class ProfileServicesTest {
 
     @Test
     public void testFindById() throws ResourceNotFound {
-        Profile expected = new Profile("Sean", "Rowan","SpringKing");
+        Profile expected = new Profile("S", "R","SpringKing");
         //When
         when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
         Profile actual = services.findById(1);
@@ -69,7 +69,7 @@ public class ProfileServicesTest {
     public void testFindByUsername(){
         //Given
         String username = "SpringKing";
-        Profile expected = new Profile("Sean", "Rowan",username);
+        Profile expected = new Profile("A", "E",username);
         //When
         when(mockRepo.findByUserName(username)).thenReturn(expected);
         Profile actual = services.findByUsername(username);
@@ -80,8 +80,8 @@ public class ProfileServicesTest {
     @Test
     public void testByFullName(){
         //Given
-        String first = "Sean";
-        String last = "Rowan";
+        String first = "S";
+        String last = "R";
         Profile expected = new Profile(first, last,"SpringKing");
         //When
         when(mockRepo.findByFirstNameAndLastName(first, last)).thenReturn(expected);
@@ -94,8 +94,8 @@ public class ProfileServicesTest {
     public void testFindAll(){
         //Given
         List<Profile> expected = new ArrayList<>();
-        Profile profile1 = new Profile("Sean", "Rowan","SpringKing");
-        Profile profile2 = new Profile("Jack", "Johnson","TheDude");
+        Profile profile1 = new Profile("S", "R","SpringKing");
+        Profile profile2 = new Profile("J", "J","test");
         expected.add(profile1);
         expected.add(profile2);
         //When
@@ -109,9 +109,9 @@ public class ProfileServicesTest {
     public void testFindByLast(){
         //Given
         List<Profile> expected = new ArrayList<>();
-        String first = "Sean";
-        String last = "Rowan";
-        Profile profile = new Profile(first, last,"SpringKing");
+        String first = "S";
+        String last = "R";
+        Profile profile = new Profile(first, last,"Test");
         expected.add(profile);
         //When
         when(mockRepo.findAllByLastName(last)).thenReturn(expected);
@@ -134,9 +134,9 @@ public class ProfileServicesTest {
 
     @Test
     public void testUpdateAccount() {
-        String first = "Sean";
-        String last = "Rowan";
-        String username = "SpringKing";
+        String first = "S";
+        String last = "R";
+        String username = "test";
         Profile profile = new Profile(first, last, username);
         Profile newPro = new Profile(first, last, "Testing");
         Mockito.when(mockRepo.findById(1)).thenReturn(Optional.of(profile));
