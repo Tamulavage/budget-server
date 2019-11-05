@@ -119,5 +119,4 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + " where fao.org_id = fa.org_id " + " and fao.direction = 'I' and profile_id=?1 "
                         + " ) temp group by direction;", nativeQuery = true)
         FutureBudget sumIncoming(Integer profileId);
-
 }

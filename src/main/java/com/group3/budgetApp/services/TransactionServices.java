@@ -3,6 +3,7 @@ package com.group3.budgetApp.services;
 import com.group3.budgetApp.exceptions.*;
 import com.group3.budgetApp.model.Account;
 import com.group3.budgetApp.model.Transaction;
+import com.group3.budgetApp.model.TransactionWithAccount;
 import com.group3.budgetApp.repository.AccountRepository;
 import com.group3.budgetApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,6 @@ public class TransactionServices {
         df.setRoundingMode(RoundingMode.FLOOR);
         Double amount = Double.parseDouble(df.format(transaction.getAmount()));
         transaction.setAmount(amount);
-        // transaction.setTransactionType(getDBTransactionType(transaction.getTransactionType()));
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
         } else if (amount >= (Double.MAX_VALUE / 1e304)) {
@@ -95,9 +95,9 @@ public class TransactionServices {
         }
         return withdrawDepositTransfer;
     }
-    
-    public List<Transaction> findAllByUserId(Integer userId) {
-        return repo.findAllByUserId(userId);
+
+    public List<TransactionWithAccount> findAllWithAccountNameByUserId(Integer userId) {
+        return repo.findAllWithAccountNameByUserId(userId);
     }
     
     public List<Transaction> getLatestTransactionsByPage() {

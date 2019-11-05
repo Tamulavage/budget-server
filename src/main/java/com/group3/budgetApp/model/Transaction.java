@@ -6,6 +6,9 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "TRANSACTION")
+@Inheritance(
+    strategy = InheritanceType.JOINED
+)
 public class Transaction {
     
     @Id
