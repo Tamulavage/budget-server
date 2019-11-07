@@ -1,6 +1,5 @@
 package com.group3.budgetApp.controller;
 
-
 import com.group3.budgetApp.exceptions.ResourceNotFound;
 import com.group3.budgetApp.model.Profile;
 import com.group3.budgetApp.services.ProfileServices;
@@ -48,7 +47,6 @@ public class ProfileControllerTest {
         //Then
         Assert.assertEquals(expected, actual);
         Assert.assertEquals(profile, actualProfile);
-
     }
 
     @Test

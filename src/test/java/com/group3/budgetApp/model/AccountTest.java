@@ -3,8 +3,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class AccountTest {
     private Account account;
     @Before
@@ -20,29 +18,28 @@ public class AccountTest {
         Account account = new Account(id);
         Assert.assertEquals(account.getId(),id);
     }
-    // @Test
-    // public void constructorTest2(){
-    //     Integer user_id = 3;
-    //     String name = "test";
-    //     Account account = new Account(name);
+    @Test
+    public void constructorTest2(){
+        String name = "test";
+        Account account = new Account(name);
 
-    //     Assert.assertEquals(name, account.getName());
-    // }
-    // @Test
-    // public void constructorTest3(){
-    //     Integer user_id = 3;
-    //     String name = "test";
-    //     Double balance = 100000.00;
-    //     String institution_name = "BOA";
-    //     Integer accountTypeId = 1;
-    //     String nickname = "checking";
-    //     Account account = new Account(name, balance, user_id, institution_name, accountTypeId, nickname);
+        Assert.assertEquals(name, account.getNickname());
+    }
 
-    //     Assert.assertEquals(user_id,account.getUserId());
-    //     Assert.assertEquals(name, account.getName());
-    //     Assert.assertEquals(balance, account.getBalance());
+    @Test
+    public void constructorTest3(){
+        Double balance = 100000.00;
+        String institutionName = "BOA";
+        Integer accountTypeId = 1;
+        String nickname = "checking";
+        Account account = new Account( balance,  institutionName, accountTypeId, nickname);
 
-    // }
+        Assert.assertEquals(nickname, account.getNickname());
+        Assert.assertEquals(balance, account.getBalance());
+        Assert.assertEquals(institutionName, account.getInstitutionName());
+
+    }
+
     @Test
     public void getId() {
         int id = 5;
@@ -55,15 +52,7 @@ public class AccountTest {
         account.setId(id);
         Assert.assertTrue(account.getId()==id);
     }
-    // @Test
-    // public void getName() {
-    //     assertEquals(account.getName(),"My Account");
-    // }
-    // @Test
-    // public void setName() {
-    //     account.setName("Default");
-    //     assertEquals(account.getName(),"Default");
-    // }
+
     @Test
     public void getBalance() {
         Assert.assertTrue(account.getBalance()== 0.0);
@@ -73,22 +62,15 @@ public class AccountTest {
         account.setBalance(4.0);
         Assert.assertTrue(account.getBalance()== 4.0);
     }
-    // @Test
-    // public void getUser_id() {
-    //     Assert.assertTrue(account.getUser_id()==0);
-    // }
-    // @Test
-    // public void setUser_id() {
-    //     account.setUser_id(100);
-    //     Assert.assertTrue(account.getUser_id()==100);
-    // }
-    // @Test
-    // public void getInstitution_name() {
-    //     Assert.assertTrue(account.getInstitution_name()=="BOA");
-    // }
-    // @Test
-    // public void setInstitution_name() {
-    //     account.setInstitution_name("CAP1");
-    //     Assert.assertTrue(account.getInstitution_name()=="CAP1");
-    // }
+
+    @Test
+    public void getInstitutionName() {
+        Assert.assertTrue(account.getInstitutionName()=="BOA");
+    }
+
+    @Test
+    public void setInstitutionName() {
+        account.setInstitutionName("CAP1");
+        Assert.assertTrue(account.getInstitutionName()=="CAP1");
+    }
 }
