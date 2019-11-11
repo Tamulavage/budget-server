@@ -65,7 +65,6 @@ public class FutureBudgetController {
     @GetMapping("/future/sums/{id}")
     public ResponseEntity<List<FutureBudget>> getSumsbyUserId(@PathVariable Integer id) {
         try {
-            System.out.println(new Date());
             return new ResponseEntity<>(futureBudgetService.sumPerMonth(id), HttpStatus.OK);
 
         } catch (Exception e) {
@@ -76,9 +75,8 @@ public class FutureBudgetController {
 
     @PostMapping("/future/lineitem/{id}")
     public ResponseEntity<FutureBudget> createNewBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer id) {
-        System.out.println(new Date());
         try {
-            return new ResponseEntity<>(futureBudgetService.createNewBudgetLineItem(futureBudget, id), HttpStatus.OK);
+            return new ResponseEntity<>(futureBudgetService.createNewBudgetLineItem(futureBudget, id), HttpStatus.CREATED);
 
         } catch (Exception e) {
             System.out.println(e.toString());

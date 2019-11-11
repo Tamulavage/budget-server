@@ -162,7 +162,7 @@ public class ProfileControllerTest {
                 .given(services.findById(99))
                 .willReturn(null);
         //When
-        ResponseEntity responseEntity = controller.getUser(99);
+        ResponseEntity<Profile> responseEntity = controller.getUser(99);
         HttpStatus actual = responseEntity.getStatusCode();
         Assert.assertEquals(expected, actual);
     }
