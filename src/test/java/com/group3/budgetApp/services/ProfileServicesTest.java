@@ -26,8 +26,6 @@ public class ProfileServicesTest {
     @MockBean
     private ProfileRepository mockRepo;
 
-
-
     @Before
     public void setup(){
         mockRepo = mock(ProfileRepository.class);
