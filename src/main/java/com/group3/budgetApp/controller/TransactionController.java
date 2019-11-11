@@ -37,15 +37,6 @@ public class TransactionController {
         }
     }
     
-    // @GetMapping("/transaction/{userId}")
-    // public ResponseEntity<Iterable<Transaction>> findAllByUserId(@PathVariable Integer userId) {
-    //     try {
-    //         return new ResponseEntity<>(transactionServices.findAllByUserId(userId), HttpStatus.OK);
-    //     } catch (Exception e) {
-    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
-
     @GetMapping("/transaction/{userId}")
     public ResponseEntity<Iterable<TransactionWithAccount>> findAllWithAccountNameByUserId(@PathVariable Integer userId) {
         try {
@@ -55,7 +46,6 @@ public class TransactionController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
     
     @GetMapping("/transaction/")
     public ResponseEntity<Iterable<Transaction>> getAllTransactions() {

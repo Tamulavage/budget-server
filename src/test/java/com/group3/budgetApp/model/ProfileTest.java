@@ -8,8 +8,8 @@ public class ProfileTest {
     @Test
     public void setName() {
         //Given
-        String expectedFirst = "Sean";
-        String expectedLast = "Rowan";
+        String expectedFirst = "S";
+        String expectedLast = "R";
         String expectedUserName = "SpringKing";
 
         //When
@@ -19,7 +19,5 @@ public class ProfileTest {
         //Then
         Assert.assertEquals(expectedFirst, profile.getFirstName());
         Assert.assertEquals(expectedLast, profile.getLastName());
-
-        System.out.println(profile.toString());
     }
 }
