@@ -76,21 +76,44 @@ public class FutureBudgetService {
         return difference;
     }
 
-    public FutureBudget createNewBudgetLineItem(FutureBudget futureBudget, Integer profileId) {
-        FutureBudgetOrg futureBudgetOrg = new FutureBudgetOrg();
-        futureBudgetOrg.setOrgName(futureBudget.getOrgName());
-        futureBudgetOrg.setDirection(futureBudget.getDirection());
-        futureBudgetOrg.setProfileId(profileId);
+    public FutureBudget updateBudgetLineItem(FutureBudget futureBudget, Integer profileId) {
 
-        futureBudgetOrgRepository.save(futureBudgetOrg);
+        FutureBudgetOrg futureBudgetOrg = getLineItemOrg(profileId, futureBudget.getDirection(),futureBudget.getOrgName() );
         
         for(int month=1; month <=12; month++){
             saveLineItem(futureBudgetOrg.getOrgId(), futureBudget, month);
         }
 
-        futureBudget.setOrgId(futureBudgetOrg.getOrgId());
+       futureBudget.setOrgId(futureBudgetOrg.getOrgId());
 
-        return futureBudget;
+       return futureBudget;
+    }
+
+    private void validDirection(String direction){
+        if(!("I".equals(direction) || "O".equals(direction))){
+            throw new IllegalStateException("Invalid Direction");
+        }
+    }
+
+    private FutureBudgetOrg getLineItemOrg(Integer profileId, String direction, String orgName){
+
+        validDirection(direction);
+        
+        List<FutureBudgetOrg> futureBudgetOrg = futureBudgetOrgRepository.findAllOrgByProfileId(profileId);
+        FutureBudgetOrg futureBudgetOrgRetVal = new FutureBudgetOrg();
+        futureBudgetOrgRetVal.setOrgName(orgName);
+        futureBudgetOrgRetVal.setDirection(direction);
+        futureBudgetOrgRetVal.setProfileId(profileId);
+
+        for(FutureBudgetOrg org: futureBudgetOrg){ 
+            if(org.getOrgName().equals(orgName) && org.getDirection().equals(direction)){ 
+                 futureBudgetOrgRetVal = org;
+             }
+        }
+
+        futureBudgetOrgRepository.save(futureBudgetOrgRetVal);
+        
+        return futureBudgetOrgRetVal;
     }
 
     private void saveLineItem (Integer orgId, FutureBudget futureBudget, Integer month) {

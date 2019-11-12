@@ -72,10 +72,10 @@ public class FutureBudgetController {
         }
     }
 
-    @PostMapping("/future/lineitem/{id}")
-    public ResponseEntity<FutureBudget> createNewBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer id) {
+    @PostMapping("/future/lineitem/{profileId}")
+    public ResponseEntity<FutureBudget> updateBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer profileId) {
         try {
-            return new ResponseEntity<>(futureBudgetService.createNewBudgetLineItem(futureBudget, id), HttpStatus.CREATED);
+            return new ResponseEntity<>(futureBudgetService.updateBudgetLineItem(futureBudget, profileId), HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
             System.out.println(e.toString());
