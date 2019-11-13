@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FutureBudgetOrgRepository extends JpaRepository<FutureBudgetOrg, Integer> {
-    List<FutureBudgetOrg> findAllOrgByProfileId(Integer profileId);    
+    List<FutureBudgetOrg> findAllOrgByProfileId(Integer profileId);
+    void deleteByOrgId(Integer orgId);  
 }
