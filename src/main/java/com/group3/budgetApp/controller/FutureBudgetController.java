@@ -88,7 +88,7 @@ public class FutureBudgetController {
     public ResponseEntity<String> removeBudgetLineItem(@RequestBody FutureBudgetOrg futureBudgetOrg, @PathVariable Integer profileId){
         try {
             futureBudgetService.removeBudgetLineItem(futureBudgetOrg, profileId);
-            return new ResponseEntity<>("Org Line item Deleted", HttpStatus.OK);
+            return new ResponseEntity<>("", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
