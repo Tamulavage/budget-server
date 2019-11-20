@@ -108,4 +108,10 @@ public class Account {
     public void setActive(String active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "Account [accountTypeId=" + accountTypeId + ", balance=" + balance + ", id=" + id
+                + ", institutionName=" + institutionName + ", nickname=" + nickname + "]";
+    }
 }

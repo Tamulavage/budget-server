@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,14 +73,24 @@ public class FutureBudgetController {
         }
     }
 
-    @PostMapping("/future/lineitem/{id}")
-    public ResponseEntity<FutureBudget> createNewBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer id) {
+    @PostMapping("/future/lineitem/{profileId}")
+    public ResponseEntity<FutureBudget> updateBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer profileId) {
         try {
-            return new ResponseEntity<>(futureBudgetService.createNewBudgetLineItem(futureBudget, id), HttpStatus.CREATED);
+            return new ResponseEntity<>(futureBudgetService.updateBudgetLineItem(futureBudget, profileId), HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
             System.out.println(e.toString());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/future/lineitem/{profileId}")
+    public ResponseEntity<String> removeBudgetLineItem(@RequestBody FutureBudgetOrg futureBudgetOrg, @PathVariable Integer profileId){
+        try {
+            futureBudgetService.removeBudgetLineItem(futureBudgetOrg, profileId);
+            return new ResponseEntity<>("", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

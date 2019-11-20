@@ -41,7 +41,8 @@ public class FutureBudgetOrg {
     }
 
     public void setDirection(String direction) {
-        this.direction = direction;
+
+        this.direction = direction.toUpperCase();
     }
 
     public String getOrgName() {

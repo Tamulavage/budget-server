@@ -180,11 +180,11 @@ public class FutureBudgetControllerTest {
     public void createNewBudgetLineItemStatusOKTest() {
         // Given
         int testUserId = 1;
-        HttpStatus expected = HttpStatus.CREATED;
-        BDDMockito.given(futureBudgetService.createNewBudgetLineItem(dummyFutureBudget.get(0), testUserId)).willReturn(dummyFutureBudget.get(0));
+        HttpStatus expected = HttpStatus.ACCEPTED;
+        BDDMockito.given(futureBudgetService.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId)).willReturn(dummyFutureBudget.get(0));
 
         // WHen
-        ResponseEntity<FutureBudget> entity = controller.createNewBudgetLineItem(dummyFutureBudget.get(0), testUserId);
+        ResponseEntity<FutureBudget> entity = controller.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId);
         HttpStatus actual = entity.getStatusCode();
 
         // Then
@@ -195,10 +195,10 @@ public class FutureBudgetControllerTest {
     public void createNewBudgetLineItemValuesTest() {
         // Given
         int testUserId = 1;
-        BDDMockito.given(futureBudgetService.createNewBudgetLineItem(dummyFutureBudget.get(0), testUserId)).willReturn(dummyFutureBudget.get(0));
+        BDDMockito.given(futureBudgetService.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId)).willReturn(dummyFutureBudget.get(0));
 
         // WHen
-        ResponseEntity<FutureBudget> entity = controller.createNewBudgetLineItem(dummyFutureBudget.get(0), testUserId);
+        ResponseEntity<FutureBudget> entity = controller.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId);
         FutureBudget actual = entity.getBody();
 
         // Then

@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FutureBudgetLineItemRepository extends JpaRepository<FutureBudgetLineItem, Integer> {
+	Iterable<? extends FutureBudgetLineItem> findAllByOrgId(Integer orgId);
 }
