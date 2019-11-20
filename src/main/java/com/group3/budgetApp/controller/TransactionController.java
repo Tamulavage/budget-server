@@ -3,6 +3,7 @@ package com.group3.budgetApp.controller;
 import com.group3.budgetApp.exceptions.*;
 import com.group3.budgetApp.model.Transaction;
 import com.group3.budgetApp.model.TransactionWithAccount;
+import com.group3.budgetApp.model.TransactionsRunningValues;
 import com.group3.budgetApp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,16 @@ public class TransactionController {
     public ResponseEntity<Iterable<TransactionWithAccount>> findAllWithAccountNameByUserId(@PathVariable Integer userId) {
         try {
             return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserId(userId), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/transactions/{userId}")
+    public ResponseEntity<Iterable<TransactionsRunningValues>> findAllWithAccountAmountsByUserId(@PathVariable Integer userId) {
+        try {
+            return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserIdAndAccountValues(userId), HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.toString());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

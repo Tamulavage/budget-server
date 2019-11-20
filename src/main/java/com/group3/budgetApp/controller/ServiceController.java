@@ -38,7 +38,6 @@ public class ServiceController {
     public ResponseEntity<Account> accountCreateAndBind(@RequestBody Account account, Integer userId) throws InvalidTransactionAmount {
         try {
             if(account != null && userId != null){
-                System.out.println("accountCreateAndBind");
                 Account acc = accountService.createAccount(account);
                 profileAccountXrefService.createProfileAccountXref(userId, acc.getId());
                 return new ResponseEntity<>(acc, HttpStatus.CREATED);
@@ -51,11 +50,23 @@ public class ServiceController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+    @PostMapping("/account/inactive")
+    public ResponseEntity<Account> updateAccountInfo(@RequestBody Account account) {
+        System.out.print(account.getId());
+        try {
+            Account acc = accountService.updateAccountInfo(account);
+            return new ResponseEntity<>(acc, HttpStatus.OK);
+        }
+        catch (IllegalArgumentException ia){
+            System.err.println(ia.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
     @PostMapping("/account")
     public ResponseEntity<Account> accountCreate(@RequestBody Account account) throws InvalidTransactionAmount {
         try {
             if(account != null){
-                System.out.println("accountCreate");
+                // System.out.println("accountCreate");
                 Account acc = accountService.createAccount(account);
                 return new ResponseEntity<>(acc, HttpStatus.CREATED);
             } else {

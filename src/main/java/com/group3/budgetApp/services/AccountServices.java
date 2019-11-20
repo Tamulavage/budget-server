@@ -66,5 +66,11 @@ public class AccountServices {
     public List<Account> findAllByUserId(Integer userId) {
        return repo.findAllByProfileUserId(userId);
     }
+
+	public Account updateAccountInfo(Account account) {
+        Account accountToUpdate = repo.getAccountById(account.getId());
+        accountToUpdate.setActive("No");
+		return repo.save(accountToUpdate);
+	}
     
 }
