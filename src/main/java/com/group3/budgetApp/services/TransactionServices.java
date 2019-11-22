@@ -133,6 +133,7 @@ public class TransactionServices {
                 accountPOJOTemp.setId(a.getId());
                 accountPOJOTemp.setBalance(new BigDecimal(a.getBalance()));
                 accountPOJOTemp.setNickname(a.getNickname());
+                accountPOJOTemp.setInstitutionName(a.getInstitutionName());
                 accountPOJOList.add(accountPOJOTemp);
             }
             transactionsRunningValue.setAccounts(accountPOJOList);

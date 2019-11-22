@@ -7,6 +7,7 @@ public class AccountPOJO {
     private Integer id;
     private BigDecimal balance;
     private String nickname;
+    private String institutionName;
 
     public Integer getId() {
         return id;
@@ -30,6 +31,14 @@ public class AccountPOJO {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getInstitutionName() {
+        return institutionName;
+    }
+
+    public void setInstitutionName(String institutionName) {
+        this.institutionName = institutionName;
     }
 
 }
