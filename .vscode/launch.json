@@ -4,7 +4,7 @@
             "type": "java",
             "name": "CodeLens (Launch) - BudgetApplication",
             "request": "launch",
-            "mainClass": "com.group3.budgetApp.BudgetApplication",
+            "mainClass": "com.dmt.budgetApp.BudgetApplication",
             "projectName": "budgetApp"
         },
         {
