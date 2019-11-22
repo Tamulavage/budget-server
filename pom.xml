@@ -8,7 +8,7 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.group3</groupId>
+	<groupId>com.dmt</groupId>
 	<artifactId>budgetApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>budgetApp</name>
@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<start-class>com.group3.budgetApp.BudgetApplication</start-class>
+		<start-class>com.dmt.budgetApp.BudgetApplication</start-class>
 	</properties>
 
 	<dependencies>
