@@ -116,13 +116,43 @@ public class TransactionServices {
     }
 
     public List<TransactionsRunningValues> findAllWithAccountNameByUserIdAndAccountValues(Integer userId) {
-        // TODO: Clean this function up
+        // // TODO: Clean this function up
+        List<TransactionsRunningValues> checkbook = new ArrayList<>();
+        checkbook = populateTransctions(userId);
+        checkbook = populateRunningTotals(checkbook);
+        return checkbook;
+    }
+
+    private  List<TransactionsRunningValues> populateRunningTotals(List<TransactionsRunningValues> checkbook){
+
+        // TODO: clean up this function
+        for (int i = 0; i < checkbook.size() - 1; i++) {
+            TransactionsRunningValues current = checkbook.get(i);
+            TransactionsRunningValues prevTran = checkbook.get(i + 1);
+            List<AccountPOJO> prevAccountList = prevTran.getAccounts();
+            List<AccountPOJO> currAccountList = current.getAccounts();
+
+            for (AccountPOJO curr : currAccountList) {
+                for (AccountPOJO prev : prevAccountList) {
+                    if (prev.getId() == current.getFromAccountId() && curr.getId() == prev.getId()) {
+                        prev.setBalance(curr.getBalance().add(new BigDecimal(current.getAmount())));
+                    } else if (prev.getId() == current.getToAccountId() && curr.getId() == prev.getId()) {
+                        prev.setBalance(curr.getBalance().subtract(new BigDecimal(current.getAmount())));
+                    } else if (curr.getId() == prev.getId()) {
+                        prev.setBalance(curr.getBalance());
+                    }     
+                }
+            }
+        }
+        return checkbook;
+    }
+
+    private  List<TransactionsRunningValues> populateTransctions(Integer userId) {
+        // TODO: clean up this function
         List<TransactionWithAccount> checkbookFromDB = repo.findAllWithAccountNameByUserId(userId);
+        List<Account> accountList = accountRepository.findAllByProfileUserId(userId);
         List<TransactionsRunningValues> checkbook = new ArrayList<>();
 
-        List<Account> accountList = accountRepository.findAllByProfileUserId(userId);
-
-          // get all transactions
         for (TransactionWithAccount transaction : checkbookFromDB) {
             TransactionsRunningValues transactionsRunningValue = new TransactionsRunningValues(transaction);
             transactionsRunningValue.setFromAccountName(transaction.getFromAccountName());
@@ -140,30 +170,6 @@ public class TransactionServices {
             checkbook.add(transactionsRunningValue);
         }
 
-        for (int i = 0; i < checkbook.size() - 1; i++) {
-            TransactionsRunningValues current = checkbook.get(i);
-            TransactionsRunningValues prevTran = checkbook.get(i + 1);
-            List<AccountPOJO> prevAccountList = prevTran.getAccounts();
-            List<AccountPOJO> currAccountList = current.getAccounts();
-
-            for (AccountPOJO curr : currAccountList) {
-                for (AccountPOJO prev : prevAccountList) {
-                    // from - increase prev
-                    if (prev.getId() == current.getFromAccountId() && curr.getId() == prev.getId()) {
-                        prev.setBalance(curr.getBalance().add(new BigDecimal(current.getAmount())));
-                    } else if (curr.getId() == prev.getId()) {
-                        prev.setBalance(curr.getBalance());
-                    }
-                    // to - decrease prev
-                    if (prev.getId() == current.getToAccountId() && curr.getId() == prev.getId()) {
-                        prev.setBalance(curr.getBalance().subtract(new BigDecimal(current.getAmount())));
-                    } else if (curr.getId() == prev.getId()) {
-                        prev.setBalance(curr.getBalance());
-                    }                    
-                }
-            }
-
-        }
         return checkbook;
     }
 
