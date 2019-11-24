@@ -1,18 +1,12 @@
 {
     "configurations": [
+
         {
             "type": "java",
             "name": "CodeLens (Launch) - BudgetApplication",
             "request": "launch",
             "mainClass": "com.dmt.budgetApp.BudgetApplication",
-            "projectName": "budgetApp"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - BudgetApplication",
-            "request": "launch",
-            "mainClass": "BudgetApplication",
-            "projectName": "budgetApp"
+            "projectName": "budgetApp" 
         }
     ]
 }
