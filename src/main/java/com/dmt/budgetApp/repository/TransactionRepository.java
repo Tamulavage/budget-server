@@ -20,7 +20,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
                     + "         a.nick_name AS from_Account_Name, "
                     + "         b.nick_name AS to_Account_Name, "
                     + "         t.* "
-                    + "     FROM budget.transaction t "
+                    + "     FROM transaction t "
                     + "       LEFT JOIN (SELECT * FROM account a,  profile_account_xref x WHERE x.account_id = a.id AND x.profile_id = ?1 ) a ON a.id = from_account_id "
                     + "       LEFT JOIN (SELECT * FROM account a,  profile_account_xref x WHERE x.account_id = a.id AND x.profile_id =  ?1 ) b ON b.id = to_account_id ) "
                     + "     temp "
