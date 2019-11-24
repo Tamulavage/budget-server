@@ -27,8 +27,8 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + " CASE WHEN month=10 then amount end as october, "
                         + " CASE WHEN month=11 then amount end as nov, "
                         + " CASE WHEN month=12 then amount end as december "
-                        + " from budget.future_accounting fa, "
-                        + " budget.future_accounting_org fao " + " where fao.org_id = fa.org_id" + " and profile_id=?1 "
+                        + " from future_accounting fa, "
+                        + " future_accounting_org fao " + " where fao.org_id = fa.org_id" + " and profile_id=?1 "
                         + ") temp group by  org_id, org_name, freq_per_month , direction", nativeQuery = true)
         List<FutureBudget> findAllByProfileId(Integer profileId);
 
