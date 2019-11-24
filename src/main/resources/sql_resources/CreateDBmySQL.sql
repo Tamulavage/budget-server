@@ -82,8 +82,7 @@ VALUES (1, "Primary Checking", "Chase", 1003.01),
        (2, "Primary Savings", "Chase", 1045.12);
 
 INSERT INTO profile (first_name, last_name, username)
-VALUES  ("J", "Tamulavage", "jt1"),
-        ("David", "Tamulavage", "tamulavage");
+VALUES    ("David", "Tamulavage", "tamulavage");
 
 
 INSERT INTO budget.profile_account_xref
