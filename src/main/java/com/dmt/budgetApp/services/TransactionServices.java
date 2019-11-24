@@ -116,7 +116,6 @@ public class TransactionServices {
     }
 
     public List<TransactionsRunningValues> findAllWithAccountNameByUserIdAndAccountValues(Integer userId) {
-        // // TODO: Clean this function up
         List<TransactionsRunningValues> checkbook = new ArrayList<>();
         checkbook = populateTransctions(userId);
         checkbook = populateRunningTotals(checkbook);
