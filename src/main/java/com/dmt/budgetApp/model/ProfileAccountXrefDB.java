@@ -13,13 +13,13 @@ public class ProfileAccountXrefDB {
     private ProfileAccountPK profileAccountPK;
 
     @Column(name = "primary_profile_id")
-    private Boolean primaryProfile = false;
+    private  Integer primaryProfile = 0;
 
-    public Boolean getPrimaryProfile() {
+    public Integer getPrimaryProfile() {
         return primaryProfile;
     }
 
-    public void setPrimaryProfileId(Boolean primaryProfile) {
+    public void setPrimaryProfileId(Integer primaryProfile) {
         this.primaryProfile = primaryProfile;
     }
 
