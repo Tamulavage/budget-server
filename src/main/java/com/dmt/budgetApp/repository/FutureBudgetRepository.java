@@ -49,9 +49,12 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + " CASE WHEN month=10 then amount * freq_per_month end as october, "
                         + " CASE WHEN month=11 then amount * freq_per_month end as nov, "
                         + " CASE WHEN month=12 then amount * freq_per_month end as december "
-                        + " from budget.future_accounting fa, " + " budget.future_accounting_org fao "
-                        + " where fao.org_id = fa.org_id" + " and fao.direction = 'O' " + " and profile_id=?1 "
-                        + ") temp group by  org_id, org_name, freq_per_month , direction", nativeQuery = true)
+                        + " from future_accounting fa, "
+                        + " future_accounting_org fao "
+                        + " where fao.org_id = fa.org_id" 
+                        + "      and fao.direction = 'O' " 
+                        + "      and profile_id=?1 "
+                        + "     ) temp group by  org_id, org_name, freq_per_month , direction", nativeQuery = true)
         List<FutureBudget> findAllOutputByProfileId(Integer profileId);
 
         @Query(value = "select org_id, org_name, freq_per_month , direction, max(jan) as january_amount ,max(feb) as february_amount, max(march) as march_amount, "
@@ -71,8 +74,8 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + " CASE WHEN month=10 then amount * freq_per_month end as october, "
                         + " CASE WHEN month=11 then amount * freq_per_month end as nov, "
                         + " CASE WHEN month=12 then amount * freq_per_month end as december "
-                        + " from budget.future_accounting fa, " 
-                        + "     budget.future_accounting_org fao "
+                        + " from future_accounting fa, " 
+                        + "     future_accounting_org fao "
                         + "     where fao.org_id = fa.org_id"
                         + "       and fao.direction = 'I' " 
                         + "       and profile_id=?1 "
@@ -98,7 +101,7 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + "    CASE WHEN month=10 then amount* freq_per_month end as october, "
                         + "    CASE WHEN month=11 then amount* freq_per_month end as nov, "
                         + "    CASE WHEN month=12 then amount* freq_per_month end as december "
-                        + " from budget.future_accounting fa, " + "     budget.future_accounting_org fao "
+                        + " from future_accounting fa, " + "     future_accounting_org fao "
                         + " where fao.org_id = fa.org_id " + " and fao.direction = 'O' and profile_id=?1 "
                         + " ) temp group by direction;", nativeQuery = true)
         FutureBudget sumOutgoing(Integer profileId);
@@ -122,7 +125,7 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + "    CASE WHEN month=10 then amount* freq_per_month end as october, "
                         + "    CASE WHEN month=11 then amount* freq_per_month end as nov, "
                         + "    CASE WHEN month=12 then amount* freq_per_month end as december "
-                        + " from budget.future_accounting fa, " + "     budget.future_accounting_org fao "
+                        + " from future_accounting fa, " + "     future_accounting_org fao "
                         + " where fao.org_id = fa.org_id " + " and fao.direction = 'I' and profile_id=?1 "
                         + " ) temp group by direction;", nativeQuery = true)
         FutureBudget sumIncoming(Integer profileId);
