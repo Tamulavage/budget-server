@@ -29,7 +29,7 @@ CREATE TABLE profile_account_xref
 (
   profile_id INTEGER NOT NULL,
   account_id INTEGER NOT NULL,
-  primary_profile BOOLEAN NOT NULL,  
+  primary_profile_id INTEGER NOT NULL,  
   CONSTRAINT fk_profile_id FOREIGN KEY (profile_id) REFERENCES profile (user_id),
   CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account (id)
 );
@@ -86,9 +86,9 @@ VALUES    ("David", "Tamulavage", "tamulavage");
 
 
 INSERT INTO budget.profile_account_xref
- VALUES (1,2,false),
-    (2,2,true),
-    (2,1,true);
+ VALUES (1,2,0),
+    (2,2,0),
+    (2,1,0);
 
 INSERT INTO budget.transaction (from_account_id, to_account_id, memo, transaction_dt, amount)
 VALUES (1, null, "bills",  "2018-01-07", 340.96),
