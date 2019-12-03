@@ -46,7 +46,7 @@ public class ProfileController {
         try {
             Profile profile = userService.findById(id);
             if (profile == null) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             } else {
                 return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
             }
@@ -61,7 +61,7 @@ public class ProfileController {
             userService.deleteUser(id);
             return new ResponseEntity<>("Profile deleted", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Profile does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Profile does not exist", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -70,7 +70,7 @@ public class ProfileController {
         try {
             return new ResponseEntity<>(userService.updateUser(profile, id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -80,12 +80,12 @@ public class ProfileController {
         try {
             Profile profile = userService.findByUsername(username);
             if (profile == null) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
             } else {
                 return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -95,7 +95,7 @@ public class ProfileController {
         try {
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -104,12 +104,12 @@ public class ProfileController {
         try {
             List<Profile> profileList = userService.findAllByLast(last);
             if (profileList.size() == 0) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             } else {
                 return new ResponseEntity<>(profileList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -120,10 +120,10 @@ public class ProfileController {
             if (profile == null) {
                 return new ResponseEntity<>(userService.findByFullName(first, last), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
