@@ -6,9 +6,7 @@ import com.dmt.budgetApp.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
-
 
 @Service
 public class ProfileServices {
@@ -24,15 +22,12 @@ public class ProfileServices {
     }
 
     public Profile createUser(Profile profile) {
-        repo.save(profile);
-
-        return profile;
+        return repo.save(profile);
     }
 
     public Profile createUser(String firstName, String lastName, String userName) {
         Profile profile = new Profile(firstName, lastName, userName);
-        repo.save(profile);
-        return profile;
+        return repo.save(profile);
     }
 
     public Profile updateUser(Profile newProfileData, Integer id) {

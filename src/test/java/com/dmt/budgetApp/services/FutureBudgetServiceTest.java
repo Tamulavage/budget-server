@@ -7,7 +7,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dmt.budgetApp.exceptions.InvalidAmount;
 import com.dmt.budgetApp.model.FutureBudget;
+import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
 import com.dmt.budgetApp.repository.FutureBudgetLineItemRepository;
 import com.dmt.budgetApp.repository.FutureBudgetOrgRepository;
@@ -36,8 +38,7 @@ public class FutureBudgetServiceTest {
 
     @Before
     public void setup() {
-        this.futureBudgetService = new FutureBudgetService(futureBudgetOrgRepository,
-                futureBudgetRepository,
+        this.futureBudgetService = new FutureBudgetService(futureBudgetOrgRepository, futureBudgetRepository,
                 futureBudgetLineItemRepository);
     }
 
@@ -48,6 +49,7 @@ public class FutureBudgetServiceTest {
         futureBudget.setDirection("O");
         futureBudget.setJanuaryAmount(new BigDecimal(1234));
         futureBudget.setMarchAmount(new BigDecimal(1234));
+        futureBudget.setCurrentAmount(new BigDecimal(0));
 
         return futureBudget;
     }
@@ -59,6 +61,7 @@ public class FutureBudgetServiceTest {
         futureBudget.setDirection("I");
         futureBudget.setJanuaryAmount(new BigDecimal(2234));
         futureBudget.setFebruaryAmount(new BigDecimal(1234));
+        futureBudget.setCurrentAmount(new BigDecimal(0));
 
         return futureBudget;
     }
@@ -80,6 +83,7 @@ public class FutureBudgetServiceTest {
         futureBudget.setOctoberAmount(new BigDecimal(0));
         futureBudget.setNovemberAmount(new BigDecimal(0));
         futureBudget.setDecemberAmount(new BigDecimal(0));
+        futureBudget.setCurrentAmount(new BigDecimal(0));
 
         return futureBudget;
     }
@@ -138,6 +142,7 @@ public class FutureBudgetServiceTest {
 
         // Given
         FutureBudget expected = new FutureBudget();
+        expected.setDirection("I");
 
         List<FutureBudgetOrg> futureBudgetOrgList = new ArrayList<>();
 
@@ -151,4 +156,65 @@ public class FutureBudgetServiceTest {
         // then
         Assert.assertNull(actual.getOrgId());
     }
+
+    @Test(expected = InvalidAmount.class)
+    public void completeMonthExceptionTest() throws InvalidAmount {
+        // Given
+        FutureBudgetLineItem futureBudgetLineItem1 = new FutureBudgetLineItem(1, 13, new BigDecimal("50.12"), 1);
+        FutureBudgetLineItem futureBudgetLineItem4 = new FutureBudgetLineItem(1, 2, new BigDecimal("100"), 1);    
+        List<FutureBudgetLineItem> expected = new ArrayList<FutureBudgetLineItem>();
+        expected.add(futureBudgetLineItem1);
+
+        when(futureBudgetRepository.getCurrentMonthValue(any())).thenReturn(13);
+        when(futureBudgetRepository.getCurrentMonthTotalSum(any(), any())).thenReturn(1);
+        when(futureBudgetLineItemRepository.findByOrgIdAndMonth(1, 2)).thenReturn(futureBudgetLineItem4);         
+        when(futureBudgetLineItemRepository.getCurrentMonthFullDataPerProfile(any(), any())).thenReturn(expected);
+        when(futureBudgetLineItemRepository.save(any())).thenReturn(futureBudgetLineItem1);
+
+        // When
+        futureBudgetService.completeMonth(profileId, false);
+
+        // Then
+        // Exception Thrown
+    }
+
+    @Test
+    public void completeMonthTest() throws InvalidAmount {
+        // Given
+        FutureBudgetLineItem dummyReturn1 = new FutureBudgetLineItem(1, 13, new BigDecimal("50.12"), 1);
+        FutureBudgetLineItem dummyReturn2 = new FutureBudgetLineItem(2, 13, new BigDecimal("5.12"), 1);
+        FutureBudgetLineItem dummyReturn3 = new FutureBudgetLineItem(3, 13, new BigDecimal("150.02"), 1);
+        FutureBudgetLineItem futureBudgetLineItem4 = new FutureBudgetLineItem(1, 2, new BigDecimal("100"), 1);
+        FutureBudgetLineItem futureBudgetLineItem5 = new FutureBudgetLineItem(2, 2, new BigDecimal("101.5"), 1);
+        FutureBudgetLineItem futureBudgetLineItem6 = new FutureBudgetLineItem(3, 2, new BigDecimal("75"), 1);   
+        FutureBudgetLineItem expected1 = new FutureBudgetLineItem(1, 14, new BigDecimal("100"), 1);
+        FutureBudgetLineItem expected2 = new FutureBudgetLineItem(2, 14, new BigDecimal("101.5"), 1);
+        FutureBudgetLineItem expected3 = new FutureBudgetLineItem(3, 14, new BigDecimal("75"), 1);               
+        List<FutureBudgetLineItem> dummyReturnData = new ArrayList<FutureBudgetLineItem>();
+        dummyReturnData.add(dummyReturn1);
+        dummyReturnData.add(dummyReturn2);
+        dummyReturnData.add(dummyReturn3);        
+        List<FutureBudgetLineItem> expected = new ArrayList<FutureBudgetLineItem>();
+        expected.add(expected1);
+        expected.add(expected2);
+        expected.add(expected3);
+
+        when(futureBudgetRepository.getCurrentMonthValue(any())).thenReturn(13);
+        when(futureBudgetRepository.getCurrentMonthTotalSum(any(), any())).thenReturn(1);
+        when(futureBudgetLineItemRepository.findByOrgIdAndMonth(1, 2)).thenReturn(futureBudgetLineItem4);
+        when(futureBudgetLineItemRepository.findByOrgIdAndMonth(2, 2)).thenReturn(futureBudgetLineItem5);
+        when(futureBudgetLineItemRepository.findByOrgIdAndMonth(3, 2)).thenReturn(futureBudgetLineItem6);                
+        when(futureBudgetLineItemRepository.getCurrentMonthFullDataPerProfile(any(), any())).thenReturn(dummyReturnData);
+        when(futureBudgetLineItemRepository.save(expected1)).thenReturn(expected1);
+        when(futureBudgetLineItemRepository.save(expected2)).thenReturn(expected2);
+        when(futureBudgetLineItemRepository.save(expected3)).thenReturn(expected3);                
+
+        // When
+        List<FutureBudgetLineItem> actual = futureBudgetService.completeMonth(profileId, true);
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
 }
+

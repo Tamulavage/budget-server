@@ -30,7 +30,6 @@ public class TransactionServices {
         this.accountRepository = accountRepository;
     }
 
-    // todo: add try catch block
     public List<Transaction> getAllTransactions() {
         return repo.findAll();
     }

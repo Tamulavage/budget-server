@@ -33,6 +33,7 @@ public class FutureBudget {
     private BigDecimal octoberAmount ;
     private BigDecimal novemberAmount ;
     private BigDecimal decemberAmount ;
+    private BigDecimal currentAmount ;
 
     public Integer getOrgId() {
         return orgId;
@@ -162,6 +163,49 @@ public class FutureBudget {
         this.decemberAmount = decemberAmount;
     }
 
+    public BigDecimal getCurrentAmount() {
+        return currentAmount;
+    }
+
+    public void setCurrentAmount(BigDecimal currentAmount) {
+        this.currentAmount = currentAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "FutureBudget [aprilAmount=" + aprilAmount + ", augustAmount=" + augustAmount + ", currentAmount="
+                + currentAmount + ", decemberAmount=" + decemberAmount + ", direction=" + direction
+                + ", februaryAmount=" + februaryAmount + ", frequencyPerMonth=" + frequencyPerMonth + ", januaryAmount="
+                + januaryAmount + ", julyAmount=" + julyAmount + ", juneAmount=" + juneAmount + ", marchAmount="
+                + marchAmount + ", mayAmount=" + mayAmount + ", novemberAmount=" + novemberAmount + ", octoberAmount="
+                + octoberAmount + ", orgId=" + orgId + ", orgName=" + orgName + ", septemberAmount=" + septemberAmount
+                + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((aprilAmount == null) ? 0 : aprilAmount.hashCode());
+        result = prime * result + ((augustAmount == null) ? 0 : augustAmount.hashCode());
+        result = prime * result + ((currentAmount == null) ? 0 : currentAmount.hashCode());
+        result = prime * result + ((decemberAmount == null) ? 0 : decemberAmount.hashCode());
+        result = prime * result + ((direction == null) ? 0 : direction.hashCode());
+        result = prime * result + ((februaryAmount == null) ? 0 : februaryAmount.hashCode());
+        result = prime * result + ((frequencyPerMonth == null) ? 0 : frequencyPerMonth.hashCode());
+        result = prime * result + ((januaryAmount == null) ? 0 : januaryAmount.hashCode());
+        result = prime * result + ((julyAmount == null) ? 0 : julyAmount.hashCode());
+        result = prime * result + ((juneAmount == null) ? 0 : juneAmount.hashCode());
+        result = prime * result + ((marchAmount == null) ? 0 : marchAmount.hashCode());
+        result = prime * result + ((mayAmount == null) ? 0 : mayAmount.hashCode());
+        result = prime * result + ((novemberAmount == null) ? 0 : novemberAmount.hashCode());
+        result = prime * result + ((octoberAmount == null) ? 0 : octoberAmount.hashCode());
+        result = prime * result + ((orgId == null) ? 0 : orgId.hashCode());
+        result = prime * result + ((orgName == null) ? 0 : orgName.hashCode());
+        result = prime * result + ((septemberAmount == null) ? 0 : septemberAmount.hashCode());
+        return result;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -180,6 +224,11 @@ public class FutureBudget {
             if (other.augustAmount != null)
                 return false;
         } else if (!augustAmount.equals(other.augustAmount))
+            return false;
+        if (currentAmount == null) {
+            if (other.currentAmount != null)
+                return false;
+        } else if (!currentAmount.equals(other.currentAmount))
             return false;
         if (decemberAmount == null) {
             if (other.decemberAmount != null)
@@ -252,16 +301,6 @@ public class FutureBudget {
         } else if (!septemberAmount.equals(other.septemberAmount))
             return false;
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "FutureBudget [aprilAmount=" + aprilAmount + ", augustAmount=" + augustAmount + ", decemberAmount="
-                + decemberAmount + ", direction=" + direction + ", februaryAmount=" + februaryAmount
-                + ", frequencyPerMonth=" + frequencyPerMonth + ", januaryAmount=" + januaryAmount + ", julyAmount="
-                + julyAmount + ", juneAmount=" + juneAmount + ", marchAmount=" + marchAmount + ", mayAmount="
-                + mayAmount + ", novemberAmount=" + novemberAmount + ", octoberAmount=" + octoberAmount + ", orgId="
-                + orgId + ", orgName=" + orgName + ", septemberAmount=" + septemberAmount + "]";
     }
 
 }

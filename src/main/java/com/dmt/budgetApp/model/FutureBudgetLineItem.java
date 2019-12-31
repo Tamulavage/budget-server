@@ -58,4 +58,62 @@ public class FutureBudgetLineItem {
     public void setFrequencyPerMonth(Integer frequencyPerMonth) {
         this.frequencyPerMonth = frequencyPerMonth;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((amount == null) ? 0 : amount.hashCode());
+        result = prime * result + ((frequencyPerMonth == null) ? 0 : frequencyPerMonth.hashCode());
+        result = prime * result + ((month == null) ? 0 : month.hashCode());
+        result = prime * result + ((orgId == null) ? 0 : orgId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        FutureBudgetLineItem other = (FutureBudgetLineItem) obj;
+        if (amount == null) {
+            if (other.amount != null)
+                return false;
+        } else if (!amount.equals(other.amount))
+            return false;
+        if (frequencyPerMonth == null) {
+            if (other.frequencyPerMonth != null)
+                return false;
+        } else if (!frequencyPerMonth.equals(other.frequencyPerMonth))
+            return false;
+        if (month == null) {
+            if (other.month != null)
+                return false;
+        } else if (!month.equals(other.month))
+            return false;
+        if (orgId == null) {
+            if (other.orgId != null)
+                return false;
+        } else if (!orgId.equals(other.orgId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "FutureBudgetLineItem [amount=" + amount + ", frequencyPerMonth=" + frequencyPerMonth + ", month="
+                + month + ", orgId=" + orgId + "]";
+    }
+
+    public FutureBudgetLineItem(Integer orgId, Integer month, BigDecimal amount, Integer frequencyPerMonth) {
+        this.orgId = orgId;
+        this.month = month;
+        this.amount = amount;
+        this.frequencyPerMonth = frequencyPerMonth;
+    }
+
+    public FutureBudgetLineItem() {};
 }

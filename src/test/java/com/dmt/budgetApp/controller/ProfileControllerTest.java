@@ -157,7 +157,7 @@ public class ProfileControllerTest {
 
     @Test
     public void testFindException() throws ResourceNotFound {
-        HttpStatus expected = HttpStatus.NOT_FOUND;
+        HttpStatus expected = HttpStatus.INTERNAL_SERVER_ERROR;
         BDDMockito
                 .given(services.findById(99))
                 .willReturn(null);
