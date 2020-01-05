@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dmt.budgetApp.exceptions.InvalidAmount;
 import com.dmt.budgetApp.model.FutureBudget;
 import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
@@ -72,6 +73,7 @@ public class FutureBudgetService {
         difference.setOctoberAmount(in.getOctoberAmount().subtract(out.getOctoberAmount()));
         difference.setNovemberAmount(in.getNovemberAmount().subtract(out.getNovemberAmount()));
         difference.setDecemberAmount(in.getDecemberAmount().subtract(out.getDecemberAmount()));
+        difference.setCurrentAmount(in.getCurrentAmount().subtract(out.getCurrentAmount()));
 
         return difference;
     }
@@ -83,8 +85,8 @@ public class FutureBudgetService {
 
         futureBudgetOrgRepository.save(futureBudgetOrg);
 
-        for (int month = 1; month <= 12; month++) {
-            saveLineItem(futureBudgetOrg.getOrgId(), futureBudget, month);
+        for (int month = 1; month <= 13; month++) {
+            saveLineItem(futureBudgetOrg.getOrgId(), futureBudget, month, profileId);
         }
 
         futureBudget.setOrgId(futureBudgetOrg.getOrgId());
@@ -117,14 +119,14 @@ public class FutureBudgetService {
         return futureBudgetOrgRetVal;
     }
 
-    private void saveLineItem(Integer orgId, FutureBudget futureBudget, Integer month) {
+    private void saveLineItem(Integer orgId, FutureBudget futureBudget, Integer month,  Integer profileId) {
         FutureBudgetLineItem futureBudgetLineItem = new FutureBudgetLineItem();
 
         futureBudgetLineItem.setOrgId(orgId);
         futureBudgetLineItem.setFrequencyPerMonth(futureBudget.getFrequencyPerMonth());
         futureBudgetLineItem.setMonth(month);
 
-        switch (month) {
+        switch (month) {        
         case 1:
             futureBudgetLineItem.setAmount(futureBudget.getJanuaryAmount());
             break;
@@ -162,7 +164,8 @@ public class FutureBudgetService {
             futureBudgetLineItem.setAmount(futureBudget.getDecemberAmount());
             break;
         default:
-            futureBudgetLineItem.setAmount(new BigDecimal(0.0));
+            futureBudgetLineItem.setMonth(futureBudgetRepository.getCurrentMonthValue(profileId));
+            futureBudgetLineItem.setAmount(futureBudget.getCurrentAmount());
             break;
         }
 
@@ -188,6 +191,45 @@ public class FutureBudgetService {
             System.err.println(e.toString());
             throw new Exception("Did not delete org/check that it exists");
         }
+    }
+
+	public List<FutureBudgetLineItem> completeMonth(Integer profileId, boolean overrideValues) throws InvalidAmount {
+        Integer currentMonth = futureBudgetRepository.getCurrentMonthValue(profileId);
+        if((!overrideValues) && (futureBudgetRepository.getCurrentMonthTotalSum(profileId, currentMonth)>0) )
+        {
+             throw new InvalidAmount("Current month sum amount not empty");
+        }
+    
+        Integer nextMonth = getNextMonth(currentMonth);
+        Integer futureCurrentMonth = currentMonth % 12 + 13;
+
+        List<FutureBudgetLineItem> currentMonthFullData = futureBudgetLineItemRepository.getCurrentMonthFullDataPerProfile(profileId, currentMonth);
+        List<FutureBudgetLineItem> retVal = new ArrayList<FutureBudgetLineItem>();
+
+        for (FutureBudgetLineItem futureBudgetLineItem : currentMonthFullData) {
+            
+            FutureBudgetLineItem futureBudgetLineItemNextMonth = futureBudgetLineItemRepository.findByOrgIdAndMonth(futureBudgetLineItem.getOrgId(), nextMonth);
+            FutureBudgetLineItem futureBudgetLineItemNew = resetCurrentDataPerOrg(futureBudgetLineItem, futureBudgetLineItemNextMonth.getAmount(), futureCurrentMonth );
+            
+            // save then delete as it is part of PK
+            futureBudgetLineItemRepository.save(futureBudgetLineItemNew);
+            futureBudgetLineItemRepository.delete(futureBudgetLineItem);
+            retVal.add(futureBudgetLineItemNew);
+        }
+
+        return retVal;
+    }
+    
+    private FutureBudgetLineItem resetCurrentDataPerOrg(FutureBudgetLineItem futureBudgetLineItem, BigDecimal amount, Integer newMonth){
+        return new FutureBudgetLineItem(futureBudgetLineItem.getOrgId(), newMonth, amount, futureBudgetLineItem.getFrequencyPerMonth());
+    }
+
+    private Integer getNextMonth(Integer currentMonth){
+        Integer nextMonth = currentMonth % 12+1;
+        if(nextMonth == 0) {
+            nextMonth = 12;
+        }    
+        return nextMonth;
     }
 
 }

@@ -2,7 +2,9 @@ package com.dmt.budgetApp.controller;
 
 import java.util.List;
 
+import com.dmt.budgetApp.exceptions.InvalidAmount;
 import com.dmt.budgetApp.model.FutureBudget;
+import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
 import com.dmt.budgetApp.services.FutureBudgetService;
 
@@ -69,7 +71,7 @@ public class FutureBudgetController {
 
         } catch (Exception e) {
             System.out.println(e.toString());
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -80,9 +82,22 @@ public class FutureBudgetController {
 
         } catch (Exception e) {
             System.out.println(e.toString());
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/future/completemonth/{profileId}")
+    public ResponseEntity<List<FutureBudgetLineItem>> completeMonth(@PathVariable Integer profileId, boolean forceComplete) {
+        try {
+            return new ResponseEntity<>(futureBudgetService.completeMonth(profileId, forceComplete), HttpStatus.ACCEPTED);
+        } catch (InvalidAmount e) {
+            System.out.println(e.toString());
+            return new ResponseEntity<>(null, HttpStatus.PRECONDITION_FAILED);
+        }catch (Exception e) {
+            System.out.println(e.toString());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    } 
 
     @DeleteMapping("/future/lineitem/{profileId}")
     public ResponseEntity<String> removeBudgetLineItem(@RequestBody FutureBudgetOrg futureBudgetOrg, @PathVariable Integer profileId){
