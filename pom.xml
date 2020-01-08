@@ -12,7 +12,7 @@
 	<artifactId>budgetApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>budgetApp</name>
-	<description>Full Stack group project - Budget App</description>
+	<description>DMT Budget App</description>
 
 	<properties>
 		<java.version>1.8</java.version>

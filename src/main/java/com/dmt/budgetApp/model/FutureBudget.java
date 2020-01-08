@@ -33,7 +33,7 @@ public class FutureBudget {
     private BigDecimal octoberAmount ;
     private BigDecimal novemberAmount ;
     private BigDecimal decemberAmount ;
-    private BigDecimal currentAmount ;
+    private BigDecimal currentAmount;
 
     public Integer getOrgId() {
         return orgId;

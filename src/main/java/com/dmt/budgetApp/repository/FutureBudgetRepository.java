@@ -3,7 +3,6 @@ package com.dmt.budgetApp.repository;
 import java.util.List;
 
 import com.dmt.budgetApp.model.FutureBudget;
-import com.dmt.budgetApp.model.FutureBudgetLineItem;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -38,7 +37,8 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + "     ) temp GROUP BY org_id, org_name, freq_per_month , direction", nativeQuery = true)
         List<FutureBudget> findAllByProfileId(Integer profileId);
 
-        @Query(value = "SELECT org_id, org_name, freq_per_month , direction, MAX(cur) as current_amount, "
+        @Query(value = "SELECT org_id, org_name, freq_per_month , direction, "
+                        + " IFNULL(MAX(cur), 0) as current_amount, "
                         + " MAX(jan) as january_amount ,MAX(feb) as february_amount, MAX(march) as march_amount, "
                         + " MAX(apr) as april_amount, MAX(may) as may_amount, MAX(june) as june_amount, "
                         + " MAX(july) as july_amount, MAX(aug) as august_amount, MAX(sept) as september_amount, "
@@ -66,7 +66,8 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
                         + "     ) temp GROUP BY org_id, org_name, freq_per_month , direction", nativeQuery = true)
         List<FutureBudget> findAllOutputByProfileId(Integer profileId);
 
-        @Query(value = "SELECT org_id, org_name, freq_per_month , direction, MAX(cur) as current_amount, "
+        @Query(value = "SELECT org_id, org_name, freq_per_month , direction, "
+                        + " IFNULL(MAX(cur), 0) as current_amount, "
                         + " MAX(jan) as january_amount ,MAX(feb) as february_amount, MAX(march) as march_amount, "
                         + " MAX(apr) as april_amount, MAX(may) as may_amount, MAX(june) as june_amount, "
                         + " MAX(july) as july_amount, MAX(aug) as august_amount, MAX(sept) as september_amount, "
@@ -95,13 +96,19 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
         List<FutureBudget> findAllInputByProfileId(Integer profileId);
 
         @Query(value = "SELECT '1' as org_id, NULL AS org_name, NULL AS freq_per_month, direction,  "
-                        + " SUM(cur) as current_amount, "
-                        + " SUM(jan) as january_amount , "
-                        + " SUM(feb) as february_amount, SUM(march) as march_amount, "
-                        + " SUM(apr) as april_amount, SUM(may) as may_amount, SUM(june) as june_amount, "
-                        + " SUM(july) as july_amount, SUM(aug) as august_amount, SUM(sept) as september_amount, "
-                        + " SUM(october) as october_amount, SUM(nov) as november_amount, "
-                        + " SUM(december) as december_amount "
+                        + " IFNULL(SUM(cur),0) as current_amount, "
+                        + " IFNULL(SUM(jan),0) as january_amount , "
+                        + " IFNULL(SUM(feb),0) as february_amount, "
+                        + " IFNULL(SUM(march),0) as march_amount, "
+                        + " IFNULL(SUM(apr),0) as april_amount, "
+                        + " IFNULL(SUM(may),0) as may_amount, "
+                        + " IFNULL(SUM(june),0) as june_amount, "
+                        + " IFNULL(SUM(july),0) as july_amount, "
+                        + " IFNULL(SUM(aug),0) as august_amount, "
+                        + " IFNULL(SUM(sept),0) as september_amount, "
+                        + " IFNULL(SUM(october),0) as october_amount, "
+                        + " IFNULL(SUM(nov),0) as november_amount, "
+                        + " IFNULL(SUM(december),0) as december_amount "
                         + " FROM ( "
                         + "      SELECT fa.org_id org_id, org_name,  freq_per_month , direction, "
                         + "             CASE WHEN month=1 then amount* freq_per_month end as jan, "
@@ -126,13 +133,19 @@ public interface FutureBudgetRepository extends JpaRepository<FutureBudget, Inte
         FutureBudget sumOutgoing(Integer profileId);
 
         @Query(value = "SELECT '2' as org_id, null as org_name, null as freq_per_month, direction, "
-                        + " SUM(cur) as current_amount, "
-                        + " SUM(jan) as january_amount , "
-                        + " SUM(feb) as february_amount, SUM(march) as march_amount, "
-                        + " SUM(apr) as april_amount, SUM(may) as may_amount, SUM(june) as june_amount, "
-                        + " SUM(july) as july_amount, SUM(aug) as august_amount, SUM(sept) as september_amount, "
-                        + " SUM(october) as october_amount, SUM(nov) as november_amount, "
-                        + " SUM(december) as december_amount "
+                        + " IFNULL(SUM(cur),0) as current_amount, "
+                        + " IFNULL(SUM(jan),0) as january_amount , "
+                        + " IFNULL(SUM(feb),0) as february_amount, "
+                        + " IFNULL(SUM(march),0) as march_amount, "
+                        + " IFNULL(SUM(apr),0) as april_amount, "
+                        + " IFNULL(SUM(may),0) as may_amount, "
+                        + " IFNULL(SUM(june),0) as june_amount, "
+                        + " IFNULL(SUM(july),0) as july_amount, "
+                        + " IFNULL(SUM(aug),0) as august_amount, "
+                        + " IFNULL(SUM(sept),0) as september_amount, "
+                        + " IFNULL(SUM(october),0) as october_amount, "
+                        + " IFNULL(SUM(nov),0) as november_amount, "
+                        + " IFNULL(SUM(december),0) as december_amount "
                         + " FROM ( "
                         + "     SELECT fa.org_id org_id, org_name,  freq_per_month , direction, "
                         + "             CASE WHEN month=1 then amount* freq_per_month end as jan, "
