@@ -31,6 +31,12 @@ public class FutureBudgetLineItem {
         return orgId;
     }
 
+    
+    public FutureBudgetLineItem() {
+        this.amount = new BigDecimal("0");
+    }
+
+
     public void setOrgId(Integer orgId) {
         this.orgId = orgId;
     }
@@ -115,5 +121,4 @@ public class FutureBudgetLineItem {
         this.frequencyPerMonth = frequencyPerMonth;
     }
 
-    public FutureBudgetLineItem() {};
 }
