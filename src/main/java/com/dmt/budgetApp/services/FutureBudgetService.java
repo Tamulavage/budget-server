@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dmt.budgetApp.exceptions.InvalidAmount;
+import com.dmt.budgetApp.exceptions.InvalidData;
 import com.dmt.budgetApp.model.FutureBudget;
 import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
@@ -236,5 +237,23 @@ public class FutureBudgetService {
         }    
         return nextMonth;
     }
+
+	public Integer currentMonth(Integer profileId, Integer month) throws InvalidData{
+        if(month < 13 || month > 24){
+            throw new InvalidData("Month is not valid");
+        }
+        if(futureBudgetRepository.getCurrentMonthValue(profileId)>12){
+            throw new InvalidData("Month is not valid, user already has current month");
+        }
+        List<FutureBudgetOrg> orgs =  futureBudgetOrgRepository.findAllOrgByProfileId(profileId);
+        for (FutureBudgetOrg futureBudgetOrg : orgs) {
+            FutureBudgetLineItem futureBudgetLineItem = new FutureBudgetLineItem();
+            futureBudgetLineItem.setFrequencyPerMonth(1);
+            futureBudgetLineItem.setOrgId(futureBudgetOrg.getOrgId());
+            futureBudgetLineItem.setMonth(month);
+            futureBudgetLineItemRepository.save(futureBudgetLineItem);
+        }
+		return month;
+	}
 
 }
