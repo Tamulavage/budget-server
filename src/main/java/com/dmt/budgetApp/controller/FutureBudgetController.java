@@ -78,6 +78,7 @@ public class FutureBudgetController {
     @PostMapping("/future/lineitem/{profileId}")
     public ResponseEntity<FutureBudget> updateBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer profileId) {
         try {
+            System.out.println("updateBudgetLineItem endpoint called");
             return new ResponseEntity<>(futureBudgetService.updateBudgetLineItem(futureBudget, profileId), HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
@@ -89,6 +90,7 @@ public class FutureBudgetController {
     @PostMapping("/future/completemonth/{profileId}")
     public ResponseEntity<List<FutureBudgetLineItem>> completeMonth(@PathVariable Integer profileId, boolean forceComplete) {
         try {
+            System.out.println("completeMonth endpoint called");
             return new ResponseEntity<>(futureBudgetService.completeMonth(profileId, forceComplete), HttpStatus.ACCEPTED);
         } catch (InvalidAmount e) {
             System.out.println(e.toString());
@@ -105,6 +107,7 @@ public class FutureBudgetController {
             futureBudgetService.removeBudgetLineItem(futureBudgetOrg, profileId);
             return new ResponseEntity<>("", HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println(e.toString());
             return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

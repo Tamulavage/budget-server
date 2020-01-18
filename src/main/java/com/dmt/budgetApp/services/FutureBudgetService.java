@@ -164,7 +164,12 @@ public class FutureBudgetService {
             futureBudgetLineItem.setAmount(futureBudget.getDecemberAmount());
             break;
         default:
-            futureBudgetLineItem.setMonth(futureBudgetRepository.getCurrentMonthValue(profileId));
+            Integer currentMonth = futureBudgetRepository.getCurrentMonthValue(profileId);
+            if(currentMonth <= 12){
+                // no current set up - default to Jan current
+                currentMonth = 13;
+            }
+            futureBudgetLineItem.setMonth(currentMonth);
             futureBudgetLineItem.setAmount(futureBudget.getCurrentAmount());
             break;
         }
