@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dmt.budgetApp.exceptions.InvalidAmount;
+import com.dmt.budgetApp.exceptions.InvalidData;
 import com.dmt.budgetApp.model.FutureBudget;
 import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
@@ -214,6 +215,45 @@ public class FutureBudgetServiceTest {
 
         // Then
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test(expected = InvalidData.class)
+    public void testcurrentMonthException() throws InvalidData{
+        futureBudgetService.currentMonth(profileId,1);
+    }
+
+    @Test(expected = InvalidData.class)
+    public void testcurrentMonthExistsException() throws InvalidData{
+        // given
+        when(futureBudgetRepository.getCurrentMonthValue(profileId)).thenReturn(13);
+
+        // When
+        futureBudgetService.currentMonth(profileId,13);
+    }
+
+    @Test
+    public void testcurrentMonthAdd() throws InvalidData {
+        // given
+        Integer orgId = 101;
+        FutureBudgetOrg futureBudgetOrg = new FutureBudgetOrg();
+        futureBudgetOrg.setOrgId(orgId);
+
+        List<FutureBudgetOrg> dummyList = new ArrayList<>();
+        dummyList.add(futureBudgetOrg);
+
+        FutureBudgetLineItem expected = new FutureBudgetLineItem();
+        expected.setMonth(13);
+        expected.setOrgId(orgId);
+
+        when(futureBudgetRepository.getCurrentMonthValue(profileId)).thenReturn(12);
+        when(futureBudgetOrgRepository.findAllOrgByProfileId(profileId)).thenReturn(dummyList);
+        when(futureBudgetLineItemRepository.save(expected)).thenReturn(expected);
+
+        // When
+        Integer actual = futureBudgetService.currentMonth(profileId,13);
+
+        // Then
+        Assert.assertEquals(expected.getMonth(), actual);
     }
 
 }
