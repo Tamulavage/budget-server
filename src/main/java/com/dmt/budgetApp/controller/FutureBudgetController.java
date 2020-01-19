@@ -72,6 +72,7 @@ public class FutureBudgetController {
 
         } catch (Exception e) {
             System.out.println(e.toString());
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -84,6 +85,7 @@ public class FutureBudgetController {
 
         } catch (Exception e) {
             System.out.println(e.toString());
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -95,9 +97,11 @@ public class FutureBudgetController {
             return new ResponseEntity<>(futureBudgetService.completeMonth(profileId, forceComplete), HttpStatus.ACCEPTED);
         } catch (InvalidAmount e) {
             System.out.println(e.toString());
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.PRECONDITION_FAILED);
         }catch (Exception e) {
             System.out.println(e.toString());
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     } 
@@ -109,9 +113,11 @@ public class FutureBudgetController {
             return new ResponseEntity<>(futureBudgetService.currentMonth(profileId, month), HttpStatus.ACCEPTED);
         } catch (InvalidData e) {
             System.out.println(e.toString());
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.PRECONDITION_FAILED);
         }catch (Exception e) {
             System.out.println(e.toString());
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     } 
@@ -123,6 +129,7 @@ public class FutureBudgetController {
             return new ResponseEntity<>("", HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.toString());
+            e.printStackTrace();
             return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
