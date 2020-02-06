@@ -72,14 +72,16 @@ CREATE TABLE future_accounting (
 ------------------
 INSERT INTO account_type (description)
 VALUES ("Checking"),
-       ("Saving"),
-       ("CD");
+       ("Savings"),
+       ("CD"),
+       ("529b")
+       ("401k");
 
 ---------------
 
 INSERT INTO account (account_type_id, nick_name, institution_name,  balance)
 VALUES (1, "Primary Checking", "Chase", 1003.01),
-       (2, "Primary Savings", "Chase", 1045.12);
+       (2, "Primary Savings", "WSFS", 1045.12);
 
 INSERT INTO profile (first_name, last_name, username)
 VALUES    ("David", "Tamulavage", "tamulavage");
