@@ -256,5 +256,49 @@ public class FutureBudgetServiceTest {
         Assert.assertEquals(expected.getMonth(), actual);
     }
 
+    @Test(expected = InvalidData.class)
+    public void updateBudgetLineItemTestException() throws InvalidData {
+        // Given
+        FutureBudgetLineItem input = new FutureBudgetLineItem();
+        input.setOrgId(1);
+
+        Integer orgId = 101;
+        FutureBudgetOrg futureBudgetOrg = new FutureBudgetOrg();
+        futureBudgetOrg.setOrgId(orgId);
+
+        List<FutureBudgetOrg> dummyList = new ArrayList<>();
+        dummyList.add(futureBudgetOrg);        
+
+        when(futureBudgetOrgRepository.findAllOrgByProfileId(profileId)).thenReturn(dummyList);
+
+        // when
+        futureBudgetService.updateBudgetLineItem(input,profileId);
+
+        // expected exception
+    }
+
+    @Test
+    public void updateBudgetLineItemTes() throws InvalidData {
+        // Given
+        FutureBudgetLineItem input = new FutureBudgetLineItem();
+        input.setOrgId(1);
+
+        Integer orgId = 1;
+        FutureBudgetOrg futureBudgetOrg = new FutureBudgetOrg();
+        futureBudgetOrg.setOrgId(orgId);
+
+        List<FutureBudgetOrg> dummyList = new ArrayList<>();
+        dummyList.add(futureBudgetOrg);        
+
+        when(futureBudgetOrgRepository.findAllOrgByProfileId(profileId)).thenReturn(dummyList);
+        when(futureBudgetLineItemRepository.save(input)).thenReturn(input);
+
+        // when
+        FutureBudgetLineItem actual = futureBudgetService.updateBudgetLineItem(input,profileId);
+
+        // expected exception
+        Assert.assertEquals(input, actual);
+    }
+
 }
 

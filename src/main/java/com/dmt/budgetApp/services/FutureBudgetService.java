@@ -9,6 +9,7 @@ import com.dmt.budgetApp.exceptions.InvalidData;
 import com.dmt.budgetApp.model.FutureBudget;
 import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
+import com.dmt.budgetApp.model.RawData;
 import com.dmt.budgetApp.repository.FutureBudgetLineItemRepository;
 import com.dmt.budgetApp.repository.FutureBudgetOrgRepository;
 import com.dmt.budgetApp.repository.FutureBudgetRepository;
@@ -238,6 +239,12 @@ public class FutureBudgetService {
         return nextMonth;
     }
 
+    public RawData getCurrentMonth(Integer profileId){
+        RawData retVal  = new RawData();
+        retVal.setData(futureBudgetRepository.getCurrentMonthValue(profileId).toString());
+        return retVal;
+    }
+
 	public Integer currentMonth(Integer profileId, Integer month) throws InvalidData{
         if(month < 13 || month > 24){
             throw new InvalidData("Month is not valid");
@@ -254,6 +261,22 @@ public class FutureBudgetService {
             futureBudgetLineItemRepository.save(futureBudgetLineItem);
         }
 		return month;
+	}
+
+	public FutureBudgetLineItem updateBudgetLineItem(FutureBudgetLineItem futureBudgetLineItem, Integer profileId)
+            throws InvalidData {
+        Boolean validOrgProfile = false;
+        List<FutureBudgetOrg> passedInProfilesOrgs = futureBudgetOrgRepository.findAllOrgByProfileId(profileId);
+        for(FutureBudgetOrg passedInProfilesOrg: passedInProfilesOrgs) {
+            if(futureBudgetLineItem.getOrgId() == passedInProfilesOrg.getOrgId()){
+                validOrgProfile= true;
+            }
+        }
+        if(!validOrgProfile){
+            throw new InvalidData("invalid Profile/org info");
+        }
+
+        return futureBudgetLineItemRepository.save(futureBudgetLineItem);
 	}
 
 }

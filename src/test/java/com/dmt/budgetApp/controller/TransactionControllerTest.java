@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
-
 import static org.mockito.BDDMockito.given;
 
 
@@ -30,56 +28,6 @@ public class TransactionControllerTest {
     
     @MockBean
     private TransactionServices services;
-    
-    
-    @Test
-    public void testGetTransactions() throws Exception {
-        ArrayList<Transaction> transactions = new ArrayList<>();
-        Transaction transaction1 = new Transaction(1, 1, 2, "3", 1.0,  null);
-        Transaction transaction2 = new Transaction(2, 1, 2, "3", 1.0,  null);
-        transactions.add(transaction1);
-        transactions.add(transaction2);
-        given(services.getAllTransactions())
-                .willReturn(transactions);
-        
-        String expectedReturnValue = "[{" +
-                "\"transactionId\":1," +
-                "\"fromAccountId\":1," +
-                "\"toAccountId\":2," +
-                "\"memo\":\"3\"," +
-                "\"transactionDt\":null," +
-                "\"amount\":1.0" +
-                "},{" +
-                "\"transactionId\":2," +
-                "\"fromAccountId\":1," +
-                "\"toAccountId\":2," +
-                "\"memo\":\"3\"," +
-                "\"transactionDt\":null," +
-                "\"amount\":1.0" +
-                "}]";
-        this.mvc.perform(
-                MockMvcRequestBuilders
-                        .get("/budget/transaction/"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(expectedReturnValue))
-                .andDo(MockMvcResultHandlers.print())
-        ;
-    }
-    
-    @Test
-    public void testGetTransactionsNoTransactions() throws Exception {
-        given(services.getAllTransactions())
-                .willReturn(null);
-        
-        String expectedReturnValue = "";
-        this.mvc.perform(
-                MockMvcRequestBuilders
-                        .get("/budget/transaction/"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(expectedReturnValue))
-        
-        ;
-    }
     
     @Test
     public void testPostTransaction() throws Exception {

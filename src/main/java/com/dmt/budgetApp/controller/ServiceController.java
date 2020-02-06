@@ -100,14 +100,7 @@ public class ServiceController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/account")
-    public ResponseEntity<List<Account>> getAll() {
-        try {
-            return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-    }
+
     @GetMapping("/account/")
     public ResponseEntity<List<Account>> getAllByUserId(Integer userId) {
         try {

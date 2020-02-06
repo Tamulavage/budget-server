@@ -128,36 +128,4 @@ public class ServiceControllerTest {
         Assert.assertEquals(null, actualAccount);
     }
 
-    @Test
-    public void getAllTest() {
-        Account account = new Account(1.0, "test",1,"hey");
-        Account account2 = new Account(122.0, "test2" ,1,"hey2");
-
-        List<Account> list = new ArrayList<>();
-        list.add(account);
-        list.add(account2);
-        HttpStatus expected = HttpStatus.OK;
-        BDDMockito
-                .given(services.findAll())
-                .willReturn(list);
-        //When
-        ResponseEntity<List<Account>> entity = controller.getAll();
-        HttpStatus actual = entity.getStatusCode();
-        List<Account> actualAccount = entity.getBody();
-        //Then
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(list, actualAccount);
-    }
-
-    @Test
-    public void getAllTest2() {
-        BDDMockito
-                .given(services.findAll())
-                .willReturn(null);
-        //When
-        ResponseEntity<List<Account>> entity = controller.getAll();
-        List<Account> actualAccount = entity.getBody();
-        //Then
-        Assert.assertEquals(null, actualAccount);
-    }
 }

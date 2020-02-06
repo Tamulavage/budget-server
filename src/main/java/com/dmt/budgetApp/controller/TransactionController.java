@@ -58,14 +58,14 @@ public class TransactionController {
         }
     }
     
-    @GetMapping("/transaction/")
-    public ResponseEntity<Iterable<Transaction>> getAllTransactions() {
-        try {
-            return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // @GetMapping("/transaction/")
+    // public ResponseEntity<Iterable<Transaction>> getAllTransactions() {
+    //     try {
+    //         return new ResponseEntity<>(transactionServices.getAllTransactions(), HttpStatus.OK);
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
     
     @DeleteMapping("/transaction/{id}")
     public ResponseEntity<String> transactionRemove(@PathVariable Integer id) {
@@ -77,12 +77,12 @@ public class TransactionController {
         }
     }
     
-    @GetMapping("/transaction/latest")
-    public ResponseEntity<Iterable<Transaction>> getLatestTransactionsByPage() {
-        try {
-            return new ResponseEntity<>(transactionServices.getLatestTransactionsByPage(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // @GetMapping("/transaction/latest")
+    // public ResponseEntity<Iterable<Transaction>> getLatestTransactionsByPage() {
+    //     try {
+    //         return new ResponseEntity<>(transactionServices.getLatestTransactionsByPage(), HttpStatus.OK);
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 }

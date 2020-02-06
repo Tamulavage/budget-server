@@ -7,6 +7,7 @@ import com.dmt.budgetApp.exceptions.InvalidData;
 import com.dmt.budgetApp.model.FutureBudget;
 import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
+import com.dmt.budgetApp.model.RawData;
 import com.dmt.budgetApp.services.FutureBudgetService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,11 +107,23 @@ public class FutureBudgetController {
         }
     } 
 
-    @PostMapping("/future/currentMonth/{profileId}")
-    public ResponseEntity<Integer> currentMonth(@PathVariable Integer profileId, Integer month) {
+    @GetMapping("/future/currentMonthVale/{profileId}")
+    public ResponseEntity<RawData> getCurrentMonth(@PathVariable Integer profileId) {
         try {
-            System.out.println("currentMonth endpoint called");
-            return new ResponseEntity<>(futureBudgetService.currentMonth(profileId, month), HttpStatus.ACCEPTED);
+            System.out.println("getCurrentMonth endpoint called");
+            return new ResponseEntity<>(futureBudgetService.getCurrentMonth(profileId), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }     
+    
+    @PostMapping("/future/specificMonth/{profileId}")
+    public ResponseEntity<FutureBudgetLineItem> updateSpecificMonth(@PathVariable Integer profileId,@RequestBody FutureBudgetLineItem futureBudgetLineItem) {
+        try {
+            System.out.println("updateSpecificMonth endpoint called");
+            return new ResponseEntity<>(futureBudgetService.updateBudgetLineItem(futureBudgetLineItem, profileId), HttpStatus.ACCEPTED);
         } catch (InvalidData e) {
             System.out.println(e.toString());
             e.printStackTrace();
