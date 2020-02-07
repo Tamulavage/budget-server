@@ -12,6 +12,7 @@ import com.dmt.budgetApp.exceptions.InvalidData;
 import com.dmt.budgetApp.model.FutureBudget;
 import com.dmt.budgetApp.model.FutureBudgetLineItem;
 import com.dmt.budgetApp.model.FutureBudgetOrg;
+import com.dmt.budgetApp.model.RawData;
 import com.dmt.budgetApp.repository.FutureBudgetLineItemRepository;
 import com.dmt.budgetApp.repository.FutureBudgetOrgRepository;
 import com.dmt.budgetApp.repository.FutureBudgetRepository;
@@ -250,10 +251,10 @@ public class FutureBudgetServiceTest {
         when(futureBudgetLineItemRepository.save(expected)).thenReturn(expected);
 
         // When
-        Integer actual = futureBudgetService.currentMonth(profileId,13);
+        RawData actual = futureBudgetService.currentMonth(profileId,13);
 
         // Then
-        Assert.assertEquals(expected.getMonth(), actual);
+        Assert.assertEquals(expected.getMonth().toString(), actual.getData());
     }
 
     @Test(expected = InvalidData.class)

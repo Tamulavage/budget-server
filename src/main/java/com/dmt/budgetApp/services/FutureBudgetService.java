@@ -245,7 +245,7 @@ public class FutureBudgetService {
         return retVal;
     }
 
-	public Integer currentMonth(Integer profileId, Integer month) throws InvalidData{
+	public RawData currentMonth(Integer profileId, Integer month) throws InvalidData{
         if(month < 13 || month > 24){
             throw new InvalidData("Month is not valid");
         }
@@ -260,7 +260,7 @@ public class FutureBudgetService {
             futureBudgetLineItem.setMonth(month);
             futureBudgetLineItemRepository.save(futureBudgetLineItem);
         }
-		return month;
+		return new RawData(month);
 	}
 
 	public FutureBudgetLineItem updateBudgetLineItem(FutureBudgetLineItem futureBudgetLineItem, Integer profileId)
@@ -277,6 +277,7 @@ public class FutureBudgetService {
         }
 
         return futureBudgetLineItemRepository.save(futureBudgetLineItem);
-	}
+    }
+    
 
 }
