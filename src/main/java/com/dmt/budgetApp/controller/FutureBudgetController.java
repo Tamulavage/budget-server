@@ -110,7 +110,7 @@ public class FutureBudgetController {
     @GetMapping("/future/currentMonthValue/{profileId}")
     public ResponseEntity<RawData> getCurrentMonth(@PathVariable Integer profileId) {
         try {
-            System.out.println("getCurrentMonth endpoint called");
+            System.out.println("get CurrentMonth endpoint called");
             return new ResponseEntity<>(futureBudgetService.getCurrentMonth(profileId), HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -122,7 +122,7 @@ public class FutureBudgetController {
     @PostMapping("/future/currentMonth/{profileId}")
     public ResponseEntity<RawData> currentMonth(@PathVariable Integer profileId, Integer month) {
         try {
-            System.out.println("getCurrentMonth endpoint called");
+            System.out.println("Post CurrentMonth endpoint called");
             return new ResponseEntity<>(futureBudgetService.currentMonth(profileId, month), HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.toString());

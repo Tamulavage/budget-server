@@ -201,7 +201,7 @@ public class FutureBudgetService {
     }
 
 	public List<FutureBudgetLineItem> completeMonth(Integer profileId, boolean overrideValues) throws InvalidAmount {
-        Integer currentMonth = futureBudgetRepository.getCurrentMonthValue(profileId);
+        final Integer currentMonth = futureBudgetRepository.getCurrentMonthValue(profileId);
         if((!overrideValues) && (futureBudgetRepository.getCurrentMonthTotalSum(profileId, currentMonth)>0) )
         {
              throw new InvalidAmount("Current month sum amount not empty");
@@ -268,16 +268,16 @@ public class FutureBudgetService {
         Boolean validOrgProfile = false;
         List<FutureBudgetOrg> passedInProfilesOrgs = futureBudgetOrgRepository.findAllOrgByProfileId(profileId);
         for(FutureBudgetOrg passedInProfilesOrg: passedInProfilesOrgs) {
-            if(futureBudgetLineItem.getOrgId() == passedInProfilesOrg.getOrgId()){
+            if(futureBudgetLineItem.getOrgId().equals(passedInProfilesOrg.getOrgId())){
                 validOrgProfile= true;
-            }
+            }  
         }
         if(!validOrgProfile){
             throw new InvalidData("invalid Profile/org info");
         }
 
+        System.out.println(futureBudgetLineItem.toString());
         return futureBudgetLineItemRepository.save(futureBudgetLineItem);
     }
     
-
 }
