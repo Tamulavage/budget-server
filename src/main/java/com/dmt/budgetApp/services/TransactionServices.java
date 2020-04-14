@@ -9,7 +9,6 @@ import com.dmt.budgetApp.model.TransactionsRunningValues;
 import com.dmt.budgetApp.repository.AccountRepository;
 import com.dmt.budgetApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,6 +16,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionServices {
@@ -48,7 +48,7 @@ public class TransactionServices {
         transaction.setAmount(amount);
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
-        } else if (amount >= (Double.MAX_VALUE / 1e304)) {
+        } else if (amount >= (Double.MAX_VALUE)) {
             throw new InvalidTransactionAmount(String.format("Transactions amount is to large %f", amount));
         }
         Character withdrawDepositTransfer = identifyTransaction(transaction);
@@ -100,20 +100,6 @@ public class TransactionServices {
         return repo.findAllWithAccountNameByUserId(userId);
     }
 
-    public List<Transaction> getLatestTransactionsByPage() {
-        Sort sort = new Sort(Sort.Direction.DESC, "transactionDt");
-        // PageRequest pageRequest = PageRequest.of(0, 10, sort);
-        PageRequest pageRequest = PageRequest.of(0, 100, sort);
-        Page<Transaction> transactionPage = repo.findAll(pageRequest);
-        List<Transaction> allTransactions = new ArrayList<>(transactionPage.getContent());
-        while (transactionPage.hasNext()) {
-            Page<Transaction> nextTransactionPage = repo.findAll(transactionPage.nextPageable());
-            allTransactions.addAll(nextTransactionPage.getContent());
-            transactionPage = nextTransactionPage;
-        }
-        return allTransactions;
-    }
-
     public List<TransactionsRunningValues> findAllWithAccountNameByUserIdAndAccountValues(Integer userId) {
         List<TransactionsRunningValues> checkbook = new ArrayList<>();
         checkbook = populateTransctions(userId);
@@ -121,7 +107,7 @@ public class TransactionServices {
         return checkbook;
     }
 
-    private  List<TransactionsRunningValues> populateRunningTotals(List<TransactionsRunningValues> checkbook){
+    private List<TransactionsRunningValues> populateRunningTotals(List<TransactionsRunningValues> checkbook) {
 
         // TODO: clean up this function
         for (int i = 0; i < checkbook.size() - 1; i++) {
@@ -138,14 +124,14 @@ public class TransactionServices {
                         prev.setBalance(curr.getBalance().subtract(new BigDecimal(current.getAmount())));
                     } else if (curr.getId() == prev.getId()) {
                         prev.setBalance(curr.getBalance());
-                    }     
+                    }
                 }
             }
         }
         return checkbook;
     }
 
-    private  List<TransactionsRunningValues> populateTransctions(Integer userId) {
+    private List<TransactionsRunningValues> populateTransctions(Integer userId) {
         // TODO: clean up this function
         List<TransactionWithAccount> checkbookFromDB = repo.findAllWithAccountNameByUserId(userId);
         List<Account> accountList = accountRepository.findAllByProfileUserId(userId);
@@ -169,6 +155,67 @@ public class TransactionServices {
         }
 
         return checkbook;
+    }
+
+    public Transaction updateInsertTransaction(Transaction transaction) throws InvalidTransactionAmount {
+        if (transaction.getTransactionId() != null) {
+            System.out.println("updating Transction");
+            return updateTransaction(transaction);
+        } else {
+            return createTransaction(transaction);
+        }
+    }
+
+    public Transaction updateTransaction(Transaction transaction) throws InvalidTransactionAmount {
+        df.setRoundingMode(RoundingMode.FLOOR);
+        Double amount = Double.parseDouble(df.format(transaction.getAmount()));
+        transaction.setAmount(amount);
+        if (amount <= 0) {
+            throw new InvalidTransactionAmount("Transactions must be greater than zero.");
+        } else if (amount >= (Double.MAX_VALUE)) {
+            throw new InvalidTransactionAmount(String.format("Transactions amount is to large %f", amount));
+        }
+
+        Transaction transactionToUpdate = repo.findAllByTranId(transaction.getTransactionId());
+
+        revertOldTransaction(transactionToUpdate);
+
+        // undo bad transaction amount
+        // Integer accountIdHold =  transactionToUpdate.getToAccountId();
+        // transactionToUpdate.setToAccountId(transactionToUpdate.getFromAccountId());
+        // transactionToUpdate.setFromAccountId(accountIdHold);
+
+        // Character withdrawDepositTransferUndo = identifyTransaction(transactionToUpdate);
+        // updateAccountBalance(transactionToUpdate, withdrawDepositTransferUndo);
+
+        // transactionToUpdate.setMemo(transaction.getMemo());
+        // transactionToUpdate.setToAccountId(transaction.getToAccountId());
+        // transactionToUpdate.setFromAccountId(transaction.getFromAccountId());
+        // transactionToUpdate.setAmount(transaction.getAmount());
+
+        transactionToUpdate = updateFields(transactionToUpdate, transaction);
+        
+        Character withdrawDepositTransfer = identifyTransaction(transaction);
+        updateAccountBalance(transactionToUpdate, withdrawDepositTransfer);
+
+        return repo.save(transactionToUpdate);
+    }
+
+    private void revertOldTransaction(Transaction transaction){
+        Integer accountIdHold =  transaction.getToAccountId();
+        transaction.setToAccountId(transaction.getFromAccountId());
+        transaction.setFromAccountId(accountIdHold);
+
+        Character withdrawDepositTransferUndo = identifyTransaction(transaction);
+        updateAccountBalance(transaction, withdrawDepositTransferUndo);
+    }
+
+    private Transaction updateFields(Transaction initial, Transaction changeValues){
+        initial.setMemo(changeValues.getMemo());
+        initial.setToAccountId(changeValues.getToAccountId());
+        initial.setFromAccountId(changeValues.getFromAccountId());
+        initial.setAmount(changeValues.getAmount());
+        return initial;
     }
 
 }
