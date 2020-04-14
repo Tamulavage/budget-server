@@ -163,4 +163,40 @@ public class TransactionServicesTest {
         
         Assert.assertNull(actual);
     }
+
+    @Test 
+    public void testUpdatingTransactionMemo() throws InvalidTransactionAmount {
+        // given
+        Transaction transactionChange = new Transaction();
+        Transaction initialTransaction = new Transaction();
+
+        Transaction expectedTransaction = new Transaction();
+        Account account1 = new Account(10.0, "test", null,null);
+
+        String expected = "test";
+        String initial = "tester";
+        Double dummyVal = 1d;
+        Integer transactionGivenId = 1; 
+
+        transactionChange.setMemo(expected);
+        transactionChange.setTransactionId(1);
+        transactionChange.setAmount(dummyVal);
+        transactionChange.setToAccountId(1);
+
+        initialTransaction.setMemo(initial);
+        initialTransaction.setAmount(dummyVal);
+        initialTransaction.setToAccountId(1);
+        
+        expectedTransaction.setMemo(expected);
+
+        when(repo.save(any())).thenReturn(expectedTransaction);
+        when(repo.findAllByTranId(transactionGivenId)).thenReturn(initialTransaction);
+        when(accountRepository.findAccountById(1)).thenReturn(account1);
+
+        // when
+        Transaction actualTransaction = transactionService.updateTransaction(transactionChange);
+
+        // then
+        Assert.assertEquals(expected, actualTransaction.getMemo());
+    }
 }
