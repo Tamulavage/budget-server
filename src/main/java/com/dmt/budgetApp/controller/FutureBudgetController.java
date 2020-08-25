@@ -81,7 +81,6 @@ public class FutureBudgetController {
     @PostMapping("/future/lineitem/{profileId}")
     public ResponseEntity<FutureBudget> updateBudgetLineItem(@RequestBody FutureBudget futureBudget, @PathVariable Integer profileId) {
         try {
-            System.out.println("updateBudgetLineItem endpoint called");
             return new ResponseEntity<>(futureBudgetService.updateBudgetLineItem(futureBudget, profileId), HttpStatus.ACCEPTED);
 
         } catch (Exception e) {
@@ -94,7 +93,6 @@ public class FutureBudgetController {
     @PostMapping("/future/completemonth/{profileId}")
     public ResponseEntity<List<FutureBudgetLineItem>> completeMonth(@PathVariable Integer profileId, boolean forceComplete) {
         try {
-            System.out.println("completeMonth endpoint called");
             return new ResponseEntity<>(futureBudgetService.completeMonth(profileId, forceComplete), HttpStatus.ACCEPTED);
         } catch (InvalidAmount e) {
             System.out.println(e.toString());
@@ -110,7 +108,6 @@ public class FutureBudgetController {
     @GetMapping("/future/currentMonthValue/{profileId}")
     public ResponseEntity<RawData> getCurrentMonth(@PathVariable Integer profileId) {
         try {
-            System.out.println("get CurrentMonth endpoint called");
             return new ResponseEntity<>(futureBudgetService.getCurrentMonth(profileId), HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -122,7 +119,6 @@ public class FutureBudgetController {
     @PostMapping("/future/currentMonth/{profileId}")
     public ResponseEntity<RawData> currentMonth(@PathVariable Integer profileId, Integer month) {
         try {
-            System.out.println("Post CurrentMonth endpoint called");
             return new ResponseEntity<>(futureBudgetService.currentMonth(profileId, month), HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e.toString());
