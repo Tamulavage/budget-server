@@ -16,7 +16,6 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionServices {
@@ -179,19 +178,6 @@ public class TransactionServices {
         Transaction transactionToUpdate = repo.findAllByTranId(transaction.getTransactionId());
 
         revertOldTransaction(transactionToUpdate);
-
-        // undo bad transaction amount
-        // Integer accountIdHold =  transactionToUpdate.getToAccountId();
-        // transactionToUpdate.setToAccountId(transactionToUpdate.getFromAccountId());
-        // transactionToUpdate.setFromAccountId(accountIdHold);
-
-        // Character withdrawDepositTransferUndo = identifyTransaction(transactionToUpdate);
-        // updateAccountBalance(transactionToUpdate, withdrawDepositTransferUndo);
-
-        // transactionToUpdate.setMemo(transaction.getMemo());
-        // transactionToUpdate.setToAccountId(transaction.getToAccountId());
-        // transactionToUpdate.setFromAccountId(transaction.getFromAccountId());
-        // transactionToUpdate.setAmount(transaction.getAmount());
 
         transactionToUpdate = updateFields(transactionToUpdate, transaction);
         

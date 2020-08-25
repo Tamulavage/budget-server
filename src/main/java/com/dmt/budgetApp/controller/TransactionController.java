@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 // @CrossOrigin("https://budgetapp-client.herokuapp.com")
 @CrossOrigin()
@@ -27,7 +28,6 @@ public class TransactionController {
     public ResponseEntity<Transaction> Transaction(@RequestBody Transaction transaction) {
         
         try {
-            // Transaction t = transactionServices.createTransaction(transaction);
             Transaction t = transactionServices.updateInsertTransaction(transaction);
             return new ResponseEntity<>(t, HttpStatus.CREATED);
         } catch (InvalidTransactionAmount ita) {
