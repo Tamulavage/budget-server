@@ -11,6 +11,8 @@ import com.dmt.budgetApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jdk.internal.jline.internal.Log;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -35,6 +37,10 @@ public class TransactionServices {
 
     public void deleteTransaction(Integer id) {
         repo.deleteById(id);
+    }
+
+    public List<Transaction> getAllTransactionsByUserId(Integer userId) {
+        return repo.findAllByUserId(userId);
     }
 
     public Transaction findTransactionById(Integer id) throws ResourceNotFound {
@@ -158,7 +164,7 @@ public class TransactionServices {
 
     public Transaction updateInsertTransaction(Transaction transaction) throws InvalidTransactionAmount {
         if (transaction.getTransactionId() != null) {
-            System.out.println("updating Transction");
+            Log.info("updating Transction");
             return updateTransaction(transaction);
         } else {
             return createTransaction(transaction);

@@ -5,12 +5,16 @@ import com.dmt.budgetApp.model.Transaction;
 import com.dmt.budgetApp.model.TransactionWithAccount;
 import com.dmt.budgetApp.model.TransactionsRunningValues;
 import com.dmt.budgetApp.services.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jdk.internal.jline.internal.Log;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 // @CrossOrigin("https://budgetapp-client.herokuapp.com")
 @CrossOrigin()
@@ -31,10 +35,10 @@ public class TransactionController {
             Transaction t = transactionServices.updateInsertTransaction(transaction);
             return new ResponseEntity<>(t, HttpStatus.CREATED);
         } catch (InvalidTransactionAmount ita) {
-            System.err.println(ita.getMessage());
+            Log.error(ita.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            Log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -44,7 +48,7 @@ public class TransactionController {
         try {
             return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            Log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -54,7 +58,7 @@ public class TransactionController {
         try {
             return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserIdAndAccountValues(userId), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            Log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

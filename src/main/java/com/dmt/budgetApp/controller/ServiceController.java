@@ -51,10 +51,10 @@ public class ServiceController {
         }
     }
     @PostMapping("/account/inactive")
-    public ResponseEntity<Account> updateAccountInfo(@RequestBody Account account) {
+    public ResponseEntity<Account> inactivateAccount(@RequestBody Account account) {
         System.out.print(account.getId());
         try {
-            Account acc = accountService.updateAccountInfo(account);
+            Account acc = accountService.inactivateAccount(account);
             return new ResponseEntity<>(acc, HttpStatus.OK);
         }
         catch (IllegalArgumentException ia){
@@ -66,7 +66,6 @@ public class ServiceController {
     public ResponseEntity<Account> accountCreate(@RequestBody Account account) throws InvalidTransactionAmount {
         try {
             if(account != null){
-                // System.out.println("accountCreate");
                 Account acc = accountService.createAccount(account);
                 return new ResponseEntity<>(acc, HttpStatus.CREATED);
             } else {

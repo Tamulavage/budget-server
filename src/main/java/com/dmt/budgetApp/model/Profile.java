@@ -26,6 +26,9 @@ public class Profile {
     private String lastName;
     @Column(name="username")
     private String userName;
+    @Column(name="profile_role")
+    private String profileRole;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "profile")
@@ -38,6 +41,7 @@ public class Profile {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
+        this.profileRole = null;
     }
 
     @Override
@@ -84,6 +88,14 @@ public class Profile {
 
     public void setAccounts(Set<ProfileAccountXref> accounts) {
         this.accounts = accounts;
+    }
+
+    public void setProfileRole(String profileRole){
+        this.profileRole = profileRole;
+    }
+
+    public String getProfileRole(){
+        return profileRole;
     }
 
 }

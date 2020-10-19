@@ -67,7 +67,7 @@ public class AccountServices {
        return repo.findAllByProfileUserId(userId);
     }
 
-	public Account updateAccountInfo(Account account) {
+	public Account inactivateAccount(Account account) {
         Account accountToUpdate = repo.getAccountById(account.getId());
         accountToUpdate.setActive("No");
 		return repo.save(accountToUpdate);
