@@ -18,7 +18,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             +" AND active is null "
             +" AND x.profile_id = ?1", nativeQuery = true)
     List<Account> findAllByProfileUserId(Integer userId);
-    // List<Account> findAllByPrimaryProfileUserId(Integer userId);  
     List<Account> findAll();
     Account getAccountById(Integer id);
+    
 }
