@@ -5,6 +5,7 @@ import java.util.List;
 import com.dmt.budgetApp.model.FutureBudgetLineItem;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,8 @@ public interface FutureBudgetLineItemRepository extends JpaRepository<FutureBudg
 	+ " AND fao.profile_id = ?1 " 
 	+ " AND fa.month = ?2", nativeQuery = true)
 	List<FutureBudgetLineItem> getCurrentMonthFullDataPerProfile(Integer profileId, Integer month); 
+
+	@Modifying
+	@Query(value = "DELETE FROM future_accounting  WHERE org_id= ?1", nativeQuery = true)
+	void deleteByOrgID(Integer orgId);
 }

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jdk.internal.jline.internal.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -35,10 +34,10 @@ public class TransactionController {
             Transaction t = transactionServices.updateInsertTransaction(transaction);
             return new ResponseEntity<>(t, HttpStatus.CREATED);
         } catch (InvalidTransactionAmount ita) {
-            Log.error(ita.getMessage());
+            log.error(ita.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         } catch (Exception e) {
-            Log.error(e.getMessage());
+            log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -48,7 +47,7 @@ public class TransactionController {
         try {
             return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
-            Log.error(e.getMessage());
+            log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -58,7 +57,7 @@ public class TransactionController {
         try {
             return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserIdAndAccountValues(userId), HttpStatus.OK);
         } catch (Exception e) {
-            Log.error(e.getMessage());
+            log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
