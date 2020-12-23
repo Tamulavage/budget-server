@@ -88,7 +88,7 @@ public class ProfileController {
     public ResponseEntity<Profile> findByUsername(@PathVariable String username) {
 
         try {
-            log.info("findByUsername username", username);
+            log.info("findByUsername username {}", username);
             Profile profile = userService.findByUsername(username);
             if (profile == null) {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);

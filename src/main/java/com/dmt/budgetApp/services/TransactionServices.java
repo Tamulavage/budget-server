@@ -11,7 +11,7 @@ import com.dmt.budgetApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jdk.internal.jline.internal.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class TransactionServices {
     private TransactionRepository repo;
@@ -164,7 +165,7 @@ public class TransactionServices {
 
     public Transaction updateInsertTransaction(Transaction transaction) throws InvalidTransactionAmount {
         if (transaction.getTransactionId() != null) {
-            Log.info("updating Transction");
+            log.info("updating Transction");
             return updateTransaction(transaction);
         } else {
             return createTransaction(transaction);
