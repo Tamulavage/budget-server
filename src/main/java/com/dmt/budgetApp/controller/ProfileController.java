@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 // @CrossOrigin("https://budgetapp-client.herokuapp.com")
 @CrossOrigin()
@@ -34,9 +36,11 @@ public class ProfileController {
     @PostMapping("/profile")
     public ResponseEntity<Profile> createUser(@RequestBody Profile profile) {
         try {
+            log.info("createUser called");
             userService.createUser(profile);
             return new ResponseEntity<>(profile, HttpStatus.CREATED);
         } catch (Exception e) {
+            log.error("createUser ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -44,6 +48,7 @@ public class ProfileController {
     @GetMapping("/profile/{id}")
     public ResponseEntity<Profile> getUser(@PathVariable Integer id) {
         try {
+            log.info("getUser userId", id);
             Profile profile = userService.findById(id);
             if (profile == null) {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -51,6 +56,7 @@ public class ProfileController {
                 return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("getUser ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -58,9 +64,11 @@ public class ProfileController {
     @DeleteMapping("/profile/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         try {
+            log.info("deleteUser userId", id);
             userService.deleteUser(id);
             return new ResponseEntity<>("Profile deleted", HttpStatus.OK);
         } catch (Exception e) {
+            log.error("deleteUser ", e);
             return new ResponseEntity<>("Profile does not exist", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -68,8 +76,10 @@ public class ProfileController {
     @PutMapping("/profile/{id}")
     public ResponseEntity<Profile> updateUser(@PathVariable Integer id, @RequestBody Profile profile) {
         try {
+            log.info("updateUser userId", id);
             return new ResponseEntity<>(userService.updateUser(profile, id), HttpStatus.OK);
         } catch (Exception e) {
+            log.error("updateUser ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -78,6 +88,7 @@ public class ProfileController {
     public ResponseEntity<Profile> findByUsername(@PathVariable String username) {
 
         try {
+            log.info("findByUsername username", username);
             Profile profile = userService.findByUsername(username);
             if (profile == null) {
                 return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -85,16 +96,20 @@ public class ProfileController {
                 return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("findByUsername ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
     @GetMapping("/profile")
+    // TODO: Remove if not called
     public ResponseEntity<List<Profile>> findAll() {
         try {
+            log.info("findAll ");
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
         } catch (Exception e) {
+            log.error("findAll ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -102,6 +117,7 @@ public class ProfileController {
     @GetMapping("/profile/lastname/{last}")
     public ResponseEntity<List<Profile>> findByLastName(@PathVariable String last) {
         try {
+            log.info("findByLastName :{}", last);
             List<Profile> profileList = userService.findAllByLast(last);
             if (profileList.size() == 0) {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -109,11 +125,13 @@ public class ProfileController {
                 return new ResponseEntity<>(profileList, HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("findByLastName ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/profile/name/{last}/{first}")
+    // TODO: Remove if not called
     public ResponseEntity<Profile> findByFull(@PathVariable String last, @PathVariable String first){
         try {
             Profile profile = userService.findByFullName(last, first);
@@ -123,6 +141,7 @@ public class ProfileController {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
+            log.error("findByFull ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
