@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
-public class Demo {
+public class Maintenance {
 
     private TransactionServices transactionServices;
 
@@ -47,7 +47,7 @@ public class Demo {
     private List<FutureBudgetOrg> futureBudgets = new ArrayList<>();
 
     @Autowired
-    public Demo(TransactionServices transactionServices, 
+    public Maintenance(TransactionServices transactionServices, 
             ProfileAccountXrefRepository profileAccountXrefRepository,
             AccountRepository accountRepository, 
             FutureBudgetLineItemRepository futureBudgetLineItemRepository,
@@ -61,7 +61,8 @@ public class Demo {
         this.transactionRepository = transactionRepository;
     }
 
-    public void resetDemoUser(Integer userId) throws Exception {
+    public void nullUserValues(Integer userId) throws Exception {
+        log.info("nullUserValues: userId {}", userId);
         try {
             if (userId != null) {
                 this.userId = userId;
@@ -72,6 +73,21 @@ public class Demo {
                 getOrgIdByProfile();
                 deleteFutureAccounting();
                 deleteFutureOrg();
+            } else {
+                log.error("userId is null");
+                throw new Exception("Invalid Data");
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void resetDemoValues(Integer userId) throws Exception {
+        log.info("resetDemoValues: userId {}", userId);
+        try {
+            if (userId != null) {
+                this.userId = userId;
 
                 insertAccounts();
                 bindAccountToProfile();
@@ -80,12 +96,10 @@ public class Demo {
                 getOrgIdByProfile();
                 insertFutureAccounting();
             } else {
-                // System.out.println("UserId NULL");
                 log.error("userId is null");
                 throw new Exception("Invalid Data");
             }
         } catch (Exception e) {
-            // System.out.println(e.getMessage());
             log.error(e.getMessage());
             throw new Exception(e.getMessage());
         }
@@ -93,7 +107,6 @@ public class Demo {
 
     private void deleteTransactions() {
 
-        // System.out.println("deleteTransactions");
         log.info("deleteTransactions");
         List<Transaction> transactionToDelete = transactionRepository.findAllByUserIdForce(userId); 
         for (Transaction t : transactionToDelete) {
@@ -102,19 +115,16 @@ public class Demo {
     }
 
     private void deleteProfileAccountXref() {
-        // System.out.println("deleteProfileAccountXref " + userId);
         log.info("deleteProfileAccountXref");
         profileAccountXrefRepository.deleteByUserId(userId);
     }
 
     private void getAccountByProfile() {
-        // System.out.println("getAccountByProfile " + userId);
         log.info("getAccountByProfile");
         accountIdsToDelete = accountRepository.findAllByProfileUserId(userId);
     }
 
     private void deleteAccounts() {
-        // System.out.println("deleteAccounts");
         log.info("deleteAccounts");
         for (Account account : accountIdsToDelete) {
             accountRepository.deleteById(account.getId());
@@ -122,7 +132,6 @@ public class Demo {
     }
 
     private void insertAccounts() {
-        // System.out.println("insertAccounts");
         log.info("insertAccounts");
         Account account1 = new Account();
         account1.setAccountTypeId(1);
@@ -134,8 +143,6 @@ public class Demo {
         account2.setBalance(100d);
         account2.setInstitutionName("My 2nd Bank");
         account2.setNickname("Main Savings account");
-        // System.out.println(account1);
-        // System.out.println(account2);
 
         accountRepository.save(account1);
         accountRepository.save(account2);
@@ -145,9 +152,8 @@ public class Demo {
     }
 
     private void bindAccountToProfile() {
-        // System.out.println("bindAccountToProfile");
+
         log.info("bindAccountToProfile");
-        // TODO: loop through list
         for (Integer accountId : accountIds) {
             ProfileAccountXrefDB profileAccountXref = new ProfileAccountXrefDB();
             ProfileAccountPK profileAccountPK = new ProfileAccountPK();
@@ -155,7 +161,9 @@ public class Demo {
             profileAccountPK.setProfileId(userId);
             profileAccountXref.setProfileAccountPK(profileAccountPK);
             this.profileAccountXrefRepository.save(profileAccountXref);
+
         }
+
     }
 
     private void insertTransactions() {
@@ -169,6 +177,8 @@ public class Demo {
                 accountIds.add(account.getId());
             }
         }
+
+        
 
         transaction1.setAmount(100d);
         transaction1.setToAccountId(accountIds.get(0));

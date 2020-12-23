@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 // @CrossOrigin("https://budgetapp-client.herokuapp.com")
 @CrossOrigin()
@@ -19,7 +21,7 @@ public class PingController {
             return new ResponseEntity<>("{\"status\": \"up\"}", HttpStatus.OK);
 
         } catch (Exception e) {
-            System.out.println(e.toString());
+            log.error("ping unknown error ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
