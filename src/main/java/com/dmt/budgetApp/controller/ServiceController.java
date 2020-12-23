@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 // @CrossOrigin("https://budgetapp-client.herokuapp.com")
 @CrossOrigin()
@@ -38,6 +40,7 @@ public class ServiceController {
     public ResponseEntity<Account> accountCreateAndBind(@RequestBody Account account, Integer userId) throws InvalidTransactionAmount {
         try {
             if(account != null && userId != null){
+                log.error("accountCreateAndBind start userId {}", userId);
                 Account acc = accountService.createAccount(account);
                 profileAccountXrefService.createProfileAccountXref(userId, acc.getId());
                 return new ResponseEntity<>(acc, HttpStatus.CREATED);
@@ -46,19 +49,19 @@ public class ServiceController {
             }
         }
         catch (IllegalArgumentException | InvalidTransactionAmount iae){
-            System.err.println(iae.getMessage());
+            log.error("accountCreateAndBind error", iae);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
     @PostMapping("/account/inactive")
     public ResponseEntity<Account> inactivateAccount(@RequestBody Account account) {
-        System.out.print(account.getId());
         try {
+            log.info(" inactivateAccount for account id {}", account.getId());
             Account acc = accountService.inactivateAccount(account);
             return new ResponseEntity<>(acc, HttpStatus.OK);
         }
         catch (IllegalArgumentException ia){
-            System.err.println(ia.getMessage());
+            log.error("accountCreateAndBind error", ia);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -73,7 +76,7 @@ public class ServiceController {
             }
         }
         catch (IllegalArgumentException | InvalidTransactionAmount iae){
-            System.err.println(iae.getMessage());
+            log.error("accountCreate error ", iae);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -83,6 +86,7 @@ public class ServiceController {
             accountService.deleteAccount(id);
             return new ResponseEntity<>("Account Deleted", HttpStatus.OK);
         } catch (Exception e) {
+            log.error("accountRemove error ", e);
             return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -96,6 +100,7 @@ public class ServiceController {
                 return new ResponseEntity<>(accountService.getAccountById(id), HttpStatus.OK);
             }
         } catch (Exception e) {
+            log.error("getAccountById error ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -105,6 +110,7 @@ public class ServiceController {
         try {
             return new ResponseEntity<>(accountService.findAllByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
+            log.error("getAllByUserId error ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

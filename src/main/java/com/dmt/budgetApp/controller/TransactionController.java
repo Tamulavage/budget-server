@@ -45,6 +45,7 @@ public class TransactionController {
     @GetMapping("/transaction/{userId}")
     public ResponseEntity<Iterable<TransactionWithAccount>> findAllWithAccountNameByUserId(@PathVariable Integer userId) {
         try {
+            log.info("findAllWithAccountNameByUserId userId={}", userId);
             return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserId(userId), HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -55,6 +56,7 @@ public class TransactionController {
     @GetMapping("/transactions/{userId}")
     public ResponseEntity<Iterable<TransactionsRunningValues>> findAllWithAccountAmountsByUserId(@PathVariable Integer userId) {
         try {
+            log.info("findAllWithAccountAmountsByUserId userId={}", userId);
             return new ResponseEntity<>(transactionServices.findAllWithAccountNameByUserIdAndAccountValues(userId), HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
