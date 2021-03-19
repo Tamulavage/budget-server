@@ -261,11 +261,11 @@ public class FutureBudgetService {
         log.info("currentMonth method Started (ProfileId = {}, Month = {}) ", profileId, month);
 
         if(month < 13 || month > 24){
-            log.error("currentMonth method error = Month is not valid! ");
+            log.info("currentMonth method error = Month is not valid! ");
             throw new InvalidData("Month is not valid");
         }
         if(futureBudgetRepository.getCurrentMonthValue(profileId)>12){
-            log.error("currentMonth method error = user already has current month! ");
+            log.info("currentMonth method error = user already has current month! ");
             throw new InvalidData("Month is not valid, user already has current month");
         }
         List<FutureBudgetOrg> orgs =  futureBudgetOrgRepository.findAllOrgByProfileId(profileId);
@@ -289,7 +289,7 @@ public class FutureBudgetService {
             }  
         }
         if(!validOrgProfile){
-            log.error("updateBudgetLineItem - invalid Profile/org info ");
+            log.info("updateBudgetLineItem - invalid Profile/org info ");
             throw new InvalidData("invalid Profile/org info");
         }
 

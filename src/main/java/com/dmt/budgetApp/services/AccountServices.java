@@ -27,7 +27,7 @@ public class AccountServices {
     
     public Account createAccount(Account account) throws InvalidTransactionAmount {
         if (account.getBalance() < 0.0) {
-            log.error("Initial balance must be at least zero. ({})", account.getBalance());
+            log.info("Initial balance must be at least zero. ({})", account.getBalance());
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
         } else {
             repo.save(account);
@@ -38,7 +38,7 @@ public class AccountServices {
     public Account createAccount( Double balance,  String institutionName, Integer accountTypeId, String nickname) throws
             InvalidTransactionAmount {
         if (balance < 0.0) {
-            log.error("Initial balance must be at least zero. ({})", balance);
+            log.info("Initial balance must be at least zero. ({})", balance);
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
         } else {
             df.setRoundingMode(RoundingMode.FLOOR);

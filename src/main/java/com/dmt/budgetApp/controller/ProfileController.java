@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.dmt.budgetApp.model.Profile;
 import com.dmt.budgetApp.services.ProfileServices;
+import com.dmt.budgetApp.utils.Constants;
+import com.dmt.budgetApp.utils.Utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
@@ -34,19 +38,29 @@ public class ProfileController {
     }
 
     @PostMapping("/profile")
-    public ResponseEntity<Profile> createUser(@RequestBody Profile profile) {
+    public ResponseEntity<Profile> createUser(@RequestBody Profile profile, @RequestHeader HttpHeaders headers) {
+
+        if (!Utils.isUserAllowedToExecuteFunction(headers)) {
+            log.info("no access = trace={}", headers.get(Constants.HEADER_TRACE));
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         try {
             log.info("createUser called");
             userService.createUser(profile);
             return new ResponseEntity<>(profile, HttpStatus.CREATED);
         } catch (Exception e) {
-            log.error("createUser ", e);
+            log.info("createUser ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/profile/{id}")
-    public ResponseEntity<Profile> getUser(@PathVariable Integer id) {
+    public ResponseEntity<Profile> getUser(@PathVariable Integer id, @RequestHeader HttpHeaders headers) {
+
+        if (!Utils.isUserAllowedToExecuteFunction(headers)) {
+            log.info("no access = trace={}", headers.get(Constants.HEADER_TRACE));
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         try {
             log.info("getUser userId", id);
             Profile profile = userService.findById(id);
@@ -56,36 +70,52 @@ public class ProfileController {
                 return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
             }
         } catch (Exception e) {
-            log.error("getUser ", e);
+            log.info("getUser ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/profile/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Integer id, @RequestHeader HttpHeaders headers) {
+
+        if (!Utils.isUserAllowedToExecuteFunction(headers)) {
+            log.info("no access = trace={}", headers.get(Constants.HEADER_TRACE));
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         try {
             log.info("deleteUser userId", id);
             userService.deleteUser(id);
             return new ResponseEntity<>("Profile deleted", HttpStatus.OK);
         } catch (Exception e) {
-            log.error("deleteUser ", e);
+            log.info("deleteUser ", e);
             return new ResponseEntity<>("Profile does not exist", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/profile/{id}")
-    public ResponseEntity<Profile> updateUser(@PathVariable Integer id, @RequestBody Profile profile) {
+    public ResponseEntity<Profile> updateUser(@PathVariable Integer id, @RequestBody Profile profile,
+            @RequestHeader HttpHeaders headers) {
+
+        if (!Utils.isUserAllowedToExecuteFunction(headers)) {
+            log.info("no access = trace={}", headers.get(Constants.HEADER_TRACE));
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         try {
             log.info("updateUser userId", id);
             return new ResponseEntity<>(userService.updateUser(profile, id), HttpStatus.OK);
         } catch (Exception e) {
-            log.error("updateUser ", e);
+            log.info("updateUser ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/profile/find/{username}")
-    public ResponseEntity<Profile> findByUsername(@PathVariable String username) {
+    public ResponseEntity<Profile> findByUsername(@PathVariable String username, @RequestHeader HttpHeaders headers) {
+
+        if (!Utils.isUserAllowedToExecuteFunction(headers)) {
+            log.info("no access = trace={}", headers.get(Constants.HEADER_TRACE));
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
 
         try {
             log.info("findByUsername username {}", username);
@@ -96,7 +126,7 @@ public class ProfileController {
                 return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
             }
         } catch (Exception e) {
-            log.error("findByUsername ", e);
+            log.info("findByUsername ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -109,13 +139,18 @@ public class ProfileController {
             log.info("findAll ");
             return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
         } catch (Exception e) {
-            log.error("findAll ", e);
+            log.info("findAll ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/profile/lastname/{last}")
-    public ResponseEntity<List<Profile>> findByLastName(@PathVariable String last) {
+    public ResponseEntity<List<Profile>> findByLastName(@PathVariable String last, @RequestHeader HttpHeaders headers) {
+
+        if (!Utils.isUserAllowedToExecuteFunction(headers)) {
+            log.info("no access = trace={}", headers.get(Constants.HEADER_TRACE));
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
         try {
             log.info("findByLastName :{}", last);
             List<Profile> profileList = userService.findAllByLast(last);
@@ -125,25 +160,9 @@ public class ProfileController {
                 return new ResponseEntity<>(profileList, HttpStatus.OK);
             }
         } catch (Exception e) {
-            log.error("findByLastName ", e);
+            log.info("findByLastName ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/profile/name/{last}/{first}")
-    // TODO: Remove if not called
-    public ResponseEntity<Profile> findByFull(@PathVariable String last, @PathVariable String first){
-        try {
-            Profile profile = userService.findByFullName(last, first);
-            if (profile == null) {
-                return new ResponseEntity<>(userService.findByFullName(first, last), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        } catch (Exception e) {
-            log.error("findByFull ", e);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
-

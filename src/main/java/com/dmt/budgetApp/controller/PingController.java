@@ -21,7 +21,7 @@ public class PingController {
             return new ResponseEntity<>("{\"status\": \"up\"}", HttpStatus.OK);
 
         } catch (Exception e) {
-            log.error("ping unknown error ", e);
+            log.info("ping unknown error ", e);
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
