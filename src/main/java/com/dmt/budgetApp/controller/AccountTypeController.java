@@ -28,7 +28,7 @@ public class AccountTypeController {
             log.info("getAccountTypes called");
             return new ResponseEntity<>(accountTypeServices.getAllAccountTypes(), HttpStatus.OK);
         } catch (Exception e) {
-            log.error("getAccountTypes error ", e);
+            log.info("getAccountTypes error ", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

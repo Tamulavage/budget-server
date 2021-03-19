@@ -74,11 +74,11 @@ public class Maintenance {
                 deleteFutureAccounting();
                 deleteFutureOrg();
             } else {
-                log.error("userId is null");
+                log.info("userId is null");
                 throw new Exception("Invalid Data");
             }
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.info(e.getMessage());
             throw new Exception(e.getMessage());
         }
     }
@@ -96,11 +96,11 @@ public class Maintenance {
                 getOrgIdByProfile();
                 insertFutureAccounting();
             } else {
-                log.error("userId is null");
+                log.info("userId is null");
                 throw new Exception("Invalid Data");
             }
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.info(e.getMessage());
             throw new Exception(e.getMessage());
         }
     }
@@ -177,8 +177,6 @@ public class Maintenance {
                 accountIds.add(account.getId());
             }
         }
-
-        
 
         transaction1.setAmount(100d);
         transaction1.setToAccountId(accountIds.get(0));

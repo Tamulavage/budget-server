@@ -14,6 +14,7 @@ import org.mockito.BDDMockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -32,6 +33,8 @@ public class ServiceControllerTest {
     private ProfileAccountXrefService profileAccountXrefService;    
     private ServiceController controller;
 
+    private HttpHeaders header = new HttpHeaders();
+
     @Before
     public void setup(){
         this.controller = new ServiceController(services, profileAccountXrefService);
@@ -45,7 +48,7 @@ public class ServiceControllerTest {
                 .given(services.createAccount(account))
                 .willReturn(account);
         //When
-        ResponseEntity<Account> entity = controller.accountCreate(account);
+        ResponseEntity<Account> entity = controller.accountCreate(account, header);
         HttpStatus actual = entity.getStatusCode();
         Account actualAccount = entity.getBody();
         //Then
@@ -60,7 +63,7 @@ public class ServiceControllerTest {
                 .given(services.createAccount(account))
                 .willReturn(account);
         //When
-        ResponseEntity<Account> entity = controller.accountCreate(account);
+        ResponseEntity<Account> entity = controller.accountCreate(account, header);
         HttpStatus actual = entity.getStatusCode();
         Account actualAccount = entity.getBody();
         //Then
@@ -74,7 +77,7 @@ public class ServiceControllerTest {
         BDDMockito
                 .given(services.deleteAccount(1)).willReturn(true);
         //When
-        ResponseEntity<String> entity = controller.accountRemove(1);
+        ResponseEntity<String> entity = controller.accountRemove(1, header);
         HttpStatus actual = entity.getStatusCode();
         String expectedStr = entity.getBody();
         //Then
@@ -92,7 +95,7 @@ public class ServiceControllerTest {
                 .given(services.findAllByUserId(1))
                 .willReturn(list);
         //When
-        ResponseEntity<List<Account>> entity = controller.getAllByUserId(1);
+        ResponseEntity<List<Account>> entity = controller.getAllByUserId(1, header);
         HttpStatus actual = entity.getStatusCode();
         List<Account> actualAccount = entity.getBody();
         //Then
@@ -108,7 +111,7 @@ public class ServiceControllerTest {
                 .given(services.getAccountById(1))
                 .willReturn(account);
         //When
-        ResponseEntity<Account> entity = controller.getAccountById(1);
+        ResponseEntity<Account> entity = controller.getAccountById(1, header);
         HttpStatus actual = entity.getStatusCode();
         Account actualAccount = entity.getBody();
         //Then
@@ -122,7 +125,7 @@ public class ServiceControllerTest {
                 .given(services.getAccountById(2))
                 .willReturn(null);
         //When
-        ResponseEntity<Account> entity = controller.getAccountById(2);
+        ResponseEntity<Account> entity = controller.getAccountById(2, header);
         Account actualAccount = entity.getBody();
         //Then
         Assert.assertEquals(null, actualAccount);

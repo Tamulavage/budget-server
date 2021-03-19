@@ -16,7 +16,9 @@ import com.dmt.budgetApp.repository.FutureBudgetRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class FutureBudgetService {
 
@@ -50,6 +52,7 @@ public class FutureBudgetService {
     }
 
     public List<FutureBudget> sumPerMonth(Integer id) {
+        log.info("SumPerMonth method called");
         List<FutureBudget> retVal = new ArrayList<FutureBudget>();
         FutureBudget outgoing = futureBudgetRepository.sumOutgoing(id);
         FutureBudget incoming = futureBudgetRepository.sumIncoming(id);
@@ -61,6 +64,8 @@ public class FutureBudgetService {
     }
 
     private FutureBudget incomingMinusOutgoing(FutureBudget in, FutureBudget out) {
+        
+        log.info("incomingMinusOutgoing method called");
         FutureBudget difference = new FutureBudget();
         difference.setDirection("D");
         difference.setJanuaryAmount(in.getJanuaryAmount().subtract(out.getJanuaryAmount()));
@@ -82,6 +87,7 @@ public class FutureBudgetService {
 
     public FutureBudget updateBudgetLineItem(FutureBudget futureBudget, Integer profileId) {
 
+        log.info("updateBudgetLineItem method called");
         FutureBudgetOrg futureBudgetOrg = getLineItemOrg(profileId, futureBudget.getDirection(),
                 futureBudget.getOrgName());
 
@@ -98,12 +104,14 @@ public class FutureBudgetService {
 
     private void validDirection(String direction) {
         if (!("I".equals(direction) || "O".equals(direction))) {
+            log.error("validDirection method error");
             throw new IllegalStateException("Invalid Direction");
         }
     }
 
     private FutureBudgetOrg getLineItemOrg(Integer profileId, String direction, String orgName) {
 
+        log.info("getLineItemOrg method called, profileid = {}. direction = {}, orgName = {}", profileId, direction, orgName);
         validDirection(direction);
 
         List<FutureBudgetOrg> futureBudgetOrg = futureBudgetOrgRepository.findAllOrgByProfileId(profileId);
@@ -122,6 +130,8 @@ public class FutureBudgetService {
     }
 
     private void saveLineItem(Integer orgId, FutureBudget futureBudget, Integer month,  Integer profileId) {
+
+        log.info("saveLineItem method called, profileid = {}. month = {}, orgId = {}", profileId, month, orgId);
         FutureBudgetLineItem futureBudgetLineItem = new FutureBudgetLineItem();
 
         futureBudgetLineItem.setOrgId(orgId);
@@ -188,14 +198,15 @@ public class FutureBudgetService {
             futureBudgetLineItemRepository
                     .deleteAll(futureBudgetLineItemRepository.findAllByOrgId(futureBudgetOrgWithId.getOrgId()));
         } catch (Exception e) {
-            System.err.println(e.toString());
+            log.error("removeBudgetLineItem method error = {}", e);
+            throw new Exception("removeBudgetLineItem");
         }
 
         try {
             futureBudgetOrgRepository
                 .delete(futureBudgetOrgRepository.getOne(futureBudgetOrgWithId.getOrgId()));
         } catch (Exception e) {
-            System.err.println(e.toString());
+            log.error("removeBudgetLineItem method error = {}", e);
             throw new Exception("Did not delete org/check that it exists");
         }
     }
@@ -204,7 +215,8 @@ public class FutureBudgetService {
         final Integer currentMonth = futureBudgetRepository.getCurrentMonthValue(profileId);
         if((!overrideValues) && (futureBudgetRepository.getCurrentMonthTotalSum(profileId, currentMonth)>0) )
         {
-             throw new InvalidAmount("Current month sum amount not empty");
+            log.error("completeMonth method error = Current month sum amount not empty! ");
+            throw new InvalidAmount("Current month sum amount not empty");
         }
     
         Integer nextMonth = getNextMonth(currentMonth);
@@ -246,10 +258,14 @@ public class FutureBudgetService {
     }
 
 	public RawData currentMonth(Integer profileId, Integer month) throws InvalidData{
+        log.info("currentMonth method Started (ProfileId = {}, Month = {}) ", profileId, month);
+
         if(month < 13 || month > 24){
+            log.info("currentMonth method error = Month is not valid! ");
             throw new InvalidData("Month is not valid");
         }
         if(futureBudgetRepository.getCurrentMonthValue(profileId)>12){
+            log.info("currentMonth method error = user already has current month! ");
             throw new InvalidData("Month is not valid, user already has current month");
         }
         List<FutureBudgetOrg> orgs =  futureBudgetOrgRepository.findAllOrgByProfileId(profileId);
@@ -273,10 +289,11 @@ public class FutureBudgetService {
             }  
         }
         if(!validOrgProfile){
+            log.info("updateBudgetLineItem - invalid Profile/org info ");
             throw new InvalidData("invalid Profile/org info");
         }
 
-        System.out.println(futureBudgetLineItem.toString());
+        log.info("updateBudgetLineItem - update info = {} ", futureBudgetLineItem.toString());
         return futureBudgetLineItemRepository.save(futureBudgetLineItem);
     }
     

@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,6 +30,8 @@ public class FutureBudgetControllerTest {
     private List<FutureBudget> dummyFutureBudget;
 
     private List<FutureBudgetOrg> dummyFutureBudgetOrg;
+
+    private HttpHeaders header = new HttpHeaders();
 
     @Before
     public void setup() {
@@ -68,7 +71,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.findAllOrgByUserId(testUserId)).willReturn(dummyFutureBudgetOrg);
 
         // WHen
-        ResponseEntity<List<FutureBudgetOrg>> entity = controller.getAllOrgByUserId(testUserId);
+        ResponseEntity<List<FutureBudgetOrg>> entity = controller.getAllOrgByUserId(testUserId, header);
         HttpStatus actual = entity.getStatusCode();
 
         // Then
@@ -82,7 +85,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.findAllOrgByUserId(testUserId)).willReturn(dummyFutureBudgetOrg);
 
         // WHen
-        ResponseEntity<List<FutureBudgetOrg>> entity = controller.getAllOrgByUserId(testUserId);
+        ResponseEntity<List<FutureBudgetOrg>> entity = controller.getAllOrgByUserId(testUserId, header);
         List<FutureBudgetOrg> actual = entity.getBody();
 
         // Then
@@ -97,7 +100,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.findAllOutputByUserId(testUserId)).willReturn(dummyFutureBudget);
 
         // WHen
-        ResponseEntity<List<FutureBudget>> entity = controller.getOutputByUserId(testUserId);
+        ResponseEntity<List<FutureBudget>> entity = controller.getOutputByUserId(testUserId, header);
         HttpStatus actual = entity.getStatusCode();
 
         // Then
@@ -111,7 +114,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.findAllOutputByUserId(testUserId)).willReturn(dummyFutureBudget);
 
         // WHen
-        ResponseEntity<List<FutureBudget>> entity = controller.getOutputByUserId(testUserId);
+        ResponseEntity<List<FutureBudget>> entity = controller.getOutputByUserId(testUserId, header);
         List<FutureBudget> actual = entity.getBody();
 
         // Then
@@ -126,7 +129,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.findAllInputByUserId(testUserId)).willReturn(dummyFutureBudget);
 
         // WHen
-        ResponseEntity<List<FutureBudget>> entity = controller.getInputByUserId(testUserId);
+        ResponseEntity<List<FutureBudget>> entity = controller.getInputByUserId(testUserId, header);
         HttpStatus actual = entity.getStatusCode();
 
         // Then
@@ -140,7 +143,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.findAllInputByUserId(testUserId)).willReturn(dummyFutureBudget);
 
         // WHen
-        ResponseEntity<List<FutureBudget>> entity = controller.getInputByUserId(testUserId);
+        ResponseEntity<List<FutureBudget>> entity = controller.getInputByUserId(testUserId, header);
         List<FutureBudget> actual = entity.getBody();
 
         // Then
@@ -155,7 +158,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.sumPerMonth(testUserId)).willReturn(dummyFutureBudget);
 
         // WHen
-        ResponseEntity<List<FutureBudget>> entity = controller.getSumsbyUserId(testUserId);
+        ResponseEntity<List<FutureBudget>> entity = controller.getSumsbyUserId(testUserId, header);
         HttpStatus actual = entity.getStatusCode();
 
         // Then
@@ -169,7 +172,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.sumPerMonth(testUserId)).willReturn(dummyFutureBudget);
 
         // WHen
-        ResponseEntity<List<FutureBudget>> entity = controller.getSumsbyUserId(testUserId);
+        ResponseEntity<List<FutureBudget>> entity = controller.getSumsbyUserId(testUserId, header);
         List<FutureBudget> actual = entity.getBody();
 
         // Then
@@ -184,7 +187,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId)).willReturn(dummyFutureBudget.get(0));
 
         // WHen
-        ResponseEntity<FutureBudget> entity = controller.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId);
+        ResponseEntity<FutureBudget> entity = controller.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId, header);
         HttpStatus actual = entity.getStatusCode();
 
         // Then
@@ -198,7 +201,7 @@ public class FutureBudgetControllerTest {
         BDDMockito.given(futureBudgetService.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId)).willReturn(dummyFutureBudget.get(0));
 
         // WHen
-        ResponseEntity<FutureBudget> entity = controller.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId);
+        ResponseEntity<FutureBudget> entity = controller.updateBudgetLineItem(dummyFutureBudget.get(0), testUserId, header);
         FutureBudget actual = entity.getBody();
 
         // Then

@@ -11,11 +11,13 @@ import com.dmt.budgetApp.repository.AccountRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class AccountServices {
     private DecimalFormat df = new DecimalFormat("#.##");
-     @Autowired
+    @Autowired
     private AccountRepository repo;
     
     @Autowired
@@ -25,6 +27,7 @@ public class AccountServices {
     
     public Account createAccount(Account account) throws InvalidTransactionAmount {
         if (account.getBalance() < 0.0) {
+            log.info("Initial balance must be at least zero. ({})", account.getBalance());
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
         } else {
             repo.save(account);
@@ -35,6 +38,7 @@ public class AccountServices {
     public Account createAccount( Double balance,  String institutionName, Integer accountTypeId, String nickname) throws
             InvalidTransactionAmount {
         if (balance < 0.0) {
+            log.info("Initial balance must be at least zero. ({})", balance);
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
         } else {
             df.setRoundingMode(RoundingMode.FLOOR);

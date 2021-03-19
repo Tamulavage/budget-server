@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,6 +24,8 @@ public class ProfileControllerTest {
     private Profile profile;
     private ProfileController controller;
     List<Profile> list;
+
+    private HttpHeaders header = new HttpHeaders();
 
     @Before
     public void setup() {
@@ -41,7 +44,7 @@ public class ProfileControllerTest {
                 .given(services.createUser(profile))
                 .willReturn(profile);
         //When
-        ResponseEntity<Profile> entity = controller.createUser(profile);
+        ResponseEntity<Profile> entity = controller.createUser(profile, header);
         HttpStatus actual = entity.getStatusCode();
         Profile actualProfile = entity.getBody();
         //Then
@@ -56,7 +59,7 @@ public class ProfileControllerTest {
                 .given(services.findById(1))
                 .willReturn(profile);
         //When
-        ResponseEntity<Profile> responseEntity = controller.getUser(1);
+        ResponseEntity<Profile> responseEntity = controller.getUser(1, header);
         HttpStatus actual = responseEntity.getStatusCode();
         Profile expectedPro = responseEntity.getBody();
         //Then
@@ -71,7 +74,7 @@ public class ProfileControllerTest {
                 .given(services.deleteUser(1))
                 .willReturn(true);
         //When
-        ResponseEntity<String> responseEntity = controller.deleteUser(1);
+        ResponseEntity<String> responseEntity = controller.deleteUser(1, header);
         HttpStatus actual = responseEntity.getStatusCode();
         String expectedPro = responseEntity.getBody();
         //Then
@@ -87,7 +90,7 @@ public class ProfileControllerTest {
                 .given(services.updateUser(newPro, 1))
                 .willReturn(newPro);
         //When
-        ResponseEntity<Profile> responseEntity = controller.updateUser(1,newPro);
+        ResponseEntity<Profile> responseEntity = controller.updateUser(1,newPro, header);
         HttpStatus actual = responseEntity.getStatusCode();
         Profile expectedPro = responseEntity.getBody();
         //Then
@@ -102,7 +105,7 @@ public class ProfileControllerTest {
                 .given(services.findByUsername("SpringKing"))
                 .willReturn(profile);
         //When
-        ResponseEntity<Profile> responseEntity = controller.findByUsername("SpringKing");
+        ResponseEntity<Profile> responseEntity = controller.findByUsername("SpringKing", header);
         HttpStatus actual = responseEntity.getStatusCode();
         Profile expectedPro = responseEntity.getBody();
         //Then
@@ -129,10 +132,10 @@ public class ProfileControllerTest {
     public void findByLastName() {
         HttpStatus expected = HttpStatus.OK;
         BDDMockito
-                .given(services.findAllByLast("Rowan"))
+                .given(services.findAllByLast("Test"))
                 .willReturn(list);
         //When
-        ResponseEntity<List<Profile>> responseEntity = controller.findByLastName("Rowan");
+        ResponseEntity<List<Profile>> responseEntity = controller.findByLastName("Test", header);
         HttpStatus actual = responseEntity.getStatusCode();
         List<Profile> expectedPro = responseEntity.getBody();
         //Then
@@ -140,20 +143,6 @@ public class ProfileControllerTest {
         Assert.assertEquals(list, expectedPro);
     }
 
-    @Test
-    public void findByFull() {
-        HttpStatus expected = HttpStatus.OK;
-        BDDMockito
-                .given(services.findByFullName("Sean", "Rowan"))
-                .willReturn(profile);
-        //When
-        ResponseEntity<Profile> responseEntity = controller.findByFull("Rowan", "Sean");
-        HttpStatus actual = responseEntity.getStatusCode();
-        Profile expectedPro = responseEntity.getBody();
-        //Then
-        Assert.assertEquals(expected, actual);
-        Assert.assertEquals(profile, expectedPro);
-    }
 
     @Test
     public void testFindException() throws ResourceNotFound {
@@ -162,7 +151,7 @@ public class ProfileControllerTest {
                 .given(services.findById(99))
                 .willReturn(null);
         //When
-        ResponseEntity<Profile> responseEntity = controller.getUser(99);
+        ResponseEntity<Profile> responseEntity = controller.getUser(99, header);
         HttpStatus actual = responseEntity.getStatusCode();
         Assert.assertEquals(expected, actual);
     }
