@@ -1,4 +1,6 @@
 package com.dmt.budgetApp.model;
+import java.math.BigDecimal;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +12,7 @@ public class AccountTest {
         account = new Account();
         account.setId(0);
         account.setInstitutionName("BOA");
-        account.setBalance(0.0);
+        account.setBalance(new BigDecimal("0.0"));
     }
     @Test
     public void constructorTest(){
@@ -27,20 +29,6 @@ public class AccountTest {
     }
 
     @Test
-    public void constructorTest3(){
-        Double balance = 100000.00;
-        String institutionName = "BOA";
-        Integer accountTypeId = 1;
-        String nickname = "checking";
-        Account account = new Account( balance,  institutionName, accountTypeId, nickname);
-
-        Assert.assertEquals(nickname, account.getNickname());
-        Assert.assertEquals(balance, account.getBalance());
-        Assert.assertEquals(institutionName, account.getInstitutionName());
-
-    }
-
-    @Test
     public void getId() {
         int id = 5;
         account.setId(id);
@@ -51,16 +39,6 @@ public class AccountTest {
         int id = 1;
         account.setId(id);
         Assert.assertTrue(account.getId()==id);
-    }
-
-    @Test
-    public void getBalance() {
-        Assert.assertTrue(account.getBalance()== 0.0);
-    }
-    @Test
-    public void setBalance() {
-        account.setBalance(4.0);
-        Assert.assertTrue(account.getBalance()== 4.0);
     }
 
     @Test

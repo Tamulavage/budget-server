@@ -135,12 +135,12 @@ public class Maintenance {
         log.info("insertAccounts");
         Account account1 = new Account();
         account1.setAccountTypeId(1);
-        account1.setBalance(100d);
+        account1.setBalance(new BigDecimal("100"));
         account1.setInstitutionName("My Bank");
         account1.setNickname("Main Checking account");
         Account account2 = new Account();
         account2.setAccountTypeId(2);
-        account2.setBalance(100d);
+        account2.setBalance(new BigDecimal("100"));
         account2.setInstitutionName("My 2nd Bank");
         account2.setNickname("Main Savings account");
 
@@ -178,20 +178,21 @@ public class Maintenance {
             }
         }
 
-        transaction1.setAmount(100d);
+        transaction1.setAmount(new BigDecimal("100"));
         transaction1.setToAccountId(accountIds.get(0));
         transaction1.setTransactionDt(today.minusDays(1));
         transaction1.setMemo("Initial deposit");
 
         Transaction transaction2 = new Transaction();
 
-        transaction2.setAmount(100d);
+        transaction2.setAmount(new BigDecimal("100"));
         transaction2.setToAccountId(accountIds.get(1));
         transaction2.setTransactionDt(today.minusDays(1));
         transaction2.setMemo("Initial Savings deposit");
 
         Transaction transaction3 = new Transaction();
-        transaction3.setAmount(10d);
+        
+        transaction3.setAmount(new BigDecimal("100"));
         transaction3.setToAccountId(accountIds.get(1));
         transaction3.setTransactionDt(today);
         transaction3.setFromAccountId(accountIds.get(0));
@@ -199,7 +200,7 @@ public class Maintenance {
 
         Transaction transaction4 = new Transaction();
 
-        transaction4.setAmount(7.5d);
+        transaction4.setAmount(new BigDecimal("7.5"));
         transaction4.setFromAccountId(accountIds.get(0));
         transaction4.setTransactionDt(today);
         transaction4.setMemo("Credit Card Payment");
