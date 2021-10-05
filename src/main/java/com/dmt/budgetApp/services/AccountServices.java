@@ -1,5 +1,6 @@
 package com.dmt.budgetApp.services;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -26,7 +27,7 @@ public class AccountServices {
     }
     
     public Account createAccount(Account account) throws InvalidTransactionAmount {
-        if (account.getBalance() < 0.0) {
+        if (account.getBalance().compareTo(new BigDecimal("0.0")) < 0) {
             log.info("Initial balance must be at least zero. ({})", account.getBalance());
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
         } else {
@@ -35,15 +36,14 @@ public class AccountServices {
         }
     }
     
-    public Account createAccount( Double balance,  String institutionName, Integer accountTypeId, String nickname) throws
+    public Account createAccount( BigDecimal balance,  String institutionName, Integer accountTypeId, String nickname) throws
             InvalidTransactionAmount {
-        if (balance < 0.0) {
+        if (balance.compareTo(new BigDecimal("0.0")) < 0.0) {
             log.info("Initial balance must be at least zero. ({})", balance);
             throw new InvalidTransactionAmount("Initial balance must be at least zero.");
         } else {
             df.setRoundingMode(RoundingMode.FLOOR);
-            Double balance1 = Double.parseDouble(df.format(balance));
-            Account account = new Account( balance1, institutionName, accountTypeId, nickname);
+            Account account = new Account( balance, institutionName, accountTypeId, nickname);
             repo.save(account);
             return account;
         }

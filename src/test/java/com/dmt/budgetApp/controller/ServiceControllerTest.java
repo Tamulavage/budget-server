@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +88,7 @@ public class ServiceControllerTest {
 
     @Test
     public void getAccountByUserIdTest() {
-        Account account = new Account(1.0, "test", 1, "hey");
+        Account account = new Account(new BigDecimal("1.0"), "test", 1, "hey");
         List<Account> list = new ArrayList<>();
         list.add(account);
         HttpStatus expected = HttpStatus.OK;
@@ -105,7 +106,7 @@ public class ServiceControllerTest {
 
     @Test
     public void getAccountByIdTest() throws ResourceNotFound {
-        Account account = new Account(1.0, "test",1,"hey");
+        Account account = new Account(new BigDecimal("1.0"), "test",1,"hey");
         HttpStatus expected = HttpStatus.OK;
         BDDMockito
                 .given(services.getAccountById(1))

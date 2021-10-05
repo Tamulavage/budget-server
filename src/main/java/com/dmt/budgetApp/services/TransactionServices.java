@@ -51,7 +51,6 @@ public class TransactionServices {
     public Transaction createTransaction(Transaction transaction) throws InvalidTransactionAmount {
         df.setRoundingMode(RoundingMode.FLOOR);
         Double amount = Double.parseDouble(df.format(transaction.getAmount()));
-        transaction.setAmount(amount);
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
         } else if (amount >= (Double.MAX_VALUE)) {
@@ -74,20 +73,20 @@ public class TransactionServices {
         }
     }
 
-    private void depositTo(Integer accountId, Double amount) {
+    private void depositTo(Integer accountId, BigDecimal amount) {
         Account account = accountRepository.findAccountById(accountId);
-        Double initBalance = account.getBalance();
-        account.setBalance(initBalance + amount);
+        BigDecimal initBalance = account.getBalance();
+        account.setBalance(initBalance.add(amount));
         accountRepository.save(account);
     }
 
-    private void withdrawFrom(Integer accountId, Double amount) {
+    private void withdrawFrom(Integer accountId, BigDecimal amount) {
         Account account = accountRepository.findAccountById(accountId);
-        Double initBalance = account.getBalance();
-        if ((initBalance - amount) < 0.0) {
+        BigDecimal initBalance = account.getBalance();
+        if (initBalance.subtract(amount).compareTo(new BigDecimal("0.0")) < 0.0) {
             throw new IllegalArgumentException("Withdraw account will be below zero");
         }
-        account.setBalance(initBalance - amount);
+        account.setBalance(initBalance.subtract(amount));
         accountRepository.save(account);
     }
 
@@ -124,11 +123,11 @@ public class TransactionServices {
 
             for (AccountPOJO curr : currAccountList) {
                 for (AccountPOJO prev : prevAccountList) {
-                    if (prev.getId() == current.getFromAccountId() && curr.getId() == prev.getId()) {
-                        prev.setBalance(curr.getBalance().add(new BigDecimal(current.getAmount())));
-                    } else if (prev.getId() == current.getToAccountId() && curr.getId() == prev.getId()) {
-                        prev.setBalance(curr.getBalance().subtract(new BigDecimal(current.getAmount())));
-                    } else if (curr.getId() == prev.getId()) {
+                    if (prev.getId().equals(current.getFromAccountId()) && curr.getId().equals(prev.getId())) {
+                        prev.setBalance(curr.getBalance().add(current.getAmount()));
+                    } else if (prev.getId().equals(current.getToAccountId()) && curr.getId().equals(prev.getId())) {
+                        prev.setBalance(curr.getBalance().subtract(current.getAmount()));
+                    } else if (curr.getId().equals(prev.getId())) {
                         prev.setBalance(curr.getBalance());
                     }
                 }
@@ -151,7 +150,7 @@ public class TransactionServices {
             for (Account a : accountList) {
                 AccountPOJO accountPOJOTemp = new AccountPOJO();
                 accountPOJOTemp.setId(a.getId());
-                accountPOJOTemp.setBalance(new BigDecimal(a.getBalance()));
+                accountPOJOTemp.setBalance(a.getBalance());
                 accountPOJOTemp.setNickname(a.getNickname());
                 accountPOJOTemp.setInstitutionName(a.getInstitutionName());
                 accountPOJOList.add(accountPOJOTemp);
@@ -175,7 +174,6 @@ public class TransactionServices {
     public Transaction updateTransaction(Transaction transaction) throws InvalidTransactionAmount {
         df.setRoundingMode(RoundingMode.FLOOR);
         Double amount = Double.parseDouble(df.format(transaction.getAmount()));
-        transaction.setAmount(amount);
         if (amount <= 0) {
             throw new InvalidTransactionAmount("Transactions must be greater than zero.");
         } else if (amount >= (Double.MAX_VALUE)) {

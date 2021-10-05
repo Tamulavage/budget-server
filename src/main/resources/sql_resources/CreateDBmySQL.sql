@@ -74,7 +74,7 @@ INSERT INTO account_type (description)
 VALUES ("Checking"),
        ("Savings"),
        ("CD"),
-       ("529b")
+       ("529b"),
        ("401k");
 
 ---------------

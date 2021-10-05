@@ -1,5 +1,6 @@
 package com.dmt.budgetApp.model;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ public class Account {
     private Integer id;
 
     @Column(name = "balance")
-    private Double balance;
+    private BigDecimal balance;
     @Column(name = "institution_name")
     private String institutionName;
     @Column(name = "account_type_id")
@@ -41,13 +42,13 @@ public class Account {
     }
     public Account(String nickname) {
         this.nickname = nickname;
-        this.balance = 0.0;
+        this.balance = new BigDecimal("0.0");
         this.institutionName = "";
     }
 
-    public Account(Double balance, String institution_name, Integer accountTypeId, String nickname) {
+    public Account(BigDecimal balance, String institutionName, Integer accountTypeId, String nickname) {
         this.balance = balance;
-        this.institutionName = institution_name;
+        this.institutionName = institutionName;
         this.accountTypeId = accountTypeId;
         this.nickname = nickname;
     }
@@ -60,11 +61,11 @@ public class Account {
         this.id = id;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class AccountServicesTest {
     @Test
     public void testFindAllById() throws ResourceNotFound {
         List<Account> expectedList = new ArrayList<>();
-        Account expected = new Account(1.0, "test", 1,"hey");
+        Account expected = new Account(new BigDecimal("1.0"), "test", 1,"hey");
         expectedList.add(expected);
         //When
         when(mockRepo.findById(1)).thenReturn(java.util.Optional.of(expected));
@@ -45,8 +46,8 @@ public class AccountServicesTest {
     @Test
     public void testFindAll() {
         List<Account> expectedList = new ArrayList<>();
-        Account expected = new Account(1.0, "test", 1,"hey");
-        Account expected2 = new Account(2.0, "test2", 2,"hey2");
+        Account expected = new Account(new BigDecimal("1.0"), "test", 1,"hey");
+        Account expected2 = new Account(new BigDecimal("2.0"), "test2", 2,"hey2");
         expectedList.add(expected);
         expectedList.add(expected2);
         //When
@@ -60,9 +61,9 @@ public class AccountServicesTest {
     public void testFindAllByUserID() {
         List<Account> expectedList = new ArrayList<>();
         List<Account> fullList = new ArrayList<>();
-        Account expected = new Account(2.0, "test2", 2,"hey2");
-        Account expected2 = new Account(1.0, "test" ,1,"hey");
-        Account decoy3 = new Account(3.0, "test3" ,3,"hey3");
+        Account expected = new Account(new BigDecimal("2.0"), "test2", 2,"hey2");
+        Account expected2 = new Account(new BigDecimal("1.0"), "test" ,1,"hey");
+        Account decoy3 = new Account(new BigDecimal("3.0"), "test3" ,3,"hey3");
         expectedList.add(expected);
         expectedList.add(expected2);
         fullList.add(expected);

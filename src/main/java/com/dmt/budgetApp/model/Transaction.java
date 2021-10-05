@@ -1,6 +1,8 @@
 package com.dmt.budgetApp.model;
 
 import javax.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -24,12 +26,12 @@ public class Transaction {
     @Column(name = "transaction_dt")
     private LocalDate transactionDt;
     @Column
-    private Double amount = 0.0;
+    private BigDecimal amount = new BigDecimal("0.0");
     
     public Transaction() {
     }
     
-    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, Double amount,  LocalDate transactionDt) {
+    public Transaction(Integer transactionId, Integer fromAccountId, Integer toAccountId, String memo, BigDecimal amount,  LocalDate transactionDt) {
         this.transactionId = transactionId;
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
@@ -90,11 +92,11 @@ public class Transaction {
         this.transactionDt = transactionDt;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 }
